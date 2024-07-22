@@ -1,4 +1,4 @@
-import { toast } from 'react-toastify';
+import { toast } from 'react-toastify'
 
 const errorMessages = [
   {
@@ -9,26 +9,26 @@ const errorMessages = [
     error: 'err: insufficient funds for gas',
     solution: 'Insufficient balance. Add more funds to your wallet.',
   },
-];
+]
 
 const handleTxError = (error: any) => {
   // eslint-disable-next-line no-console
-  console.error(error);
+  console.error(error)
 
-  const primaryError = error?.reason || error?.data?.message;
-  const nestedError = error?.error?.message;
-  const fallbackError = error.message;
-  let customToastMessage;
+  const primaryError = error?.reason || error?.data?.message
+  const nestedError = error?.error?.message
+  const fallbackError = error.message
+  let customToastMessage
 
   for (let i = 0; i < errorMessages.length; i += 1) {
     if (primaryError?.includes(errorMessages[i].error)) {
-      customToastMessage = errorMessages[i].solution;
+      customToastMessage = errorMessages[i].solution
     }
   }
 
-  const toastMessage = customToastMessage || primaryError || nestedError || fallbackError;
-  toast.error(toastMessage);
-  return toastMessage;
-};
+  const toastMessage = customToastMessage || primaryError || nestedError || fallbackError
+  toast.error(toastMessage)
+  return toastMessage
+}
 
-export default handleTxError;
+export default handleTxError

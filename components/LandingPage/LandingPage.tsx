@@ -1,19 +1,31 @@
-import Image from 'next/image';
+'use client'
 
-const LandingPage = () => (
-  <div
-    className="bg-center bg-cover bg-[url('/images/home.jpg')] bg-center
-  flex justify-center items-center w-full h-full"
-  >
-    <div className="relative h-full aspect-[836/870]">
-      <Image
+import ImageMapper from 'react-img-mapper'
+import map from '@/lib/image-map.json'
+import { useMeasure } from 'react-use'
+
+const LandingPage = () => {
+  const [containerRef, { height }] = useMeasure() as any
+
+  const showTooltip = () => {
+    console.log('ZIAD HERE')
+  }
+
+  return (
+    <div
+      className="bg-center bg-cover bg-[url('/images/home.jpg')] bg-center
+      w-full h-full flex items-center justify-center"
+      ref={containerRef}
+    >
+      <ImageMapper
         src="/images/space-station.png"
-        alt=""
-        className="absolute left-0 top-0 size-full"
-        layout="fill"
+        map={map}
+        responsive
+        parentWidth={(height / 870) * 836}
+        onMouseMove={showTooltip}
       />
     </div>
-  </div>
-);
+  )
+}
 
-export default LandingPage;
+export default LandingPage
