@@ -1,5 +1,5 @@
-import ApiPage from '@/components/ApiPage';
+import LandingPage from '@/components/LandingPage';
 
-const Page = () => <ApiPage />;
+const Page = () => <LandingPage />;
 
 export default Page;
