@@ -12,7 +12,7 @@ export const viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body className="h-screen w-screen">
+      <body className="flex min-h-screen w-screen flex-col overflow-x-hidden font-sora">
         {children}
         <ToastContainer />
         <Analytics />
