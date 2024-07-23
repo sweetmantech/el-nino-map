@@ -6,7 +6,7 @@ const LandingPage = () => (
   w-screen h-screen overflow-hidden
   flex justify-center items-center"
   >
-    <div className="relative h-full aspect-[836/870]">
+    <div className="relative h-[25vh] aspect-[836/870]">
       <Image
         src="/images/space-station.png"
         alt=""
