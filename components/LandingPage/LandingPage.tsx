@@ -39,8 +39,9 @@ const LandingPage = () => {
       w-screen h-screen overflow-hidden
       flex items-center justify-center"
       ref={containerRef}
+      onClick={closeDlg}
     >
-      <div className="cursor-pointer relative" onClick={closeDlg}>
+      <div className="cursor-pointer relative">
         <ImageMapper
           src="/images/space-station.png"
           map={map}
