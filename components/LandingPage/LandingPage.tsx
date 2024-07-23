@@ -22,8 +22,9 @@ const LandingPage = () => {
 
   return (
     <div
-      className="bg-center bg-cover bg-[url('/images/home.jpg')] bg-center
-      w-full h-full flex items-center justify-center"
+      className="bg-center bg-cover bg-[url('/images/home.jpg')]
+      w-screen h-screen overflow-hidden
+      flex items-center justify-center"
       ref={containerRef}
     >
       <div className="cursor-pointer">
@@ -31,7 +32,7 @@ const LandingPage = () => {
           src="/images/space-station.png"
           map={map}
           responsive
-          parentWidth={(height / 870) * 836}
+          parentWidth={(height / 870 / 4) * 836}
           onMouseMove={(area, index, e) => showTooltip(e)}
           onMouseLeave={() => setIsVisibleTooltip(false)}
         />
