@@ -37,7 +37,7 @@ const Dialog = () => {
         <Typewriter
           onInit={(tyepwriter) => {
             tyepwriter
-              .typeString("We're cooking somthing! ")
+              .typeString("We're cooking something! ")
               .pauseFor(70)
               .start()
               .callFunction(() => {
