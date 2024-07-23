@@ -35,7 +35,7 @@ const LandingPage = () => {
 
   return (
     <div
-      className="bg-center bg-cover bg-[url('/images/home.jpg')]
+      className="relative bg-center bg-cover bg-[url('/images/home.jpg')]
       w-screen h-screen overflow-hidden
       flex items-center justify-center"
       ref={containerRef}
@@ -50,28 +50,6 @@ const LandingPage = () => {
           onMouseLeave={() => setIsVisibleTooltip(false)}
           onClick={showDlg}
         />
-        {isVisibleDlg && (
-          <div
-            className="absolute left-[10px] bottom-[20px] z-[10]
-        flex items-end"
-          >
-            <div className="w-[200px] aspect-[320/324] relative z-[10]">
-              <Image
-                src="/images/mbo-character.webp"
-                layout="fill"
-                className="absolute object-fit"
-                alt=""
-              />
-            </div>
-            <div
-              className="ml-[-20px] relative bg-white z-[9]
-          w-[250px] h-[100px] p-3 border-[4px] border-[black]
-          text-[18px] font-[700]"
-            >
-              {`We're cooking something`}
-            </div>
-          </div>
-        )}
       </div>
       {isVisibleToolTip && !isVisibleDlg && (
         <div
@@ -83,6 +61,28 @@ const LandingPage = () => {
         >
           El Niño Estrella is a multimedia experience. The smart album is a limited edition digital
           box set
+        </div>
+      )}
+      {isVisibleDlg && (
+        <div
+          className="absolute left-[10px] bottom-[20px] z-[10]
+        flex items-end"
+        >
+          <div className="w-[200px] aspect-[320/324] relative z-[10]">
+            <Image
+              src="/images/mbo-character.webp"
+              layout="fill"
+              className="absolute object-fit"
+              alt=""
+            />
+          </div>
+          <div
+            className="ml-[-20px] relative bg-white z-[9]
+          w-[250px] h-[100px] p-3 border-[4px] border-[black]
+          text-[18px] font-[700]"
+          >
+            {`We're cooking something`}
+          </div>
         </div>
       )}
     </div>
