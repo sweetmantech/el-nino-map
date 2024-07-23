@@ -8,12 +8,12 @@ const useDialog = () => {
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
 
-  const showDlg = () => {
+  const show = () => {
     setIsVisibleTooltip(isMobile)
     setIsDialogOpen(true)
   }
 
-  const closeDlg = () => {
+  const close = () => {
     if (!isDialogOpen) return
     setIsDialogOpen(false)
   }
@@ -38,8 +38,8 @@ const useDialog = () => {
     tooltipX,
     tooltipY,
     showTooltip,
-    showDlg,
-    closeDlg,
+    show,
+    close,
     closeTooltip,
   }
 }

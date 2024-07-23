@@ -9,10 +9,10 @@ import Dialog from './Dialog'
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
   const {
-    closeDlg,
+    close,
     showTooltip,
     closeTooltip,
-    showDlg,
+    show,
     isVisibleToolTip,
     isDialogOpen,
     tooltipX,
@@ -25,7 +25,7 @@ const LandingPage = () => {
       w-screen h-screen overflow-hidden
       flex items-center justify-center"
       ref={containerRef}
-      onClick={closeDlg}
+      onClick={close}
     >
       <div className="cursor-pointer relative">
         <ImageMapper
@@ -35,7 +35,7 @@ const LandingPage = () => {
           parentWidth={(height / 870 / 4) * 836}
           onMouseMove={(area, index, e) => showTooltip(e)}
           onMouseLeave={closeTooltip}
-          onClick={showDlg}
+          onClick={show}
         />
       </div>
       {isVisibleToolTip && (
