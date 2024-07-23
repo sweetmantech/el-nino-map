@@ -1,9 +1,9 @@
-import { useMediaQuery } from 'usehooks-ts';
+import { useMediaQuery } from 'usehooks-ts'
 
 const useIsMobile = () => {
-  const isMobile = useMediaQuery('(max-width: 768px)');
+  const isMobile = useMediaQuery('(max-width: 768px)')
 
-  return isMobile;
-};
+  return isMobile
+}
 
-export default useIsMobile;
+export default useIsMobile
