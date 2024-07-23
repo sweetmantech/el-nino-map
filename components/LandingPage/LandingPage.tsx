@@ -3,38 +3,39 @@
 import ImageMapper from 'react-img-mapper'
 import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
-import { useState } from 'react'
+import useDialog from '@/hooks/useDialog'
+import Dialog from './Dialog'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
-  const [isVisibleToolTip, setIsVisibleTooltip] = useState(false)
-  const [tooltipX, setTooltipX] = useState(0)
-  const [tooltipY, setTooltipY] = useState(0)
-
-  const showTooltip = (e: any) => {
-    setIsVisibleTooltip(true)
-    const x = e.clientX
-    const y = e.clientY
-
-    setTooltipX(x)
-    setTooltipY(y)
-  }
+  const {
+    close,
+    showTooltip,
+    closeTooltip,
+    show,
+    isVisibleToolTip,
+    isDialogOpen,
+    tooltipX,
+    tooltipY,
+  } = useDialog()
 
   return (
     <div
-      className="bg-center bg-cover bg-[url('/images/home.jpg')]
+      className="relative bg-center bg-cover bg-[url('/images/home.jpg')]
       w-screen h-screen overflow-hidden
       flex items-center justify-center"
       ref={containerRef}
+      onClick={close}
     >
-      <div className="cursor-pointer">
+      <div className="cursor-pointer relative">
         <ImageMapper
           src="/images/space-station.png"
           map={map}
           responsive
           parentWidth={(height / 870 / 4) * 836}
           onMouseMove={(area, index, e) => showTooltip(e)}
-          onMouseLeave={() => setIsVisibleTooltip(false)}
+          onMouseLeave={closeTooltip}
+          onClick={show}
         />
       </div>
       {isVisibleToolTip && (
@@ -49,6 +50,7 @@ const LandingPage = () => {
           box set
         </div>
       )}
+      {isDialogOpen && <Dialog />}
     </div>
   )
 }

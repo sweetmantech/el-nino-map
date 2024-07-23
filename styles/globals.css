@@ -45,3 +45,7 @@
     border-style: solid;
     border-width: 12px;
 }
+
+.no_typecursor .Typewriter__cursor {
+    display: none;
+}
