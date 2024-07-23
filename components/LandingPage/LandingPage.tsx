@@ -5,6 +5,7 @@ import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
 import { useState } from 'react'
 import Image from 'next/image'
+import Typewriter from 'typewriter-effect'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -12,6 +13,7 @@ const LandingPage = () => {
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
   const [isVisibleDlg, setIsVisibleDlg] = useState(false)
+  const [isTypingEnded, setIsTypingEnded] = useState(false)
 
   const showTooltip = (e: any) => {
     if (isVisibleDlg) return
@@ -63,11 +65,26 @@ const LandingPage = () => {
               />
             </div>
             <div
-              className="ml-[-20px] relative bg-white z-[9]
+              className={`ml-[-20px] relative bg-white z-[9]
           w-[250px] h-[100px] p-3 border-[4px] border-[black]
-          text-[18px] font-[700]"
+          text-[18px] font-[700] ${isTypingEnded && 'no_typecursor'}`}
             >
-              We're cooking something
+              <Typewriter
+                onInit={(tyepwriter) => {
+                  tyepwriter
+                    .typeString("We're cooking somthing! ")
+                    .pauseFor(70)
+                    .start()
+                    .callFunction(() => {
+                      setIsTypingEnded(true)
+                    })
+                }}
+                options={{
+                  autoStart: true,
+                  loop: false,
+                  delay: 70,
+                }}
+              />
             </div>
           </div>
         )}
