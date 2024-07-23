@@ -11,7 +11,7 @@ const LandingPage = () => {
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
 
-  const showTooltip = (area: any, index: any, e: any) => {
+  const showTooltip = (e: any) => {
     setIsVisibleTooltip(true)
     const x = e.clientX
     const y = e.clientY
@@ -32,7 +32,7 @@ const LandingPage = () => {
           map={map}
           responsive
           parentWidth={(height / 870) * 836}
-          onMouseMove={(area, index, e) => showTooltip(area, index, e)}
+          onMouseMove={(area, index, e) => showTooltip(e)}
           onMouseLeave={() => setIsVisibleTooltip(false)}
         />
       </div>
