@@ -67,7 +67,7 @@ const LandingPage = () => {
           w-[250px] h-[100px] p-3 border-[4px] border-[black]
           text-[18px] font-[700]"
             >
-              We're cooking something
+              {`We're cooking something`}
             </div>
           </div>
         )}
