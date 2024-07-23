@@ -3,7 +3,6 @@
 import ImageMapper from 'react-img-mapper'
 import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
-import Image from 'next/image'
 import useDialog from '@/hooks/useDialog'
 import Dialog from './Dialog'
 
@@ -39,7 +38,7 @@ const LandingPage = () => {
           onClick={showDlg}
         />
       </div>
-      {isVisibleToolTip && !isDialogOpen && (
+      {isVisibleToolTip && (
         <div
           className="bubble-name"
           style={{

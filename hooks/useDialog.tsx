@@ -1,13 +1,15 @@
 import { useState } from 'react'
+import useIsMobile from './useIsMobile'
 
 const useDialog = () => {
+  const isMobile = useIsMobile()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isVisibleToolTip, setIsVisibleTooltip] = useState(false)
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
 
   const showDlg = () => {
-    setIsVisibleTooltip(false)
+    setIsVisibleTooltip(isMobile)
     setIsDialogOpen(true)
   }
 
