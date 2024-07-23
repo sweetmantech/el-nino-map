@@ -11,8 +11,8 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en">
-      <body className="flex min-h-screen w-screen flex-col overflow-x-hidden font-sora">
+    <html lang="en" className="overflow-hidden bg-[#49538c]">
+      <body className="overflow-hidden">
         {children}
         <ToastContainer />
         <Analytics />
