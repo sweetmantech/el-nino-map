@@ -3,7 +3,7 @@ import { motion } from 'framer-motion'
 import Typewriter from 'typewriter-effect'
 import { useState } from 'react'
 
-const Dialog = ({ isDialogOpen }: any) => {
+const Dialog = () => {
   const [isTypingEnded, setIsTypingEnded] = useState(false)
 
   return (
@@ -11,10 +11,10 @@ const Dialog = ({ isDialogOpen }: any) => {
       className="absolute left-[10px] bottom-[20px] z-[10]
       flex items-end"
       animate={{
-        scale: isDialogOpen ? 1 : 0,
+        scale: 1,
       }}
       initial={{
-        scale: isDialogOpen ? 0 : 1,
+        scale: 0,
       }}
       transition={{
         duration: 0.5,
