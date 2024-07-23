@@ -50,7 +50,7 @@ const LandingPage = () => {
           box set
         </div>
       )}
-      {isDialogOpen && <Dialog />}
+      {isDialogOpen && <Dialog isDialogOpen={isDialogOpen} />}
     </div>
   )
 }
