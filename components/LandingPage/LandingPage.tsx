@@ -6,6 +6,7 @@ import { useMeasure } from 'react-use'
 import { useState } from 'react'
 import Image from 'next/image'
 import Typewriter from 'typewriter-effect'
+import { motion } from 'framer-motion'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -33,6 +34,7 @@ const LandingPage = () => {
   const closeDlg = () => {
     if (!isVisibleDlg) return
     setIsVisibleDlg(false)
+    setIsTypingEnded(false)
   }
 
   return (
@@ -52,9 +54,18 @@ const LandingPage = () => {
           onClick={showDlg}
         />
         {isVisibleDlg && (
-          <div
+          <motion.div
             className="absolute left-[10px] bottom-[20px] z-[10]
-        flex items-end"
+      flex items-end"
+            animate={{
+              scale: isVisibleDlg ? 1 : 0,
+            }}
+            initial={{
+              scale: isVisibleDlg ? 0 : 1,
+            }}
+            transition={{
+              duration: 0.5,
+            }}
           >
             <div className="w-[200px] aspect-[320/324] relative z-[10]">
               <Image
@@ -66,8 +77,8 @@ const LandingPage = () => {
             </div>
             <div
               className={`ml-[-20px] relative bg-white z-[9]
-          w-[250px] h-[100px] p-3 border-[4px] border-[black]
-          text-[18px] font-[700] ${isTypingEnded && 'no_typecursor'}`}
+        w-[250px] h-[100px] p-3 border-[4px] border-[black]
+        text-[18px] font-[700] ${isTypingEnded && 'no_typecursor'}`}
             >
               <Typewriter
                 onInit={(tyepwriter) => {
@@ -86,7 +97,7 @@ const LandingPage = () => {
                 }}
               />
             </div>
-          </div>
+          </motion.div>
         )}
       </div>
       {isVisibleToolTip && !isVisibleDlg && (
