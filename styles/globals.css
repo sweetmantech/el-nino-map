@@ -18,7 +18,7 @@
     font-size: 18px;
     line-height: 120%;
     font-weight: 500;
-    z-index: 10;
+    z-index: 30;
 }
 
 .bubble-name:after, .bubble-name:before {

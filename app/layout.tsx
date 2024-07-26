@@ -11,7 +11,7 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="overflow-hidden bg-[#49538c]">
+    <html lang="en" className="overflow-hidden">
       <body className="overflow-hidden">
         {children}
         <ToastContainer />
