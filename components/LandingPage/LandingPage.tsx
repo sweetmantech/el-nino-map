@@ -21,18 +21,17 @@ const LandingPage = () => {
 
   return (
     <div
-      className="relative bg-center bg-cover bg-[url('/images/home.jpg')]
-      w-screen h-screen overflow-hidden
-      flex items-center justify-center"
+      className="relative w-screen h-screen overflow-hidden
+      flex items-center justify-center bg-background"
       ref={containerRef}
       onClick={close}
     >
       <div className="cursor-pointer relative">
         <ImageMapper
-          src="/images/space-station.png"
+          src="/images/home.jpeg"
           map={map}
           responsive
-          parentWidth={(height / 870 / 4) * 836}
+          parentWidth={(height / 914) * 1600}
           onMouseMove={(area, index, e) => showTooltip(e)}
           onMouseLeave={closeTooltip}
           onClick={show}
