@@ -22,7 +22,7 @@ const LandingPage = () => {
   return (
     <div
       className="relative w-screen h-screen overflow-hidden
-      flex items-center justify-center"
+      flex items-center justify-center bg-background"
       ref={containerRef}
       onClick={close}
     >
