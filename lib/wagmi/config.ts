@@ -6,7 +6,7 @@ const wagmiConfig = createConfig({
   chains: [CHAIN],
   connectors: [
     coinbaseWallet({
-      appName: 'mesa',
+      appName: 'xcelencia',
       preference: 'smartWalletOnly',
     }),
   ],
