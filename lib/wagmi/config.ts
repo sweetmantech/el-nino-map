@@ -4,14 +4,12 @@ import { CHAIN, CHAIN_ID } from '../consts'
 
 const wagmiConfig = createConfig({
   chains: [CHAIN],
-  multiInjectedProviderDiscovery: false,
   connectors: [
     coinbaseWallet({
       appName: 'mesa',
-      // preference: "smartWalletOnly",
+      preference: 'smartWalletOnly',
     }),
   ],
-  ssr: true,
   transports: {
     [CHAIN_ID]: http(),
   } as any,
