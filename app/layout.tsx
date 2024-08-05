@@ -1,8 +1,11 @@
-import '../styles/globals.css'
+import '@/styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
+import '@coinbase/onchainkit/styles.css'
 import { Analytics } from '@vercel/analytics/react'
 import { ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify'
+import Providers from '@/providers/Providers'
+import Header from '@/components/Header'
 
 export const viewport = {
   width: 'device-width',
@@ -11,11 +14,14 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="overflow-hidden bg-[#49538c]">
+    <html lang="en" className="overflow-hidden">
       <body className="overflow-hidden">
-        {children}
-        <ToastContainer />
-        <Analytics />
+        <Providers>
+          <Header />
+          {children}
+          <ToastContainer />
+          <Analytics />
+        </Providers>
       </body>
     </html>
   )
