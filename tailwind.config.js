@@ -1,12 +1,13 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 /** @type {import('tailwindcss').Config} */
+import path from 'node:path'
+
 module.exports = {
   darkMode: ['class'],
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/**/*.{js,ts,jsx,tsx,mdx}',
+    path.join(path.dirname(require.resolve('@coinbase/onchainkit')), '**/*.js,ts,jsx,tsx,mdx'),
   ],
   theme: {
     container: {
