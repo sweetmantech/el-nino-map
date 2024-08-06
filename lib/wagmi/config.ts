@@ -7,7 +7,7 @@ const wagmiConfig = createConfig({
   connectors: [
     coinbaseWallet({
       appName: 'xcelencia',
-      // preference: 'smartWalletOnly',
+      preference: 'smartWalletOnly',
     }),
   ],
   transports: {
