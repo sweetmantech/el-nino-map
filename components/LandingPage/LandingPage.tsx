@@ -17,7 +17,6 @@ const LandingPage = () => {
     close,
     showTooltip,
     closeTooltip,
-    show,
     isVisibleToolTip,
     isDialogOpen,
     tooltipX,
