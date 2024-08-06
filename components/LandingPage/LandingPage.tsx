@@ -5,6 +5,9 @@ import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
 import useDialog from '@/hooks/useDialog'
 import Dialog from './Dialog'
+import { useAccount, useConnect } from 'wagmi'
+import { Address } from 'viem'
+import { useEffect, useState } from 'react'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -18,6 +21,24 @@ const LandingPage = () => {
     tooltipX,
     tooltipY,
   } = useDialog()
+
+  const { address } = useAccount()
+  const { connectors, connect } = useConnect()
+  const connector = connectors[0]
+  const [mapperKey, setMapperKey] = useState(0)
+
+  const handleClick = (connectedWallet: Address) => {
+    if (connectedWallet) {
+      show()
+      return
+    }
+
+    connect({ connector })
+  }
+
+  useEffect(() => {
+    if (address) setMapperKey(Math.floor(Math.random() * 1000))
+  }, [address])
 
   return (
     <div
@@ -34,7 +55,8 @@ const LandingPage = () => {
           parentWidth={(height / 914) * 1600}
           onMouseMove={(area, index, e) => showTooltip(e)}
           onMouseLeave={closeTooltip}
-          onClick={show}
+          onClick={() => handleClick(address as Address)}
+          key={mapperKey}
         />
       </div>
       {isVisibleToolTip && (
