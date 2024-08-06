@@ -8,6 +8,7 @@ import Dialog from './Dialog'
 import { useAccount, useConnect } from 'wagmi'
 import { Address } from 'viem'
 import { useEffect, useState } from 'react'
+import { useStackProvider } from '@/providers/StackProvider'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -26,6 +27,7 @@ const LandingPage = () => {
   const { connectors, connect } = useConnect()
   const connector = connectors[0]
   const [mapperKey, setMapperKey] = useState(0)
+  const { loginEvents } = useStackProvider()
 
   const handleClick = (connectedWallet: Address) => {
     if (connectedWallet) {
@@ -37,8 +39,8 @@ const LandingPage = () => {
   }
 
   useEffect(() => {
-    if (address) setMapperKey(Math.floor(Math.random() * 1000))
-  }, [address])
+    if (address || loginEvents) setMapperKey(Math.floor(Math.random() * 1000))
+  }, [address, loginEvents])
 
   return (
     <div
