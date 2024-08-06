@@ -35,6 +35,7 @@ const LandingPage = () => {
       return
     }
 
+    console.log('ZIAD', loginEvents)
     connect({ connector })
   }
 
