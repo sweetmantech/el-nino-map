@@ -8,7 +8,8 @@ import Dialog from './Dialog'
 import { useAccount, useConnect } from 'wagmi'
 import { Address } from 'viem'
 import { useEffect, useState } from 'react'
-import { useStackProvider } from '@/providers/StackProvider'
+import getLoginEvents from '@/lib/stack/getLoginPoints'
+import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -24,10 +25,9 @@ const LandingPage = () => {
   } = useDialog()
 
   const { address } = useAccount()
+  const [mapperKey, setMapperKey] = useState(0)
   const { connectors, connect } = useConnect()
   const connector = connectors[0]
-  const [mapperKey, setMapperKey] = useState(0)
-  const { loginEvents } = useStackProvider()
 
   const handleClick = (connectedWallet: Address) => {
     if (connectedWallet) {
@@ -35,13 +35,25 @@ const LandingPage = () => {
       return
     }
 
-    console.log('ZIAD', loginEvents)
     connect({ connector })
   }
 
   useEffect(() => {
-    if (address || loginEvents) setMapperKey(Math.floor(Math.random() * 1000))
-  }, [address, loginEvents])
+    const init = async () => {
+      if (address) {
+        const events: Array<any> = await getLoginEvents(address)
+
+        if (!events.length) {
+          await trackLoginPoints(address)
+        }
+        setMapperKey(Math.floor(Math.random() * 1000))
+      }
+    }
+
+    if (!address) return
+
+    init()
+  }, [address])
 
   return (
     <div
