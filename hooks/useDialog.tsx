@@ -3,6 +3,7 @@ import useIsMobile from './useIsMobile'
 import { Address } from 'viem'
 import { useConnect } from 'wagmi'
 import { useRouter } from 'next/navigation'
+import usePurchase from './useZoraCollect'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -14,6 +15,7 @@ const useDialog = () => {
   const { connectors, connect } = useConnect()
   const connector = connectors[0]
   const { push } = useRouter()
+  const { purchase } = usePurchase()
 
   const show = () => {
     setIsVisibleTooltip(isMobile)
@@ -47,6 +49,8 @@ const useDialog = () => {
           box set`
       case 'leaderboard':
         return 'Leaderboard'
+      case 'mint':
+        return 'Mint Xcelencia'
     }
   }
 
@@ -63,6 +67,10 @@ const useDialog = () => {
 
     if (area.id === 'leaderboard') {
       push('/leaderboard')
+    }
+
+    if (area.id === 'mint') {
+      purchase()
     }
   }
 
