@@ -18,6 +18,15 @@
       "fillColor": "#ffffff00",
       "strokeColor": "#ffffff00",
       "coords": [1060, 350, 1170, 290, 1290, 350, 1190, 400]
+    },
+    {
+      "id": "mint",
+      "title": "color_red",
+      "shape": "poly",
+      "name": "2",
+      "fillColor": "#ffffff00",
+      "strokeColor": "#ffffff00",
+      "coords": [1035, 580, 1170, 510, 1300, 570, 1190, 650]
     }
   ]
 }

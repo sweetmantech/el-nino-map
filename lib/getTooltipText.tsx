@@ -5,6 +5,8 @@ const getTooltipText = (tooltipId) => {
           box set`
     case 'leaderboard':
       return 'Leaderboard'
+    case 'mint':
+      return 'Purchase'
   }
 }
 
