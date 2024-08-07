@@ -2,7 +2,7 @@ import { CHAIN, COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
 import { BigNumber } from '@ethersproject/bignumber'
 import useConnectWallet from './useConnectWallet'
 import { useAccount, useWriteContract } from 'wagmi'
-import { Address, parseEther } from 'viem'
+import { Address } from 'viem'
 import zora721Abi from '@/lib/abi/zora-erc721-drop.json'
 
 const usePurchase = () => {
