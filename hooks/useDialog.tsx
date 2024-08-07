@@ -42,18 +42,6 @@ const useDialog = () => {
     setTooltipY(y)
   }
 
-  const tooltipText = () => {
-    switch (tooltipId) {
-      case 'connect':
-        return `El Niño Estrella is a multimedia experience. The smart album is a limited edition digital
-          box set`
-      case 'leaderboard':
-        return 'Leaderboard'
-      case 'mint':
-        return 'Mint Xcelencia'
-    }
-  }
-
   const clickMap = (area: any, connectedWallet: Address) => {
     if (area.id === 'connect') {
       if (connectedWallet) {
@@ -83,8 +71,8 @@ const useDialog = () => {
     show,
     close,
     closeTooltip,
-    tooltipText,
     clickMap,
+    tooltipId,
   }
 }
 
