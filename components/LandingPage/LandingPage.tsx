@@ -10,6 +10,7 @@ import { Address } from 'viem'
 import { useEffect, useState } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
+import getTooltipText from '@/lib/getTooltipText'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -21,8 +22,8 @@ const LandingPage = () => {
     isDialogOpen,
     tooltipX,
     tooltipY,
-    getTooltipText,
     clickMap,
+    tooltipId,
   } = useDialog()
 
   const { address } = useAccount()
@@ -72,7 +73,7 @@ const LandingPage = () => {
             top: tooltipY,
           }}
         >
-          {getTooltipText()}
+          {getTooltipText(tooltipId)}
         </div>
       )}
       {isDialogOpen && <Dialog />}
