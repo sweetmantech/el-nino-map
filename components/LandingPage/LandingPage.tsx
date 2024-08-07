@@ -17,12 +17,11 @@ const LandingPage = () => {
     close,
     showTooltip,
     closeTooltip,
-    show,
     isVisibleToolTip,
     isDialogOpen,
     tooltipX,
     tooltipY,
-    tooltipText,
+    getTooltipText,
     clickMap,
   } = useDialog()
 
@@ -73,7 +72,7 @@ const LandingPage = () => {
             top: tooltipY,
           }}
         >
-          {tooltipText()}
+          {getTooltipText()}
         </div>
       )}
       {isDialogOpen && <Dialog />}
