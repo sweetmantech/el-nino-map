@@ -3,7 +3,7 @@ import getViemNetwork from '../viem/getViemNetwork'
 
 export const getPublicClient = (chainId: number) => {
   const chain = getViemNetwork(chainId)
-  let publicClient = createPublicClient({
+  const publicClient = createPublicClient({
     chain: chain as Chain,
     transport: http(),
   }) as any
