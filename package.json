@@ -15,6 +15,8 @@
   "dependencies": {
     "@coinbase/onchainkit": "^0.27.0",
     "@coinbase/wallet-sdk": "^4.0.4",
+    "@ethersproject/bignumber": "^5.7.0",
+    "@stackso/js-core": "^0.3.4",
     "@tanstack/react-query": "^5.51.21",
     "@vercel/analytics": "^1.2.2",
     "@vercel/og": "^0.6.2",
@@ -23,6 +25,7 @@
     "encoding": "^0.1.13",
     "framer-motion": "^11.3.9",
     "next": "^14.2.2",
+    "ethers": "^5.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.1.0",
