@@ -1,26 +1,30 @@
-import { CHAIN_ID, COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
+import { CHAIN, COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
 import { BigNumber } from '@ethersproject/bignumber'
-import zoraAbi from '@/lib/abi/zora-erc721-drop.json'
-import { useEthersSigner } from './useEthersSigner'
-import { Contract } from 'ethers'
 import useConnectWallet from './useConnectWallet'
+import { useAccount, useWriteContract } from 'wagmi'
+import { Address, parseEther } from 'viem'
+import zora721Abi from '@/lib/abi/zora-erc721-drop.json'
 
 const usePurchase = () => {
-  const signer = useEthersSigner({ chainId: CHAIN_ID })
+  const { address } = useAccount()
+  const { writeContractAsync } = useWriteContract()
   const { connectWallet } = useConnectWallet()
 
   const purchase = async () => {
     try {
-      if (!signer) connectWallet()
+      if (!address) connectWallet()
       const zoraPrice = BigNumber.from(ZORA_PRICE)
       const zoraQuantity = 1
 
-      const contract = new Contract(DROP_ADDRESS, zoraAbi, signer)
-
-      const tx = await contract.purchaseWithComment(zoraQuantity, COMMENT, {
-        value: zoraPrice.toString(),
+      await writeContractAsync({
+        abi: zora721Abi,
+        account: address as Address,
+        chain: CHAIN,
+        address: DROP_ADDRESS as Address,
+        functionName: 'purchaseWithComment',
+        args: [BigInt(zoraQuantity), COMMENT],
+        value: parseEther(zoraPrice.toString()),
       })
-      await tx.wait()
 
       return true
     } catch (error) {
