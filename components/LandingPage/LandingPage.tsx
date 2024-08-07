@@ -5,11 +5,12 @@ import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
 import useDialog from '@/hooks/useDialog'
 import Dialog from './Dialog'
-import { useAccount, useConnect } from 'wagmi'
+import { useAccount } from 'wagmi'
 import { Address } from 'viem'
 import { useEffect, useState } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
+import getTooltipText from '@/lib/getTooltipText'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -17,26 +18,16 @@ const LandingPage = () => {
     close,
     showTooltip,
     closeTooltip,
-    show,
     isVisibleToolTip,
     isDialogOpen,
     tooltipX,
     tooltipY,
+    clickMap,
+    tooltipId,
   } = useDialog()
 
   const { address } = useAccount()
   const [mapperKey, setMapperKey] = useState(0)
-  const { connectors, connect } = useConnect()
-  const connector = connectors[0]
-
-  const handleClick = (connectedWallet: Address) => {
-    if (connectedWallet) {
-      show()
-      return
-    }
-
-    connect({ connector })
-  }
 
   useEffect(() => {
     const init = async () => {
@@ -68,9 +59,9 @@ const LandingPage = () => {
           map={map}
           responsive
           parentWidth={(height / 914) * 1600}
-          onMouseMove={(area, index, e) => showTooltip(e)}
+          onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
-          onClick={() => handleClick(address as Address)}
+          onClick={(area) => clickMap(area, address as Address)}
           key={mapperKey}
         />
       </div>
@@ -82,8 +73,7 @@ const LandingPage = () => {
             top: tooltipY,
           }}
         >
-          El Niño Estrella is a multimedia experience. The smart album is a limited edition digital
-          box set
+          {getTooltipText(tooltipId)}
         </div>
       )}
       {isDialogOpen && <Dialog />}
