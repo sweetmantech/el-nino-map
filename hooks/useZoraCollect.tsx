@@ -4,8 +4,10 @@ import useConnectWallet from './useConnectWallet'
 import { useAccount, useWriteContract } from 'wagmi'
 import { Address } from 'viem'
 import zora721Abi from '@/lib/abi/zora-erc721-drop.json'
+import { toast } from 'react-toastify'
+import handleTxError from '@/lib/handleTxError'
 
-const usePurchase = () => {
+const useZoraCollect = () => {
   const { address } = useAccount()
   const { writeContractAsync } = useWriteContract()
   const { connectWallet } = useConnectWallet()
@@ -26,9 +28,10 @@ const usePurchase = () => {
         value: zoraPrice,
       })
 
+      toast.success('Purchased!')
       return true
     } catch (error) {
-      console.error(error)
+      handleTxError(error)
       return { error }
     }
   }
@@ -38,4 +41,4 @@ const usePurchase = () => {
   }
 }
 
-export default usePurchase
+export default useZoraCollect

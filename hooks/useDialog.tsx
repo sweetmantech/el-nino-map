@@ -3,7 +3,7 @@ import useIsMobile from './useIsMobile'
 import { Address } from 'viem'
 import { useConnect } from 'wagmi'
 import { useRouter } from 'next/navigation'
-import usePurchase from './useZoraCollect'
+import useZoraCollect from './useZoraCollect'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -15,7 +15,7 @@ const useDialog = () => {
   const { connectors, connect } = useConnect()
   const connector = connectors[0]
   const { push } = useRouter()
-  const { purchase } = usePurchase()
+  const { purchase } = useZoraCollect()
 
   const show = () => {
     setIsVisibleTooltip(isMobile)
