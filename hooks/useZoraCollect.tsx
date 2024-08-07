@@ -23,7 +23,7 @@ const usePurchase = () => {
         address: DROP_ADDRESS as Address,
         functionName: 'purchaseWithComment',
         args: [BigInt(zoraQuantity), COMMENT],
-        value: parseEther(zoraPrice.toString()),
+        value: zoraPrice,
       })
 
       return true
