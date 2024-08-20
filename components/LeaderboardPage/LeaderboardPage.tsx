@@ -1,3 +1,5 @@
+import { POINT_SYSTEM_ID } from '@/lib/consts'
+
 const LeaderboardPage = () => (
   <div
     className="relative w-screen h-screen overflow-hidden
@@ -6,7 +8,7 @@ const LeaderboardPage = () => (
     <p className="pb-2 text-[30px] font-bold">Leaderboard</p>
     <section className="border-[2px] rounded-xl overflow-hidden">
       <iframe
-        src={`https://www.stack.so/leaderboard/leaderboard-40a3-78225-${process.env.NEXT_PUBLIC_POINT_SYSTEM_ID}/embed?excludeHeader=true`}
+        src={`https://www.stack.so/leaderboard/leaderboard-40a3-78225-${POINT_SYSTEM_ID}/embed?excludeHeader=true`}
         className="mx-auto"
         width="704px"
         height="400px"

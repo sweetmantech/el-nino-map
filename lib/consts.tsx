@@ -14,3 +14,4 @@ export const ZORA_PRICE = '777000000000000'
 export const COMMENT = 'XCELENCIA - ERC6551 smart album 🪄'
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'
 export const SMART_WALLET_LOGIN_POINT = 11
+export const POINT_SYSTEM_ID = 2995
