@@ -1,9 +1,14 @@
+'use client'
+
 import { useState } from 'react'
 import useIsMobile from './useIsMobile'
 import { Address } from 'viem'
-import { useConnect } from 'wagmi'
 import { useRouter } from 'next/navigation'
 import useZoraCollect from './useZoraCollect'
+import { useConnectModal } from 'thirdweb/react'
+import { createWallet } from 'thirdweb/wallets'
+import { baseSepolia } from 'thirdweb/chains'
+import { client } from '@/lib/thirdweb/client'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -12,10 +17,9 @@ const useDialog = () => {
   const [isVisibleToolTip, setIsVisibleTooltip] = useState(false)
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
-  const { connectors, connect } = useConnect()
-  const connector = connectors[0]
   const { push } = useRouter()
   const { purchase } = useZoraCollect()
+  const { connect } = useConnectModal()
 
   const show = () => {
     setIsVisibleTooltip(isMobile)
@@ -49,7 +53,11 @@ const useDialog = () => {
         return
       }
 
-      connect({ connector })
+      connect({
+        client,
+        wallets: [createWallet('embedded')],
+        chain: baseSepolia,
+      })
       return
     }
 
