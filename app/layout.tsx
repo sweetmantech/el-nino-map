@@ -1,3 +1,5 @@
+'use client'
+
 import '@/styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 import '@coinbase/onchainkit/styles.css'

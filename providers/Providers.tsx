@@ -1,5 +1,7 @@
-import WagmiProvider from './WagmiProvider'
+'use client'
+
+import { ThirdwebProvider } from 'thirdweb/react'
 
 export default async function Providers({ children }: { children: React.ReactNode }) {
-  return <WagmiProvider>{children}</WagmiProvider>
+  return <ThirdwebProvider>{children}</ThirdwebProvider>
 }

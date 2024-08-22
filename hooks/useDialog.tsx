@@ -1,9 +1,13 @@
+'use client'
+
 import { useState } from 'react'
 import useIsMobile from './useIsMobile'
-import { Address } from 'viem'
-import { useConnect } from 'wagmi'
 import { useRouter } from 'next/navigation'
 import useZoraCollect from './useZoraCollect'
+import { useConnectModal } from 'thirdweb/react'
+import { createWallet } from 'thirdweb/wallets'
+import { baseSepolia } from 'thirdweb/chains'
+import { client } from '@/lib/thirdweb/client'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -12,10 +16,9 @@ const useDialog = () => {
   const [isVisibleToolTip, setIsVisibleTooltip] = useState(false)
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
-  const { connectors, connect } = useConnect()
-  const connector = connectors[0]
   const { push } = useRouter()
   const { purchase } = useZoraCollect()
+  const { connect } = useConnectModal()
 
   const show = () => {
     setIsVisibleTooltip(isMobile)
@@ -42,14 +45,20 @@ const useDialog = () => {
     setTooltipY(y)
   }
 
-  const clickMap = (area: any, connectedWallet: Address) => {
+  const clickMap = async (area: any, activeAccount: any) => {
+    const address = activeAccount?.address
     if (area.id === 'connect') {
-      if (connectedWallet) {
+      if (address) {
         show()
         return
       }
 
-      connect({ connector })
+      await connect({
+        client,
+        wallets: [createWallet('embedded')],
+        chain: baseSepolia,
+      })
+      window.location.reload()
       return
     }
 
@@ -58,7 +67,8 @@ const useDialog = () => {
     }
 
     if (area.id === 'mint') {
-      purchase()
+      if (!address) return
+      purchase(activeAccount)
     }
   }
 
