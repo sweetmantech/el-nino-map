@@ -4,19 +4,18 @@ import { Address } from 'viem'
 import zora721Abi from '@/lib/abi/zora-erc721-drop.json'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
-import { useActiveAccount, useConnectModal } from 'thirdweb/react'
+import { useConnectModal } from 'thirdweb/react'
 import { createWallet } from 'thirdweb/wallets'
 import { client } from '@/lib/thirdweb/client'
 import { baseSepolia } from 'thirdweb/chains'
 import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
 
 const useZoraCollect = () => {
-  const activeAccount = useActiveAccount()
-  const address = activeAccount?.address
   const { connect } = useConnectModal()
 
-  const purchase = async () => {
+  const purchase = async (activeAccount: any) => {
     try {
+      const address = activeAccount?.address
       if (!address)
         connect({
           client,

@@ -62,7 +62,7 @@ const LandingPage = () => {
           parentWidth={(height / 914) * 1600}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
-          onClick={(area) => clickMap(area, address as Address)}
+          onClick={(area) => clickMap(area, activeAccount)}
           key={mapperKey}
         />
       </div>

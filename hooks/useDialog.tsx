@@ -46,9 +46,10 @@ const useDialog = () => {
     setTooltipY(y)
   }
 
-  const clickMap = (area: any, connectedWallet: Address) => {
+  const clickMap = (area: any, activeAccount: any) => {
     if (area.id === 'connect') {
-      if (connectedWallet) {
+      const address = activeAccount?.address
+      if (address) {
         show()
         return
       }
@@ -66,7 +67,7 @@ const useDialog = () => {
     }
 
     if (area.id === 'mint') {
-      purchase()
+      purchase(activeAccount)
     }
   }
 
