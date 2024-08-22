@@ -5,12 +5,11 @@ import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
 import useDialog from '@/hooks/useDialog'
 import Dialog from './Dialog'
-import { useAccount } from 'wagmi'
-import { Address } from 'viem'
 import { useEffect, useState } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import getTooltipText from '@/lib/getTooltipText'
+import { useActiveAccount } from 'thirdweb/react'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -26,7 +25,8 @@ const LandingPage = () => {
     tooltipId,
   } = useDialog()
 
-  const { address } = useAccount()
+  const activeAccount = useActiveAccount()
+  const address = activeAccount?.address
   const [mapperKey, setMapperKey] = useState(0)
 
   useEffect(() => {
@@ -61,7 +61,7 @@ const LandingPage = () => {
           parentWidth={(height / 914) * 1600}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
-          onClick={(area) => clickMap(area, address as Address)}
+          onClick={(area) => clickMap(area, activeAccount)}
           key={mapperKey}
         />
       </div>

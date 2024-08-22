@@ -1,35 +1,52 @@
-import { CHAIN, COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
+import { COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
 import { BigNumber } from '@ethersproject/bignumber'
-import useConnectWallet from './useConnectWallet'
-import { useAccount, useWriteContract } from 'wagmi'
 import { Address } from 'viem'
 import zora721Abi from '@/lib/abi/zora-erc721-drop.json'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
+import { useConnectModal } from 'thirdweb/react'
+import { createWallet } from 'thirdweb/wallets'
+import { client } from '@/lib/thirdweb/client'
+import { baseSepolia } from 'thirdweb/chains'
+import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
 
 const useZoraCollect = () => {
-  const { address } = useAccount()
-  const { writeContractAsync } = useWriteContract()
-  const { connectWallet } = useConnectWallet()
+  const { connect } = useConnectModal()
 
-  const purchase = async () => {
+  const purchase = async (activeAccount: any) => {
     try {
-      if (!address) connectWallet()
+      const address = activeAccount?.address
+      if (!address)
+        connect({
+          client,
+          wallets: [createWallet('embedded')],
+          chain: baseSepolia,
+        })
       const zoraPrice = BigNumber.from(ZORA_PRICE)
       const zoraQuantity = 1
 
-      await writeContractAsync({
-        abi: zora721Abi,
-        account: address as Address,
-        chain: CHAIN,
+      const contract: any = getContract({
         address: DROP_ADDRESS as Address,
-        functionName: 'purchaseWithComment',
-        args: [BigInt(zoraQuantity), COMMENT],
-        value: zoraPrice,
+        chain: baseSepolia,
+        abi: zora721Abi as any,
+        client,
+      })
+
+      const transaction: any = prepareContractCall({
+        contract,
+        method:
+          'function purchaseWithComment(uint256 quantity, string comment) payable returns (uint256)',
+        params: [BigInt(zoraQuantity), COMMENT],
+        value: zoraPrice.toBigInt(),
+      })
+
+      const { transactionHash } = await sendTransaction({
+        transaction,
+        account: activeAccount,
       })
 
       toast.success('Purchased!')
-      return true
+      return transactionHash
     } catch (error) {
       handleTxError(error)
       return { error }
