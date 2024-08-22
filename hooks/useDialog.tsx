@@ -2,7 +2,6 @@
 
 import { useState } from 'react'
 import useIsMobile from './useIsMobile'
-import { Address } from 'viem'
 import { useRouter } from 'next/navigation'
 import useZoraCollect from './useZoraCollect'
 import { useConnectModal } from 'thirdweb/react'
@@ -46,19 +45,20 @@ const useDialog = () => {
     setTooltipY(y)
   }
 
-  const clickMap = (area: any, activeAccount: any) => {
+  const clickMap = async (area: any, activeAccount: any) => {
+    const address = activeAccount?.address
     if (area.id === 'connect') {
-      const address = activeAccount?.address
       if (address) {
         show()
         return
       }
 
-      connect({
+      await connect({
         client,
         wallets: [createWallet('embedded')],
         chain: baseSepolia,
       })
+      window.location.reload()
       return
     }
 
@@ -67,6 +67,7 @@ const useDialog = () => {
     }
 
     if (area.id === 'mint') {
+      if (!address) return
       purchase(activeAccount)
     }
   }
