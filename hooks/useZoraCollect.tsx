@@ -8,10 +8,12 @@ import { useConnectModal } from 'thirdweb/react'
 import { createWallet } from 'thirdweb/wallets'
 import { client } from '@/lib/thirdweb/client'
 import { baseSepolia } from 'thirdweb/chains'
-import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
+import { prepareContractCall, getContract } from 'thirdweb'
+import { useSendTransaction } from 'thirdweb/react'
 
 const useZoraCollect = () => {
   const { connect } = useConnectModal()
+  const { mutateAsync: sendTransaction } = useSendTransaction()
 
   const purchase = async (activeAccount: any) => {
     try {
@@ -40,13 +42,10 @@ const useZoraCollect = () => {
         value: zoraPrice.toBigInt(),
       })
 
-      const { transactionHash } = await sendTransaction({
-        transaction,
-        account: activeAccount,
-      })
+      const tx = await sendTransaction(transaction)
 
       toast.success('Purchased!')
-      return transactionHash
+      return tx
     } catch (error) {
       handleTxError(error)
       return { error }
