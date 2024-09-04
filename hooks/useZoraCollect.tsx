@@ -1,4 +1,4 @@
-import { COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
+import { CHAIN, COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
 import { BigNumber } from '@ethersproject/bignumber'
 import { Address } from 'viem'
 import zora721Abi from '@/lib/abi/zora-erc721-drop.json'
@@ -7,7 +7,6 @@ import handleTxError from '@/lib/handleTxError'
 import { useConnectModal } from 'thirdweb/react'
 import { createWallet } from 'thirdweb/wallets'
 import { client } from '@/lib/thirdweb/client'
-import { base, baseSepolia, mainnet } from 'thirdweb/chains'
 import { prepareContractCall, getContract } from 'thirdweb'
 import { useSendTransaction } from 'thirdweb/react'
 
@@ -28,14 +27,14 @@ const useZoraCollect = () => {
         connect({
           client,
           wallets: [createWallet('embedded')],
-          chain: baseSepolia,
+          chain: CHAIN,
         })
       const zoraPrice = BigNumber.from(ZORA_PRICE)
       const zoraQuantity = 1
 
       const contract: any = getContract({
         address: DROP_ADDRESS as Address,
-        chain: base,
+        chain: CHAIN,
         abi: zora721Abi as any,
         client,
       })

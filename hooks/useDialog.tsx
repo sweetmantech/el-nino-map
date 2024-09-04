@@ -6,8 +6,8 @@ import { useRouter } from 'next/navigation'
 import useZoraCollect from './useZoraCollect'
 import { useConnectModal } from 'thirdweb/react'
 import { createWallet } from 'thirdweb/wallets'
-import { baseSepolia } from 'thirdweb/chains'
 import { client } from '@/lib/thirdweb/client'
+import { CHAIN } from '@/lib/consts'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -56,7 +56,7 @@ const useDialog = () => {
       await connect({
         client,
         wallets: [createWallet('embedded')],
-        chain: baseSepolia,
+        chain: CHAIN,
       })
       window.location.reload()
       return
