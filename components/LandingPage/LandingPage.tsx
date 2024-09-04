@@ -10,6 +10,7 @@ import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import getTooltipText from '@/lib/getTooltipText'
 import { useActiveAccount } from 'thirdweb/react'
+import { Address } from 'thirdweb'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -32,7 +33,7 @@ const LandingPage = () => {
   useEffect(() => {
     const init = async () => {
       if (address) {
-        const events: Array<any> = await getLoginEvents(address)
+        const events: Array<any> = await getLoginEvents(address as Address)
 
         if (!events.length) {
           await trackLoginPoints(address)

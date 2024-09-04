@@ -13,7 +13,13 @@ import { useSendTransaction } from 'thirdweb/react'
 
 const useZoraCollect = () => {
   const { connect } = useConnectModal()
-  const { mutateAsync: sendTransaction } = useSendTransaction()
+  const { mutateAsync: sendTransaction } = useSendTransaction({
+    payModal: {
+      buyWithFiat: {
+        testMode: true,
+      },
+    },
+  })
 
   const purchase = async (activeAccount: any) => {
     try {
