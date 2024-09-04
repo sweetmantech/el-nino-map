@@ -7,13 +7,19 @@ import handleTxError from '@/lib/handleTxError'
 import { useConnectModal } from 'thirdweb/react'
 import { createWallet } from 'thirdweb/wallets'
 import { client } from '@/lib/thirdweb/client'
-import { baseSepolia } from 'thirdweb/chains'
+import { base, baseSepolia, mainnet } from 'thirdweb/chains'
 import { prepareContractCall, getContract } from 'thirdweb'
 import { useSendTransaction } from 'thirdweb/react'
 
 const useZoraCollect = () => {
   const { connect } = useConnectModal()
-  const { mutateAsync: sendTransaction } = useSendTransaction()
+  const { mutateAsync: sendTransaction } = useSendTransaction({
+    payModal: {
+      buyWithFiat: {
+        testMode: true,
+      },
+    },
+  })
 
   const purchase = async (activeAccount: any) => {
     try {
@@ -29,7 +35,7 @@ const useZoraCollect = () => {
 
       const contract: any = getContract({
         address: DROP_ADDRESS as Address,
-        chain: baseSepolia,
+        chain: base,
         abi: zora721Abi as any,
         client,
       })
@@ -48,6 +54,7 @@ const useZoraCollect = () => {
       return tx
     } catch (error) {
       handleTxError(error)
+      console.error(error)
       return { error }
     }
   }
