@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import useIsMobile from './useIsMobile'
 import { useRouter } from 'next/navigation'
-import useZoraCollect from './useZoraCollect'
 import { useConnectModal } from 'thirdweb/react'
 import { createWallet } from 'thirdweb/wallets'
 import { baseSepolia } from 'thirdweb/chains'
@@ -12,12 +11,12 @@ import { client } from '@/lib/thirdweb/client'
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
   const isMobile = useIsMobile()
+  const [isCrossmintOpen, setIsCrossmintOpen] = useState(false)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [isVisibleToolTip, setIsVisibleTooltip] = useState(false)
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
   const { push } = useRouter()
-  const { purchase } = useZoraCollect()
   const { connect } = useConnectModal()
 
   const show = () => {
@@ -68,7 +67,7 @@ const useDialog = () => {
 
     if (area.id === 'mint') {
       if (!address) return
-      purchase(activeAccount)
+      setIsCrossmintOpen(true)
     }
   }
 
@@ -83,6 +82,8 @@ const useDialog = () => {
     closeTooltip,
     clickMap,
     tooltipId,
+    setIsCrossmintOpen,
+    isCrossmintOpen,
   }
 }
 
