@@ -10,7 +10,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
 
-  const handlePayment = (event) => {
+  const handlePayment = (event: any) => {
     if (event.type === 'payment:process.succeeded') {
       onClose()
       toast.success('Purchased!')
