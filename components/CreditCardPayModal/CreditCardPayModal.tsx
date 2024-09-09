@@ -37,9 +37,6 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
             recipient={{
               wallet: address,
             }}
-            onEvent={(event) => {
-              console.log(event)
-            }}
           />
         )}
       </div>
