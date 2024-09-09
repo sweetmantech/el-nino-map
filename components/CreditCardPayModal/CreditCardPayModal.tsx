@@ -1,6 +1,7 @@
 import { CrossmintPaymentElement } from '@crossmint/client-sdk-react-ui'
 import { COMMENT, MINT_REFERRAL } from '../../lib/consts'
 import { useActiveAccount } from 'thirdweb/react'
+import { toast } from 'react-toastify'
 
 const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string
@@ -8,6 +9,13 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   const environment = process.env.NEXT_PUBLIC_ENVIRONMENT as string
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
+
+  const handlePayment = (event) => {
+    if (event.type === 'payment:process.succeeded') {
+      onClose()
+      toast.success('Purchased!')
+    }
+  }
 
   return (
     <div
@@ -37,9 +45,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
             recipient={{
               wallet: address,
             }}
-            onEvent={(event) => {
-              console.log(event)
-            }}
+            onEvent={handlePayment}
           />
         )}
       </div>
