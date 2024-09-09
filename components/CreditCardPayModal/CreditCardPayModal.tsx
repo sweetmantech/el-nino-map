@@ -26,14 +26,19 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
             emailInputOptions={{
               show: true,
             }}
+            cardWalletPaymentMethods={['apple-pay', 'google-pay']}
             paymentMethod="fiat"
             mintConfig={{
               totalPrice: '0.000777',
               quantity: 1,
               comment: COMMENT,
               mintReferral: MINT_REFERRAL,
-              type: 'erc-721',
-              _to: address,
+            }}
+            recipient={{
+              wallet: address,
+            }}
+            onEvent={(event) => {
+              console.log(event)
             }}
           />
         )}
