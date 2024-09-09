@@ -10,6 +10,7 @@ import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import getTooltipText from '@/lib/getTooltipText'
 import { useActiveAccount } from 'thirdweb/react'
+import CreditCardPayModal from '../CreditCardPayModal'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -23,6 +24,8 @@ const LandingPage = () => {
     tooltipY,
     clickMap,
     tooltipId,
+    isCrossmintOpen,
+    setIsCrossmintOpen,
   } = useDialog()
 
   const activeAccount = useActiveAccount()
@@ -77,6 +80,7 @@ const LandingPage = () => {
         </div>
       )}
       {isDialogOpen && <Dialog />}
+      {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
     </div>
   )
 }
