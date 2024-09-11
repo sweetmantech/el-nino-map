@@ -37,10 +37,12 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
             cardWalletPaymentMethods={['apple-pay', 'google-pay']}
             paymentMethod="fiat"
             mintConfig={{
-              totalPrice: '0.000777',
+              totalPrice: '0.000111',
               quantity: 1,
-              comment: COMMENT,
+              collection: '0xae3046bbed9bbdedd1996dae085b0e80634350e7',
+              tokenId: 5,
               mintReferral: MINT_REFERRAL,
+              comment: COMMENT,
             }}
             recipient={{
               wallet: address,

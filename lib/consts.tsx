@@ -15,4 +15,4 @@ export const COMMENT = 'XCELENCIA - ERC6551 smart album 🪄'
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'
 export const SMART_WALLET_LOGIN_POINT = 11
 export const POINT_SYSTEM_ID = 2995
-export const MINT_REFERRAL = '0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38'
+export const MINT_REFERRAL = '0x089036a0835C6cF82e7fC42e9e95DfE05e110c81'
