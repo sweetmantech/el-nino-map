@@ -1,5 +1,5 @@
 import { CrossmintPaymentElement } from '@crossmint/client-sdk-react-ui'
-import { COMMENT, MINT_REFERRAL } from '../../lib/consts'
+import { COMMENT, DROP_ADDRESS, MINT_REFERRAL } from '../../lib/consts'
 import { useActiveAccount } from 'thirdweb/react'
 import { toast } from 'react-toastify'
 
@@ -39,7 +39,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
             mintConfig={{
               totalPrice: '0.000111',
               quantity: 1,
-              collection: '0xae3046bbed9bbdedd1996dae085b0e80634350e7',
+              collection: DROP_ADDRESS,
               tokenId: 5,
               mintReferral: MINT_REFERRAL,
               comment: COMMENT,
