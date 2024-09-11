@@ -1,5 +1,5 @@
 import { CrossmintPaymentElement } from '@crossmint/client-sdk-react-ui'
-import { COMMENT, MINT_REFERRAL } from '../../lib/consts'
+import { COMMENT, DROP_ADDRESS, MINT_REFERRAL } from '../../lib/consts'
 import { useActiveAccount } from 'thirdweb/react'
 import { toast } from 'react-toastify'
 
@@ -37,10 +37,12 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
             cardWalletPaymentMethods={['apple-pay', 'google-pay']}
             paymentMethod="fiat"
             mintConfig={{
-              totalPrice: '0.000777',
+              totalPrice: '0.000111',
               quantity: 1,
-              comment: COMMENT,
+              collection: DROP_ADDRESS,
+              tokenId: 5,
               mintReferral: MINT_REFERRAL,
+              comment: COMMENT,
             }}
             recipient={{
               wallet: address,

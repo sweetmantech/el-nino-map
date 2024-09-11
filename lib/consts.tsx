@@ -6,8 +6,8 @@ export const CHAIN_ID = CHAIN.id
 
 // Zora
 export const DROP_ADDRESS = IS_TESTNET
-  ? '0x0b93a56db47797142076e24c520c846c9bd0d6fa' // base sepolia
-  : '0x16F1FC98282AFDA367999012027b5A3fA656a713' // base mainnet
+  ? '0xae3046bbed9bbdedd1996dae085b0e80634350e7' // base sepolia
+  : '0x6af64b3735947e7295242350a7046434b8520bd5' // base mainnet
 
 export const ZORA_PRICE = '777000000000000'
 
@@ -15,4 +15,4 @@ export const COMMENT = 'XCELENCIA - ERC6551 smart album 🪄'
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'
 export const SMART_WALLET_LOGIN_POINT = 11
 export const POINT_SYSTEM_ID = 2995
-export const MINT_REFERRAL = '0xcfBf34d385EA2d5Eb947063b67eA226dcDA3DC38'
+export const MINT_REFERRAL = '0x089036a0835C6cF82e7fC42e9e95DfE05e110c81'
