@@ -10,6 +10,7 @@ import { wallets } from '@/lib/thirdweb/wallets'
 import { Account } from 'thirdweb/wallets'
 import { CustomArea } from 'react-img-mapper'
 import useZoraCollect from './useZoraCollect'
+import getBalance from '@/lib/getBalance'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -70,10 +71,11 @@ const useDialog = () => {
     }
 
     if (area.id === 'mint') {
-      console.log('ZIAD', isExternalWallet, activeAccount)
-
-      if (isExternalWallet) {
-        purchase()
+      if (!address) return
+      const balance = await getBalance(address)
+      const hasSufficient = balance > 0.000111
+      if (isExternalWallet && hasSufficient) {
+        await purchase()
         return
       }
       setIsCrossmintOpen(true)
