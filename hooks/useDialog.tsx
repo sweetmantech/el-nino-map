@@ -70,8 +70,6 @@ const useDialog = () => {
     }
 
     if (area.id === 'mint') {
-      console.log('ZIAD', isExternalWallet, activeAccount)
-
       if (isExternalWallet) {
         purchase()
         return
