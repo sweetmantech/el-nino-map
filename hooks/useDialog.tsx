@@ -7,6 +7,9 @@ import { useConnectModal } from 'thirdweb/react'
 import { baseSepolia } from 'thirdweb/chains'
 import { client } from '@/lib/thirdweb/client'
 import { wallets } from '@/lib/thirdweb/wallets'
+import { Account } from 'thirdweb/wallets'
+import { CustomArea } from 'react-img-mapper'
+import useZoraCollect from './useZoraCollect'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -18,6 +21,7 @@ const useDialog = () => {
   const [tooltipY, setTooltipY] = useState(0)
   const { push } = useRouter()
   const { connect } = useConnectModal()
+  const { purchase } = useZoraCollect()
 
   const show = () => {
     setIsVisibleTooltip(isMobile)
@@ -44,7 +48,7 @@ const useDialog = () => {
     setTooltipY(y)
   }
 
-  const clickMap = async (area: any, activeAccount: any) => {
+  const clickMap = async (area: CustomArea, activeAccount: Account, isExternalWallet: boolean) => {
     const address = activeAccount?.address
     if (area.id === 'connect') {
       if (address) {
@@ -66,7 +70,12 @@ const useDialog = () => {
     }
 
     if (area.id === 'mint') {
-      if (!address) return
+      console.log('ZIAD', isExternalWallet, activeAccount)
+
+      if (isExternalWallet) {
+        purchase()
+        return
+      }
       setIsCrossmintOpen(true)
     }
   }
