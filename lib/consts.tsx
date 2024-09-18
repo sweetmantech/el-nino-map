@@ -9,7 +9,7 @@ export const DROP_ADDRESS = IS_TESTNET
   ? '0xae3046bbed9bbdedd1996dae085b0e80634350e7' // base sepolia
   : '0x6af64b3735947e7295242350a7046434b8520bd5' // base mainnet
 
-export const ZORA_PRICE = '111000000000000'
+export const ZORA_PRICE = '777000000000000'
 
 export const COMMENT = 'XCELENCIA - ERC6551 smart album 🪄'
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'
