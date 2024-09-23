@@ -1,14 +1,13 @@
-import { COMMENT, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
+import { DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
 import { BigNumber } from '@ethersproject/bignumber'
-import { Address } from 'viem'
-import zora721Abi from '@/lib/abi/zora-erc721-drop.json'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import { useConnectModal } from 'thirdweb/react'
-import { createWallet } from 'thirdweb/wallets'
 import { client } from '@/lib/thirdweb/client'
 import { baseSepolia } from 'thirdweb/chains'
 import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
+import getCollectorClient from '@/lib/zora/getCollectorClient'
+import { wallets } from '@/lib/thirdweb/wallets'
 
 const useZoraCollect = () => {
   const { connect } = useConnectModal()
@@ -16,27 +15,38 @@ const useZoraCollect = () => {
   const purchase = async (activeAccount: any) => {
     try {
       const address = activeAccount?.address
-      if (!address)
+      if (!address) {
         connect({
           client,
-          wallets: [createWallet('embedded')],
+          wallets,
           chain: baseSepolia,
         })
+        return
+      }
+      const collectorClient = getCollectorClient()
       const zoraPrice = BigNumber.from(ZORA_PRICE)
-      const zoraQuantity = 1
 
+      const { parameters } = await collectorClient.mint({
+        tokenContract: DROP_ADDRESS,
+        mintType: '1155',
+        quantityToMint: 1,
+        minterAccount: address,
+        tokenId: 5,
+      })
+
+      const { address: minterAddress, abi, args } = parameters
       const contract: any = getContract({
-        address: DROP_ADDRESS as Address,
+        address: minterAddress,
         chain: baseSepolia,
-        abi: zora721Abi as any,
+        abi: abi,
         client,
       })
 
       const transaction: any = prepareContractCall({
         contract,
         method:
-          'function purchaseWithComment(uint256 quantity, string comment) payable returns (uint256)',
-        params: [BigInt(zoraQuantity), COMMENT],
+          'function mint(address mintTo, uint256 quantity, address collection, uint256 tokenId, address mintReferral, string comment) payable',
+        params: args,
         value: zoraPrice.toBigInt(),
       })
 

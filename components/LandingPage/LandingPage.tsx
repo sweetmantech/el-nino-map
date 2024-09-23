@@ -9,8 +9,9 @@ import { useEffect, useState } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import getTooltipText from '@/lib/getTooltipText'
-import { useActiveAccount } from 'thirdweb/react'
+import { useActiveAccount, useConnectedWallets } from 'thirdweb/react'
 import CreditCardPayModal from '../CreditCardPayModal'
+import { Account } from 'thirdweb/wallets'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -28,16 +29,17 @@ const LandingPage = () => {
     setIsCrossmintOpen,
   } = useDialog()
 
-  const activeAccount = useActiveAccount()
+  const activeAccount: Account = useActiveAccount()
+  const wallets = useConnectedWallets()
   const address = activeAccount?.address
   const [mapperKey, setMapperKey] = useState(0)
+  const isExternalWallet = wallets?.[0]?.id !== 'inApp'
 
   useEffect(() => {
     const init = async () => {
       if (address) {
-        const events: Array<any> = await getLoginEvents(address)
-
-        if (!events.length) {
+        const events: any = await getLoginEvents(address)
+        if (!events?.length && !events.error) {
           await trackLoginPoints(address)
         }
         setMapperKey(Math.floor(Math.random() * 1000))
@@ -64,7 +66,7 @@ const LandingPage = () => {
           parentWidth={(height / 914) * 1600}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
-          onClick={(area) => clickMap(area, activeAccount)}
+          onClick={(area) => clickMap(area, activeAccount, isExternalWallet)}
           key={mapperKey}
         />
       </div>

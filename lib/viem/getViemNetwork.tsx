@@ -1,9 +1,7 @@
 import {
-  goerli,
   mainnet,
   optimism,
   polygon,
-  polygonMumbai,
   sepolia,
   baseSepolia,
   optimismSepolia,
@@ -20,10 +18,6 @@ const getViemNetwork = (chainId: number) => {
       return base
     case optimism.id:
       return optimism
-    case goerli.id:
-      return goerli
-    case polygonMumbai.id:
-      return polygonMumbai
     case sepolia.id:
       return sepolia
     case baseSepolia.id:
