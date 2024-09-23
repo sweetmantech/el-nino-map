@@ -71,7 +71,7 @@ const useDialog = () => {
 
     if (area.id === 'mint') {
       if (isExternalWallet) {
-        purchase()
+        purchase(activeAccount)
         return
       }
       setIsCrossmintOpen(true)
