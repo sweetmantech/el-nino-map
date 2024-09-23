@@ -2,7 +2,7 @@ import { DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
 import { BigNumber } from '@ethersproject/bignumber'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
-import { useActiveAccount, useConnectModal } from 'thirdweb/react'
+import { useConnectModal } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
 import { baseSepolia } from 'thirdweb/chains'
 import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
@@ -11,9 +11,8 @@ import { wallets } from '@/lib/thirdweb/wallets'
 
 const useZoraCollect = () => {
   const { connect } = useConnectModal()
-  const activeAccount = useActiveAccount()
 
-  const purchase = async () => {
+  const purchase = async (activeAccount: any) => {
     try {
       const address = activeAccount?.address
       if (!address) {

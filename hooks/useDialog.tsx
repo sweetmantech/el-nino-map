@@ -75,7 +75,7 @@ const useDialog = () => {
       const balance = await getBalance(address)
       const hasSufficient = balance > 0.000111
       if (isExternalWallet && hasSufficient) {
-        await purchase()
+        purchase(activeAccount)
         return
       }
       setIsCrossmintOpen(true)
