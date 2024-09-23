@@ -4,9 +4,9 @@ import { useState } from 'react'
 import useIsMobile from './useIsMobile'
 import { useRouter } from 'next/navigation'
 import { useConnectModal } from 'thirdweb/react'
-import { createWallet } from 'thirdweb/wallets'
 import { baseSepolia } from 'thirdweb/chains'
 import { client } from '@/lib/thirdweb/client'
+import { wallets } from '@/lib/thirdweb/wallets'
 
 const useDialog = () => {
   const [tooltipId, setTooltipId] = useState('connect')
@@ -54,7 +54,7 @@ const useDialog = () => {
 
       await connect({
         client,
-        wallets: [createWallet('embedded')],
+        wallets,
         chain: baseSepolia,
       })
       window.location.reload()
