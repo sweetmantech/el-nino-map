@@ -27,7 +27,7 @@ const usePurchase = () => {
     const hasSufficient = balance > 0.000111
     if (isExternalWallet && hasSufficient) {
       await purchase(activeAccount)
-      setPurchasing(true)
+      setPurchasing(false)
       return
     }
     setIsCrossmintOpen(true)
