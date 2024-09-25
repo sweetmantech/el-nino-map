@@ -1,8 +1,8 @@
-import { DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
+import { CHAIN, DROP_ADDRESS, ZORA_PRICE } from '@/lib/consts'
 import { BigNumber } from '@ethersproject/bignumber'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
-import { useConnectModal } from 'thirdweb/react'
+import { useConnectModal, useSwitchActiveWalletChain } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
 import { baseSepolia } from 'thirdweb/chains'
 import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
@@ -11,6 +11,7 @@ import { wallets } from '@/lib/thirdweb/wallets'
 
 const useZoraCollect = () => {
   const { connect } = useConnectModal()
+  const switchChain = useSwitchActiveWalletChain()
 
   const purchase = async (activeAccount: any) => {
     try {
@@ -23,6 +24,7 @@ const useZoraCollect = () => {
         })
         return
       }
+      await switchChain(CHAIN)
       const collectorClient = getCollectorClient()
       const zoraPrice = BigNumber.from(ZORA_PRICE)
 
@@ -37,7 +39,7 @@ const useZoraCollect = () => {
       const { address: minterAddress, abi, args } = parameters
       const contract: any = getContract({
         address: minterAddress,
-        chain: baseSepolia,
+        chain: CHAIN,
         abi: abi,
         client,
       })
