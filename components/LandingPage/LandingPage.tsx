@@ -13,6 +13,7 @@ import { useActiveAccount } from 'thirdweb/react'
 import CreditCardPayModal from '../CreditCardPayModal'
 import { Account } from 'thirdweb/wallets'
 import useMap from '@/hooks/useMap'
+import SpinampPlayer from './SpinampPlayer'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -58,6 +59,7 @@ const LandingPage = () => {
       ref={containerRef}
       onClick={close}
     >
+      <SpinampPlayer />
       <div className="cursor-pointer relative">
         <ImageMapper
           src="/images/home.jpeg"
