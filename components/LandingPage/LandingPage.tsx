@@ -5,13 +5,15 @@ import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
 import useDialog from '@/hooks/useDialog'
 import Dialog from './Dialog'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import getTooltipText from '@/lib/getTooltipText'
-import { useActiveAccount, useConnectedWallets } from 'thirdweb/react'
+import { useActiveAccount } from 'thirdweb/react'
 import CreditCardPayModal from '../CreditCardPayModal'
 import { Account } from 'thirdweb/wallets'
+import useMap from '@/hooks/useMap'
+import SpinampPlayer from './SpinampPlayer'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -23,17 +25,15 @@ const LandingPage = () => {
     isDialogOpen,
     tooltipX,
     tooltipY,
-    clickMap,
     tooltipId,
-    isCrossmintOpen,
-    setIsCrossmintOpen,
+    show,
   } = useDialog()
 
+  const { clickMap, isCrossmintOpen, setIsCrossmintOpen, mapperKey, setMapperKey, purchasing } =
+    useMap()
+
   const activeAccount: Account = useActiveAccount()
-  const wallets = useConnectedWallets()
   const address = activeAccount?.address
-  const [mapperKey, setMapperKey] = useState(0)
-  const isExternalWallet = wallets?.[0]?.id !== 'inApp'
 
   useEffect(() => {
     const init = async () => {
@@ -49,6 +49,7 @@ const LandingPage = () => {
     if (!address) return
 
     init()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address])
 
   return (
@@ -58,6 +59,7 @@ const LandingPage = () => {
       ref={containerRef}
       onClick={close}
     >
+      <SpinampPlayer />
       <div className="cursor-pointer relative">
         <ImageMapper
           src="/images/home.jpeg"
@@ -66,8 +68,9 @@ const LandingPage = () => {
           parentWidth={(height / 914) * 1600}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
-          onClick={(area) => clickMap(area, activeAccount, isExternalWallet)}
+          onClick={(area) => clickMap(area, show)}
           key={mapperKey}
+          disabled={purchasing}
         />
       </div>
       {isVisibleToolTip && (
