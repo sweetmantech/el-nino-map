@@ -36,7 +36,6 @@ const LandingPage = () => {
     setMapperKey,
     purchasing,
     isSpinampOpen,
-    setIsSpinampOpen,
   } = useMap()
 
   const activeAccount: Account = useActiveAccount()
@@ -66,17 +65,17 @@ const LandingPage = () => {
       ref={containerRef}
       onClick={close}
     >
-      {isSpinampOpen && <SpinampPlayer onClose={() => setIsSpinampOpen(false)} />}
-      <div className="cursor-pointer relative">
+      {isSpinampOpen && <SpinampPlayer />}
+      <div className="cursor-pointer relative z-[2]">
         <ImageMapper
           src="/images/home.jpeg"
           map={map}
           responsive
-          parentWidth={(height / 914) * 1600}
+          parentWidth={(height / 900) * 1600}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
-          onClick={(area) => clickMap(area)}
-          key={mapperKey}
+          onClick={clickMap}
+          key={`${mapperKey} ${isSpinampOpen}`}
           disabled={purchasing}
         />
       </div>

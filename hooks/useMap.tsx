@@ -9,9 +9,9 @@ const useMap = () => {
   const { isCrossmintOpen, setIsCrossmintOpen, mint, purchasing } = usePurchase()
   const [isSpinampOpen, setIsSpinampOpen] = useState(false)
 
-  const clickMap = async (area: CustomArea) => {
+  const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') {
-      setIsSpinampOpen(true)
+      setIsSpinampOpen(!isSpinampOpen)
       return
     }
 
