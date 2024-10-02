@@ -26,11 +26,18 @@ const LandingPage = () => {
     tooltipX,
     tooltipY,
     tooltipId,
-    show,
   } = useDialog()
 
-  const { clickMap, isCrossmintOpen, setIsCrossmintOpen, mapperKey, setMapperKey, purchasing } =
-    useMap()
+  const {
+    clickMap,
+    isCrossmintOpen,
+    setIsCrossmintOpen,
+    mapperKey,
+    setMapperKey,
+    purchasing,
+    isSpinampOpen,
+    setIsSpinampOpen,
+  } = useMap()
 
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
@@ -55,11 +62,11 @@ const LandingPage = () => {
   return (
     <div
       className="relative w-screen h-screen overflow-hidden
-      flex items-center justify-center bg-background"
+      flex items-center justify-center bg-white"
       ref={containerRef}
       onClick={close}
     >
-      <SpinampPlayer />
+      {isSpinampOpen && <SpinampPlayer onClose={() => setIsSpinampOpen(false)} />}
       <div className="cursor-pointer relative">
         <ImageMapper
           src="/images/home.jpeg"
@@ -68,7 +75,7 @@ const LandingPage = () => {
           parentWidth={(height / 914) * 1600}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
-          onClick={(area) => clickMap(area, show)}
+          onClick={(area) => clickMap(area)}
           key={mapperKey}
           disabled={purchasing}
         />
