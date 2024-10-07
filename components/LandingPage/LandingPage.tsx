@@ -61,17 +61,17 @@ const LandingPage = () => {
   return (
     <div
       className="relative w-screen h-screen overflow-hidden
-      flex items-center justify-center bg-white"
+      flex items-center justify-center bg-[#352d69]"
       ref={containerRef}
       onClick={close}
     >
       {isSpinampOpen && <SpinampPlayer />}
       <div className="cursor-pointer relative z-[2]">
         <ImageMapper
-          src="/images/home.jpeg"
+          src="/images/home.jpg"
           map={map}
           responsive
-          parentWidth={(height / 900) * 1600}
+          parentWidth={(height / 1620) * 2880}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
           onClick={clickMap}

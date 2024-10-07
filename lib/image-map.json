@@ -8,7 +8,7 @@
       "name": "2",
       "fillColor": "#eeeeee00",
       "strokeColor": "#eeeeee00",
-      "coords": [680, 490, 790, 370, 910, 490, 800, 600]
+      "coords": [1430, 660, 1650, 870, 1430, 1085, 1230, 870]
     },
     {
       "id": "leaderboard",
@@ -17,7 +17,7 @@
       "name": "2",
       "fillColor": "#eeeeee00",
       "strokeColor": "#eeeeee00",
-      "coords": [490, 630, 565, 545, 650, 630, 570, 705]
+      "coords": [1030, 920, 1190, 1120, 1030, 1250, 890, 1120]
     },
     {
       "id": "spinamp",
@@ -26,7 +26,7 @@
       "name": "2",
       "fillColor": "#eeeeee00",
       "strokeColor": "#eeeeee00",
-      "coords": [135, 610, 200, 535, 275, 610, 200, 675]
+      "coords": [360, 730, 510, 870, 360, 980, 220, 880]
     }
   ]
 }
