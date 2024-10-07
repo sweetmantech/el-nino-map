@@ -7,6 +7,8 @@ const getTooltipText = (tooltipId) => {
       return 'Leaderboard'
     case 'mint':
       return 'Purchase'
+    case 'spinamp':
+      return 'Spinamp Player'
   }
 }
 
