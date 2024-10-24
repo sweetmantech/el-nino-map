@@ -8,7 +8,7 @@ const SpinampPlayer = () => {
         sandbox="allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-presentation"
         width="250px"
         height="350px"
-      ></iframe>
+      />
     </div>
   )
 }
