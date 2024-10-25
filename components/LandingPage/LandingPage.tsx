@@ -14,6 +14,7 @@ import CreditCardPayModal from '../CreditCardPayModal'
 import { Account } from 'thirdweb/wallets'
 import useMap from '@/hooks/useMap'
 import SpinampPlayer from './SpinampPlayer'
+import Leaderboard from '../Leaderboard'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -36,6 +37,8 @@ const LandingPage = () => {
     setMapperKey,
     purchasing,
     isSpinampOpen,
+    isLeaderboardOpen,
+    setIsLeaderboardOpen,
   } = useMap()
 
   const activeAccount: Account = useActiveAccount()
@@ -66,6 +69,9 @@ const LandingPage = () => {
       onClick={close}
     >
       {isSpinampOpen && <SpinampPlayer />}
+      {isLeaderboardOpen && (
+        <Leaderboard onClose={() => setIsLeaderboardOpen(!isLeaderboardOpen)} />
+      )}
       <div className="cursor-pointer relative z-[2]">
         <ImageMapper
           src="/images/home.jpg"
