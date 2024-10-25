@@ -29,6 +29,18 @@
       "coords": [870, 1105, 1020, 1145, 1025, 1200, 875, 1160]
     },
     {
+      "id": "merch",
+      "title": "color_red",
+      "shape": "poly",
+      "name": "2",
+      "fillColor": "#eeeeee00",
+      "strokeColor": "#eeeeee00",
+      "coords": [
+        2320, 800, 2410, 740, 2470, 680, 2560, 660, 2620, 720, 2630, 800, 2595, 890, 2510, 915,
+        2430, 860, 2405, 800, 2360, 780
+      ]
+    },
+    {
       "id": "spinamp",
       "title": "color_red",
       "shape": "poly",

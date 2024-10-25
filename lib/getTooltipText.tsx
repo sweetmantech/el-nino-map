@@ -11,6 +11,8 @@ const getTooltipText = (tooltipId) => {
       return 'Spinamp Player'
     case 'metadata':
       return 'Metadata'
+    case 'merch':
+      return 'Merch'
   }
 }
 
