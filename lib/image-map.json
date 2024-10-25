@@ -20,6 +20,15 @@
       "coords": [1000, 940, 1110, 930, 1125, 1040, 1015, 1055]
     },
     {
+      "id": "metadata",
+      "title": "color_red",
+      "shape": "poly",
+      "name": "2",
+      "fillColor": "#eeeeee00",
+      "strokeColor": "#eeeeee00",
+      "coords": [870, 1105, 1020, 1145, 1025, 1200, 875, 1160]
+    },
+    {
       "id": "spinamp",
       "title": "color_red",
       "shape": "poly",
