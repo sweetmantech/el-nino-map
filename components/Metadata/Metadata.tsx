@@ -12,7 +12,7 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
           <p>Artist: xcelencia</p>
           <p>Album: el niño estrella</p>
           <p>Designer: muchozorro</p>
-          <p>Dev: sweetman</p>
+          <p>Devs: sweetman, ziad</p>
           <p>Producers: emme, shine, x</p>
         </fieldset>
       </div>
