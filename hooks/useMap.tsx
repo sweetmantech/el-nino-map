@@ -7,6 +7,7 @@ const useMap = () => {
   const { isCrossmintOpen, setIsCrossmintOpen, mint, purchasing } = usePurchase()
   const [isSpinampOpen, setIsSpinampOpen] = useState(false)
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
+  const [isMetadataOpen, setIsMetadataOpen] = useState(false)
 
   const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') {
@@ -16,8 +17,13 @@ const useMap = () => {
 
     if (area.id === 'leaderboard') {
       setIsLeaderboardOpen(!isLeaderboardOpen)
+      return
     }
 
+    if (area.id === 'metadata') {
+      setIsMetadataOpen(!isMetadataOpen)
+      return
+    }
     if (area.id === 'mint') {
       mint()
     }
@@ -34,6 +40,8 @@ const useMap = () => {
     purchasing,
     isSpinampOpen,
     setIsSpinampOpen,
+    isMetadataOpen,
+    setIsMetadataOpen,
   }
 }
 

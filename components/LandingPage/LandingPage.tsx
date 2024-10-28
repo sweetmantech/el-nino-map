@@ -15,6 +15,7 @@ import { Account } from 'thirdweb/wallets'
 import useMap from '@/hooks/useMap'
 import SpinampPlayer from './SpinampPlayer'
 import Leaderboard from '../Leaderboard'
+import Metadata from '../Metadata'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -39,6 +40,8 @@ const LandingPage = () => {
     isSpinampOpen,
     isLeaderboardOpen,
     setIsLeaderboardOpen,
+    isMetadataOpen,
+    setIsMetadataOpen,
   } = useMap()
 
   const activeAccount: Account = useActiveAccount()
@@ -72,6 +75,7 @@ const LandingPage = () => {
       {isLeaderboardOpen && (
         <Leaderboard onClose={() => setIsLeaderboardOpen(!isLeaderboardOpen)} />
       )}
+      {isMetadataOpen && <Metadata onClose={() => setIsMetadataOpen(!isMetadataOpen)} />}
       <div className="cursor-pointer relative z-[2]">
         <ImageMapper
           src="/images/home.jpg"

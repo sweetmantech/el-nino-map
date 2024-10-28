@@ -9,6 +9,8 @@ const getTooltipText = (tooltipId) => {
       return 'Purchase'
     case 'spinamp':
       return 'Spinamp Player'
+    case 'metadata':
+      return 'Metadata'
   }
 }
 
