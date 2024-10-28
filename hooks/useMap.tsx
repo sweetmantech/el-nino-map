@@ -24,6 +24,11 @@ const useMap = () => {
       setIsMetadataOpen(!isMetadataOpen)
       return
     }
+
+    if (area.id === 'merch') {
+      window.open('http://shopxcelencia.com/', '_blank')
+      return
+    }
     if (area.id === 'mint') {
       mint()
     }
