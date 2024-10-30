@@ -13,6 +13,8 @@ const getTooltipText = (tooltipId) => {
       return 'Metadata'
     case 'merch':
       return 'Merch'
+    case 'video':
+      return 'Videos'
   }
 }
 

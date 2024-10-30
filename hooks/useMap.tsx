@@ -8,23 +8,25 @@ const useMap = () => {
   const [isSpinampOpen, setIsSpinampOpen] = useState(false)
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
+  const [isVideoOpen, setIsVideoOpen] = useState(false)
 
   const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') {
       setIsSpinampOpen(!isSpinampOpen)
       return
     }
-
     if (area.id === 'leaderboard') {
       setIsLeaderboardOpen(!isLeaderboardOpen)
       return
     }
-
     if (area.id === 'metadata') {
       setIsMetadataOpen(!isMetadataOpen)
       return
     }
-
+    if (area.id === 'video') {
+      setIsVideoOpen(!isVideoOpen)
+      return
+    }
     if (area.id === 'merch') {
       window.open('http://shopxcelencia.com/', '_blank')
       return
@@ -47,6 +49,8 @@ const useMap = () => {
     setIsSpinampOpen,
     isMetadataOpen,
     setIsMetadataOpen,
+    isVideoOpen,
+    setIsVideoOpen,
   }
 }
 

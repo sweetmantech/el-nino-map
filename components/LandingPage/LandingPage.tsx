@@ -16,6 +16,7 @@ import useMap from '@/hooks/useMap'
 import SpinampPlayer from './SpinampPlayer'
 import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
+import Video from '../Video'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -42,6 +43,8 @@ const LandingPage = () => {
     setIsLeaderboardOpen,
     isMetadataOpen,
     setIsMetadataOpen,
+    isVideoOpen,
+    setIsVideoOpen,
   } = useMap()
 
   const activeAccount: Account = useActiveAccount()
@@ -76,6 +79,7 @@ const LandingPage = () => {
         <Leaderboard onClose={() => setIsLeaderboardOpen(!isLeaderboardOpen)} />
       )}
       {isMetadataOpen && <Metadata onClose={() => setIsMetadataOpen(!isMetadataOpen)} />}
+      {isVideoOpen && <Video onClose={() => setIsVideoOpen(!isVideoOpen)} />}
       <div className="cursor-pointer relative z-[2]">
         <ImageMapper
           src="/images/home.jpg"
