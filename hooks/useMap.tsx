@@ -11,29 +11,12 @@ const useMap = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false)
 
   const clickMap = (area: CustomArea) => {
-    if (area.id === 'spinamp') {
-      setIsSpinampOpen(!isSpinampOpen)
-      return
-    }
-    if (area.id === 'leaderboard') {
-      setIsLeaderboardOpen(!isLeaderboardOpen)
-      return
-    }
-    if (area.id === 'metadata') {
-      setIsMetadataOpen(!isMetadataOpen)
-      return
-    }
-    if (area.id === 'video') {
-      setIsVideoOpen(!isVideoOpen)
-      return
-    }
-    if (area.id === 'merch') {
-      window.open('http://shopxcelencia.com/', '_blank')
-      return
-    }
-    if (area.id === 'mint') {
-      mint()
-    }
+    if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
+    if (area.id === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
+    if (area.id === 'metadata') setIsMetadataOpen(!isMetadataOpen)
+    if (area.id === 'video') setIsVideoOpen(!isVideoOpen)
+    if (area.id === 'merch') window.open('http://shopxcelencia.com/', '_blank')
+    if (area.id === 'mint') mint()
   }
 
   return {
