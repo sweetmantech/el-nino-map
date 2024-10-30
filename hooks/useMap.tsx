@@ -27,6 +27,10 @@ const useMap = () => {
       setIsVideoOpen(!isVideoOpen)
       return
     }
+    if (area.id === 'live-show') {
+      window.open('https://xcelencia.world', '_blank')
+      return
+    }
     if (area.id === 'merch') {
       window.open('http://shopxcelencia.com/', '_blank')
       return

@@ -69,8 +69,8 @@
       "title": "color_red",
       "shape": "poly",
       "name": "2",
-      "fillColor": "#eeeeee",
-      "strokeColor": "#eeeeee",
+      "fillColor": "#eeeeee00",
+      "strokeColor": "#eeeeee00",
       "coords": [
         720, 320, 870, 300, 880, 355, 930, 365, 920, 470, 960, 570, 930, 640, 830, 690, 720, 640,
         680, 540, 670, 415, 720, 385
