@@ -80,6 +80,7 @@ const LandingPage = () => {
       )}
       {isMetadataOpen && <Metadata onClose={() => setIsMetadataOpen(!isMetadataOpen)} />}
       {isVideoOpen && <Video onClose={() => setIsVideoOpen(!isVideoOpen)} />}
+
       <div className="cursor-pointer relative z-[2]">
         <ImageMapper
           src="/images/home.jpg"
