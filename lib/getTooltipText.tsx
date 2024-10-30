@@ -15,6 +15,8 @@ const getTooltipText = (tooltipId) => {
       return 'Merch'
     case 'video':
       return 'Videos'
+    case 'live-show':
+      return 'Live Show'
   }
 }
 
