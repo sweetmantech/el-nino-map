@@ -18,6 +18,7 @@ import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
 import Video from '../Video'
 import Hybersub from '../Hybersub'
+import GuestBook from '../GuestBook'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -48,6 +49,8 @@ const LandingPage = () => {
     setIsVideoOpen,
     isHybersubOpen,
     setIsHybersubOpen,
+    isGuestbookOpen,
+    setIsGuestbookOpen,
   } = useMap()
 
   const activeAccount: Account = useActiveAccount()
@@ -111,6 +114,7 @@ const LandingPage = () => {
       {isDialogOpen && <Dialog />}
       {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
       {isHybersubOpen && <Hybersub onClose={() => setIsHybersubOpen(false)} />}
+      {isGuestbookOpen && <GuestBook onClose={() => setIsGuestbookOpen(false)} />}
     </div>
   )
 }

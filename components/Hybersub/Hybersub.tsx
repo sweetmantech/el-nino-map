@@ -20,7 +20,7 @@ const Hybersub = ({ onClose }: { onClose: () => void }) => {
     >
       <div
         className="max-w-[584px] min-w-[400px] p-3 bg-white rounded-md flex-col flex gap-2"
-        id="youtube"
+        id="hybersub"
       >
         <p className="text-xl font-bold text-center">Subscription</p>
         <fieldset className="flex flex-col gap-2">

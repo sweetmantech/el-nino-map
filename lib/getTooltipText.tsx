@@ -19,6 +19,8 @@ const getTooltipText = (tooltipId) => {
       return 'Live Show'
     case 'subscribe':
       return 'Subscribe'
+    case 'control':
+      return 'Guest Book'
   }
 }
 
