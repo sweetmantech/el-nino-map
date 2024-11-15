@@ -47,7 +47,7 @@ const LandingPage = () => {
     isVideoOpen,
     setIsVideoOpen,
     isHybersubOpen,
-    setIsHypersubOpen,
+    setIsHybersubOpen,
   } = useMap()
 
   const activeAccount: Account = useActiveAccount()
@@ -110,7 +110,7 @@ const LandingPage = () => {
       )}
       {isDialogOpen && <Dialog />}
       {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
-      {isHybersubOpen && <Hybersub onClose={() => setIsHypersubOpen(false)} />}
+      {isHybersubOpen && <Hybersub onClose={() => setIsHybersubOpen(false)} />}
     </div>
   )
 }
