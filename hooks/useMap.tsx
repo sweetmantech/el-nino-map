@@ -9,6 +9,7 @@ const useMap = () => {
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
   const [isVideoOpen, setIsVideoOpen] = useState(false)
+  const [isHypersubOpen, setIsHypersubOpen] = useState(false)
 
   const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
@@ -18,6 +19,7 @@ const useMap = () => {
     if (area.id === 'merch') window.open('http://shopxcelencia.com/', '_blank')
     if (area.id === 'live-show') window.open('https://xcelencia.world', '_blank')
     if (area.id === 'mint') mint()
+    if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
   }
 
   return {
@@ -35,6 +37,8 @@ const useMap = () => {
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
+    isHypersubOpen,
+    setIsHypersubOpen,
   }
 }
 

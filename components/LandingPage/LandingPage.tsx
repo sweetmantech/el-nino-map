@@ -17,6 +17,7 @@ import SpinampPlayer from './SpinampPlayer'
 import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
 import Video from '../Video'
+import Hypersub from '../Hypersub'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -45,6 +46,8 @@ const LandingPage = () => {
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
+    isHypersubOpen,
+    setIsHypersubOpen,
   } = useMap()
 
   const activeAccount: Account = useActiveAccount()
@@ -107,6 +110,7 @@ const LandingPage = () => {
       )}
       {isDialogOpen && <Dialog />}
       {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
+      {isHypersubOpen && <Hypersub onClose={() => setIsHypersubOpen(false)} />}
     </div>
   )
 }
