@@ -5,8 +5,8 @@ const Hybersub = ({ onClose }: { onClose: () => void }) => {
   const inputClasses = '!outline-none border-[1px] border-black rounded-md px-2 py-1'
   const labelClasses = 'text-sm text-black font-semibold'
 
-  const handleClick = () => {
-    subscribe()
+  const handleClick = async () => {
+    await subscribe()
     onClose()
   }
 
