@@ -3,8 +3,8 @@ import useSubscribe from '@/hooks/useSubscribe'
 const Hybersub = ({ onClose }: { onClose: () => void }) => {
   const { title, setTitle, description, setDescription, subscribe } = useSubscribe()
   const inputClasses = '!outline-none border-[1px] border-black rounded-md px-2 py-1'
-  const labelClasses = 'text-md text-black'
-  
+  const labelClasses = 'text-sm text-black font-semibold'
+
   const handleClick = () => {
     subscribe()
     onClose()
@@ -18,9 +18,12 @@ const Hybersub = ({ onClose }: { onClose: () => void }) => {
         if (e.target === e.currentTarget) onClose()
       }}
     >
-      <div className="max-w-[584px] p-3 bg-white rounded-md flex-col flex gap-2" id="youtube">
+      <div
+        className="max-w-[584px] min-w-[400px] p-3 bg-white rounded-md flex-col flex gap-2"
+        id="youtube"
+      >
         <p className="text-xl font-bold text-center">Subscription</p>
-        <fieldset className="flex gap-2">
+        <fieldset className="flex flex-col gap-2">
           <label className={labelClasses}>Title</label>
           <input
             type="text"
@@ -29,16 +32,22 @@ const Hybersub = ({ onClose }: { onClose: () => void }) => {
             className={inputClasses}
           />
         </fieldset>
-        <fieldset className="flex gap-2">
+        <fieldset className="flex flex-col gap-2">
           <label className={labelClasses}>Description</label>
-          <input
-            type="text"
+          <textarea
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             className={inputClasses}
+            rows={3}
           />
         </fieldset>
-        <button type="button" className='border-[1px] border-black rounded-md font-bold py-1' onClick={handleClick}>Subscribe</button>
+        <button
+          type="button"
+          className="border-[1px] border-black rounded-md font-semibold py-1"
+          onClick={handleClick}
+        >
+          Subscribe
+        </button>
       </div>
     </div>
   )

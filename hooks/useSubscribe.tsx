@@ -4,16 +4,14 @@ const useSubscribe = () => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
-  const subscribe = () => {
-
-  }
+  const subscribe = () => {}
 
   return {
     title,
     setTitle,
     description,
     setDescription,
-    subscribe
+    subscribe,
   }
 }
 
