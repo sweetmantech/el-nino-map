@@ -2,7 +2,6 @@ import useCollectors from '@/hooks/useCollectors'
 
 const GuestBook = ({ onClose }: { onClose: () => void }) => {
   const { collectors } = useCollectors()
-  console.log('ZIAD', collectors)
   return (
     <div
       className="absolute left-0 top-0 w-full h-full z-[15]

@@ -21,8 +21,9 @@ const useCollectors = () => {
         fromBlock: BigInt(0),
         toBlock: 'latest',
       })
-      console.log('ZIAD', logs)
-      setCollectors(logs)
+      const formattedLogs = logs.filter((log) => log.args.tokenId > BigInt(0))
+      console.log("ZIAD HERE", formattedLogs)
+      setCollectors(formattedLogs)
     }
 
     init()
