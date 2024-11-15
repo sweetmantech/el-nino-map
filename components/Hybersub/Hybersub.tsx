@@ -1,12 +1,12 @@
 import useSubscribe from '@/hooks/useSubscribe'
 
 const Hybersub = ({ onClose }: { onClose: () => void }) => {
-  const { title, setTitle, description, setDescription, subscribe } = useSubscribe()
+  const { title, setTitle, description, setDescription, subscribe, loading } = useSubscribe()
   const inputClasses = '!outline-none border-[1px] border-black rounded-md px-2 py-1'
   const labelClasses = 'text-md text-black'
-  
-  const handleClick = () => {
-    subscribe()
+
+  const handleClick = async () => {
+    await subscribe()
     onClose()
   }
 
@@ -38,7 +38,14 @@ const Hybersub = ({ onClose }: { onClose: () => void }) => {
             className={inputClasses}
           />
         </fieldset>
-        <button type="button" className='border-[1px] border-black rounded-md font-bold py-1' onClick={handleClick}>Subscribe</button>
+        <button
+          type="button"
+          className="border-[1px] border-black rounded-md font-bold py-1"
+          onClick={handleClick}
+          disabled={loading}
+        >
+          {loading ? 'Subsribing...' : 'Subscribe'}
+        </button>
       </div>
     </div>
   )
