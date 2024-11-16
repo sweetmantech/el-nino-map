@@ -1,6 +1,6 @@
 import useSubscribe from '@/hooks/useSubscribe'
 
-const Hybersub = ({ onClose }: { onClose: () => void }) => {
+const Hypersub = ({ onClose }: { onClose: () => void }) => {
   const { subscribe } = useSubscribe()
 
   const handleClick = () => {
@@ -33,4 +33,4 @@ const Hybersub = ({ onClose }: { onClose: () => void }) => {
   )
 }
 
-export default Hybersub
+export default Hypersub
