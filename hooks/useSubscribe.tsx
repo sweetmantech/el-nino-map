@@ -48,8 +48,8 @@ const useSubscribe = () => {
         method:
           'function deploySubscription(string name, string symbol, string contractURI, string tokenURI, uint256 tokensPerSecond, uint256 minimumPurchaseSeconds, uint16 rewardBps, address erc20TokenAddr, uint256 feeConfigId) payable returns (address)',
         params: [
-          "",
-          "",
+          'xcelencia',
+          'ENM',
           'ipfs://',
           'ipfs://',
           BigInt(1),
