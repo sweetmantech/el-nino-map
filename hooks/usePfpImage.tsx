@@ -1,6 +1,6 @@
-import getIpfsLink from "@/lib/getIpfsLink"
-import { useQuery } from "@airstack/airstack-react"
-import { useEffect, useState } from "react"
+import getIpfsLink from '@/lib/getIpfsLink'
+import { useQuery } from '@airstack/airstack-react'
+import { useEffect, useState } from 'react'
 
 const pfpQuery = `query MyQuery($userAddress: Address) {
     Socials(input: {filter: {userAssociatedAddresses: {_eq: $userAddress}}, blockchain: ethereum}) {
@@ -14,7 +14,7 @@ const pfpQuery = `query MyQuery($userAddress: Address) {
   }`
 
 const usePfpImage = (address) => {
-  const [pfpImage, setPfpImage] = useState("")
+  const [pfpImage, setPfpImage] = useState('')
   const { data } = useQuery(pfpQuery, { userAddress: address }, { cache: true })
 
   useEffect(() => {
