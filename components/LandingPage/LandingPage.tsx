@@ -17,8 +17,8 @@ import SpinampPlayer from './SpinampPlayer'
 import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
 import Video from '../Video'
-import Hybersub from '../Hybersub'
 import GuestBook from '../GuestBook'
+import Hypersub from '../Hypersub'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -47,8 +47,8 @@ const LandingPage = () => {
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
-    isHybersubOpen,
-    setIsHybersubOpen,
+    isHypersubOpen,
+    setIsHypersubOpen,
     isGuestbookOpen,
     setIsGuestbookOpen,
   } = useMap()
@@ -113,8 +113,8 @@ const LandingPage = () => {
       )}
       {isDialogOpen && <Dialog />}
       {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
-      {isHybersubOpen && <Hybersub onClose={() => setIsHybersubOpen(false)} />}
       {isGuestbookOpen && <GuestBook onClose={() => setIsGuestbookOpen(false)} />}
+      {isHypersubOpen && <Hypersub onClose={() => setIsHypersubOpen(false)} />}
     </div>
   )
 }
