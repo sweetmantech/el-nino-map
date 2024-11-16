@@ -1,4 +1,9 @@
+import useCollectors from "@/hooks/useCollectors"
+import Pfp from "./Pfp"
+
 const GuestBook = ({ onClose }: { onClose: () => void }) => {
+  const { collectors } = useCollectors()
+
   return (
     <div
       className="absolute left-0 top-0 w-full h-full z-[15]
@@ -8,9 +13,13 @@ const GuestBook = ({ onClose }: { onClose: () => void }) => {
       }}
     >
       <div
-        className="max-w-[584px] min-w-[400px] p-3 bg-white rounded-md flex-col flex gap-2"
+        className="max-w-[584px] min-w-[400px] p-3 bg-white rounded-md flex gap-2"
         id="guestbook"
-      ></div>
+      >
+        {collectors.map((collector) => (
+          <Pfp key={collector} collector={collector} />
+        ))}
+      </div>
     </div>
   )
 }
