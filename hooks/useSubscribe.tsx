@@ -15,8 +15,6 @@ import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 
 const useSubscribe = () => {
-  const [title, setTitle] = useState('')
-  const [description, setDescription] = useState('')
   const activeAccount = useActiveAccount()
   const wallets = useConnectedWallets()
   const { connect } = useConnectModal()
@@ -50,8 +48,8 @@ const useSubscribe = () => {
         method:
           'function deploySubscription(string name, string symbol, string contractURI, string tokenURI, uint256 tokensPerSecond, uint256 minimumPurchaseSeconds, uint16 rewardBps, address erc20TokenAddr, uint256 feeConfigId) payable returns (address)',
         params: [
-          title,
-          description,
+          "",
+          "",
           'ipfs://',
           'ipfs://',
           BigInt(1),
@@ -79,10 +77,6 @@ const useSubscribe = () => {
   }
 
   return {
-    title,
-    setTitle,
-    description,
-    setDescription,
     subscribe,
     loading,
   }
