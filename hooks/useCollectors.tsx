@@ -2,10 +2,10 @@ import { CHAIN_ID, DROP_ADDRESS } from '@/lib/consts'
 import { useEffect, useState } from 'react'
 import { parseAbiItem } from 'viem'
 import { getPublicClient } from '@/lib/clients'
+import getCollectors from '@/lib/getCollectors'
 
 const useCollectors = () => {
   const [collectors, setCollectors] = useState([])
-  // const { aggregate3Value } = useMulticall3Read()
 
   useEffect(() => {
     const init = async () => {
@@ -22,8 +22,9 @@ const useCollectors = () => {
         toBlock: 'latest',
       })
       const formattedLogs = logs.filter((log) => log.args.tokenId > BigInt(0))
-      console.log("ZIAD HERE", formattedLogs)
-      setCollectors(formattedLogs)
+      const data = getCollectors(formattedLogs)
+      const users = data.filter((item) => item !== '0x777777C338d93e2C7adf08D102d45CA7CC4Ed021')
+      setCollectors(users)
     }
 
     init()
