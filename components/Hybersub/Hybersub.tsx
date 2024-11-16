@@ -1,9 +1,7 @@
 import useSubscribe from '@/hooks/useSubscribe'
 
 const Hybersub = ({ onClose }: { onClose: () => void }) => {
-  const { title, setTitle, description, setDescription, subscribe } = useSubscribe()
-  const inputClasses = '!outline-none border-[1px] border-black rounded-md px-2 py-1'
-  const labelClasses = 'text-sm text-black font-semibold'
+  const { subscribe } = useSubscribe()
 
   const handleClick = () => {
     subscribe()
@@ -23,24 +21,6 @@ const Hybersub = ({ onClose }: { onClose: () => void }) => {
         id="youtube"
       >
         <p className="text-xl font-bold text-center">Subscription</p>
-        <fieldset className="flex flex-col gap-2">
-          <label className={labelClasses}>Title</label>
-          <input
-            type="text"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className={inputClasses}
-          />
-        </fieldset>
-        <fieldset className="flex flex-col gap-2">
-          <label className={labelClasses}>Description</label>
-          <textarea
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className={inputClasses}
-            rows={3}
-          />
-        </fieldset>
         <button
           type="button"
           className="border-[1px] border-black rounded-md font-semibold py-1"
