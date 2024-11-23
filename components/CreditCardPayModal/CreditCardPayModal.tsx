@@ -2,6 +2,7 @@ import { CrossmintPaymentElement } from '@crossmint/client-sdk-react-ui'
 import { COMMENT, DROP_ADDRESS, MINT_REFERRAL } from '../../lib/consts'
 import { useActiveAccount } from 'thirdweb/react'
 import { toast } from 'react-toastify'
+import Modal from '../Modal'
 
 const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   const projectId = process.env.NEXT_PUBLIC_PROJECT_ID as string
@@ -18,13 +19,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   }
 
   return (
-    <div
-      className="absolute left-0 top-0 w-full h-full z-[15]
-      flex items-center justify-center"
-      onClick={(e: any) => {
-        if (e.target === e.currentTarget) onClose()
-      }}
-    >
+    <Modal onClose={onClose}>
       <div className="max-w-[300px] p-3 bg-white rounded-md" id="credit-card-crossmint">
         {address && (
           <CrossmintPaymentElement
@@ -51,7 +46,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
           />
         )}
       </div>
-    </div>
+    </Modal>
   )
 }
 
