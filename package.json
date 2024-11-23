@@ -2,7 +2,7 @@
   "name": "el-nino-map",
   "version": "0.9.4",
   "scripts": {
-    "build": "rm -rf .next && next build",
+    "build": "next build",
     "dev": "next dev",
     "lint": "next lint --dir . --fix",
     "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,yml,yaml}\" && yarn lint",
