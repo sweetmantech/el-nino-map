@@ -7,9 +7,9 @@ import {
 } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
 import { baseSepolia } from 'thirdweb/chains'
-import { CHAIN, SUBSCRIPTION } from '@/lib/consts'
+import { CHAIN, MINT_REFERRAL, SUBSCRIPTION } from '@/lib/consts'
 import { getContract, prepareContractCall, sendTransaction } from 'thirdweb'
-import { zeroAddress } from 'viem'
+import { parseEther } from 'viem'
 import { subscriptionAbi } from '@/lib/abi/subscription'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
@@ -45,20 +45,9 @@ const useSubscribe = () => {
 
       const transaction: any = prepareContractCall({
         contract,
-        method:
-          'function deploySubscription(string name, string symbol, string contractURI, string tokenURI, uint256 tokensPerSecond, uint256 minimumPurchaseSeconds, uint16 rewardBps, address erc20TokenAddr, uint256 feeConfigId) payable returns (address)',
-        params: [
-          'xcelencia',
-          'ENM',
-          'ipfs://',
-          'ipfs://',
-          BigInt(1),
-          BigInt(1),
-          500,
-          zeroAddress,
-          BigInt(1),
-        ],
-        value: BigInt(0),
+        method: 'function mintFor(address account, uint256 numTokens) payable',
+        params: [MINT_REFERRAL, parseEther('0.001')],
+        value: parseEther('0.001'),
       })
 
       const { transactionHash } = await sendTransaction({
