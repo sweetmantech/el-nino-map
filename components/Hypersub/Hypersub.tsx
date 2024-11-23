@@ -2,10 +2,10 @@ import useSubscribe from '@/hooks/useSubscribe'
 import Modal from '../Modal'
 
 const Hypersub = ({ onClose }: { onClose: () => void }) => {
-  const { subscribe } = useSubscribe()
+  const { subscribe, loading } = useSubscribe()
 
-  const handleClick = () => {
-    subscribe()
+  const handleClick = async () => {
+    await subscribe()
     onClose()
   }
 
@@ -20,8 +20,9 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
           type="button"
           className="border-[1px] border-black rounded-md font-semibold py-1"
           onClick={handleClick}
+          disabled={loading}
         >
-          Subscribe
+          {loading ? 'Subscribing...' : 'Subscribe'}
         </button>
       </div>
     </Modal>
