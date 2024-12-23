@@ -14,6 +14,7 @@ interface IInput {
   disabled?: boolean
   label?: string
   required?: boolean
+  placeholder?: string
 }
 
 function Input({
@@ -28,6 +29,7 @@ function Input({
   label,
   type,
   required,
+  placeholder,
 }: IInput) {
   const formContext = useFormContext()
   const isFullyHooked = Boolean(name && hookToForm && formContext)
@@ -65,6 +67,7 @@ function Input({
           : {})}
         name={name}
         disabled={disabled}
+        placeholder={placeholder || ''}
         type={type}
       />
 
