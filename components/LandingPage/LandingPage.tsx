@@ -4,21 +4,15 @@ import ImageMapper from 'react-img-mapper'
 import map from '@/lib/image-map.json'
 import { useMeasure } from 'react-use'
 import useDialog from '@/hooks/useDialog'
-import Dialog from './Dialog'
 import { useEffect } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import getTooltipText from '@/lib/getTooltipText'
 import { useActiveAccount } from 'thirdweb/react'
-import CreditCardPayModal from '../CreditCardPayModal'
 import { Account } from 'thirdweb/wallets'
-import useMap from '@/hooks/useMap'
-import SpinampPlayer from './SpinampPlayer'
-import Leaderboard from '../Leaderboard'
-import Metadata from '../Metadata'
-import Video from '../Video'
-import GuestBook from '../GuestBook'
-import Hypersub from '../Hypersub'
+import Modals from './Modals'
+import { useMapProvider } from '@/providers/MapProvider'
+import Dialog from './Dialog'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -33,25 +27,7 @@ const LandingPage = () => {
     tooltipId,
   } = useDialog()
 
-  const {
-    clickMap,
-    isCrossmintOpen,
-    setIsCrossmintOpen,
-    mapperKey,
-    setMapperKey,
-    purchasing,
-    isSpinampOpen,
-    isLeaderboardOpen,
-    setIsLeaderboardOpen,
-    isMetadataOpen,
-    setIsMetadataOpen,
-    isVideoOpen,
-    setIsVideoOpen,
-    isHypersubOpen,
-    setIsHypersubOpen,
-    isGuestbookOpen,
-    setIsGuestbookOpen,
-  } = useMap()
+  const { clickMap, mapperKey, setMapperKey, purchasing, isSpinampOpen } = useMapProvider()
 
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
@@ -80,13 +56,6 @@ const LandingPage = () => {
       ref={containerRef}
       onClick={close}
     >
-      {isSpinampOpen && <SpinampPlayer />}
-      {isLeaderboardOpen && (
-        <Leaderboard onClose={() => setIsLeaderboardOpen(!isLeaderboardOpen)} />
-      )}
-      {isMetadataOpen && <Metadata onClose={() => setIsMetadataOpen(!isMetadataOpen)} />}
-      {isVideoOpen && <Video onClose={() => setIsVideoOpen(!isVideoOpen)} />}
-
       <div className="cursor-pointer relative z-[2]">
         <ImageMapper
           src="/images/home.jpg"
@@ -112,9 +81,7 @@ const LandingPage = () => {
         </div>
       )}
       {isDialogOpen && <Dialog />}
-      {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
-      {isGuestbookOpen && <GuestBook onClose={() => setIsGuestbookOpen(false)} />}
-      {isHypersubOpen && <Hypersub onClose={() => setIsHypersubOpen(false)} />}
+      <Modals />
     </div>
   )
 }

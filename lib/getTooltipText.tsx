@@ -21,6 +21,8 @@ const getTooltipText = (tooltipId) => {
       return 'Subscribe'
     case 'control':
       return 'Guest Book'
+    case 'memories':
+      return 'Share Memories'
   }
 }
 
