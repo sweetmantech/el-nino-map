@@ -7,10 +7,11 @@ import {
 } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
 import { baseSepolia } from 'thirdweb/chains'
-import { CHAIN, MINT_REFERRAL, SUBSCRIPTION } from '@/lib/consts'
+import { CHAIN, IS_TESTNET, MINT_REFERRAL, SUBSCRIPTION } from '@/lib/consts'
 import { getContract, prepareContractCall, sendTransaction } from 'thirdweb'
 import { parseEther } from 'viem'
 import { subscriptionAbi } from '@/lib/abi/subscription'
+import { subscriptionV2Abi } from '@/lib/abi/STV2'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 
@@ -39,7 +40,7 @@ const useSubscribe = () => {
       const contract: any = getContract({
         address: SUBSCRIPTION,
         chain: CHAIN,
-        abi: subscriptionAbi as any,
+        abi: IS_TESTNET ? (subscriptionAbi as any) : (subscriptionV2Abi as any),
         client,
       })
 
