@@ -11,6 +11,7 @@ const useMap = () => {
   const [isVideoOpen, setIsVideoOpen] = useState(false)
   const [isGuestbookOpen, setIsGuestbookOpen] = useState(false)
   const [isHypersubOpen, setIsHypersubOpen] = useState(false)
+  const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
 
   const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
@@ -22,6 +23,7 @@ const useMap = () => {
     if (area.id === 'mint') mint()
     if (area.id === 'control') setIsGuestbookOpen(!isGuestbookOpen)
     if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
+    if (area.id === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
   }
 
   return {
@@ -43,6 +45,8 @@ const useMap = () => {
     setIsGuestbookOpen,
     isHypersubOpen,
     setIsHypersubOpen,
+    isMemoriesOpen,
+    setIsMemoriesOpen,
   }
 }
 
