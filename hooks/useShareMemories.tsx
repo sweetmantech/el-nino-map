@@ -1,4 +1,5 @@
 import trackMemories from '@/lib/stack/trackMemories'
+import { useRouter } from 'next/navigation'
 import { useState } from 'react'
 import { useActiveAccount } from 'thirdweb/react'
 import { Account } from 'thirdweb/wallets'
@@ -8,8 +9,12 @@ const useShareMemories = () => {
   const [content, setContent] = useState('')
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
+  const { push } = useRouter()
 
-  const share = () => trackMemories(address, url, content)
+  const share = async () => {
+    await trackMemories(address, url, content)
+    push('/imagination')
+  }
 
   return {
     url,
