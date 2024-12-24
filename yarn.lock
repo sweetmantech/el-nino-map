@@ -105,6 +105,13 @@
   dependencies:
     regenerator-runtime "^0.14.0"
 
+"@babel/runtime@^7.25.0":
+  version "7.26.0"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.26.0.tgz#8600c2f595f277c60815256418b85356a65173c1"
+  integrity sha512-FDSOghenHTiToteC/QRlv2q3DhPZ/oOXTBoirfWNx1Cx3TMVcGWQtMMmQcSvb/JjpNeGzx8Pq/b4fKEJuWm1sw==
+  dependencies:
+    regenerator-runtime "^0.14.0"
+
 "@babel/template@^7.25.0":
   version "7.25.0"
   resolved "https://registry.yarnpkg.com/@babel/template/-/template-7.25.0.tgz#e733dc3134b4fede528c15bc95e89cb98c52592a"
@@ -2421,6 +2428,27 @@
     rpc-websockets "^9.0.2"
     superstruct "^2.0.2"
 
+"@solana/web3.js@^1.95.8":
+  version "1.98.0"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.98.0.tgz#21ecfe8198c10831df6f0cfde7f68370d0405917"
+  integrity sha512-nz3Q5OeyGFpFCR+erX2f6JPt3sKhzhYcSycBCSPkWjzSVDh/Rr1FqTVMRe58FKO16/ivTUcuJjeS5MyBvpkbzA==
+  dependencies:
+    "@babel/runtime" "^7.25.0"
+    "@noble/curves" "^1.4.2"
+    "@noble/hashes" "^1.4.0"
+    "@solana/buffer-layout" "^4.0.1"
+    agentkeepalive "^4.5.0"
+    bigint-buffer "^1.1.5"
+    bn.js "^5.2.1"
+    borsh "^0.7.0"
+    bs58 "^4.0.1"
+    buffer "6.0.3"
+    fast-stable-stringify "^1.0.0"
+    jayson "^4.1.1"
+    node-fetch "^2.7.0"
+    rpc-websockets "^9.0.2"
+    superstruct "^2.0.2"
+
 "@stablelib/aead@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@stablelib/aead/-/aead-1.0.1.tgz#c4b1106df9c23d1b867eb9b276d8f42d5fc4c0c3"
@@ -2555,11 +2583,12 @@
     "@stablelib/random" "^1.0.2"
     "@stablelib/wipe" "^1.0.1"
 
-"@stackso/js-core@^0.3.4":
-  version "0.3.4"
-  resolved "https://registry.yarnpkg.com/@stackso/js-core/-/js-core-0.3.4.tgz#a4d0f99edfbb12a0df628423b8bcf346c74a69b9"
-  integrity sha512-vwQtElnUUc2oNnHRAm+CUU3AnKvmL1D5Tmrp97stqqbvWwlhz+XOJ8K2Pjwzx+JNx5HoXTmNIIaLHBzrT9F9XA==
+"@stackso/js-core@^0.5.10":
+  version "0.5.10"
+  resolved "https://registry.yarnpkg.com/@stackso/js-core/-/js-core-0.5.10.tgz#9e1499a7bb89a6c9f6cf85b4a1d029932b74138f"
+  integrity sha512-y1nkG0zwmVREQXas4hfHu3y3KOMtim8GTk7GcSBgr19xuMyo/YYE+kU46iA7QmHDNjoaCj3ipgZGpELFItDdPg==
   dependencies:
+    "@solana/web3.js" "^1.95.8"
     axios "^1.6.2"
     viem "^2.7.12"
 
