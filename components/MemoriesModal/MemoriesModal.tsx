@@ -20,8 +20,8 @@ const MemoriesModal = ({ onClose }: { onClose: () => void }) => {
           id="share-input"
           className="w-full space-y-3"
           validationSchema={validation}
-          onSubmit={() => {
-            share()
+          onSubmit={async () => {
+            await share()
             onClose()
           }}
         >
