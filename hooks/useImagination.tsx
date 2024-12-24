@@ -10,7 +10,7 @@ const useImagination = () => {
 
   useEffect(() => {
     const init = async () => {
-      const points = await getMemoriesPoints(address)
+      const points = await getMemoriesPoints()
       setEvents(points)
     }
     if (!address) return

@@ -1,15 +1,13 @@
-import { Address, getAddress } from 'viem'
 import getStackClient from './getStackClient'
 import { SHARE_MEMORY_EVENT } from '../consts'
 
-const getMemoriesPoints = async (address: Address) => {
+const getMemoriesPoints = async () => {
   const stackClient = getStackClient()
 
   const metrics = await stackClient.getEventMetrics({
     query: stackClient
       .eventsQuery()
       .where({
-        associatedAccount: getAddress(address),
         eventType: SHARE_MEMORY_EVENT,
       })
       .offset(0)
@@ -26,7 +24,6 @@ const getMemoriesPoints = async (address: Address) => {
       query: stackClient
         .eventsQuery()
         .where({
-          associatedAccount: getAddress(address),
           eventType: SHARE_MEMORY_EVENT,
         })
         .offset(chunkSize * i)
