@@ -9,9 +9,7 @@ const useShareMemories = () => {
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
 
-  const share = () => {
-    trackMemories(address, url, content)
-  }
+  const share = () => trackMemories(address, url, content)
 
   return {
     url,
