@@ -7,7 +7,7 @@ import TextArea from '../TextArea'
 import Icon from '../Icon'
 
 const MemoriesModal = ({ onClose }: { onClose: () => void }) => {
-  const { url, setUrl, content, setContent } = useShareMemories()
+  const { url, setUrl, content, setContent, share } = useShareMemories()
 
   return (
     <Modal onClose={onClose}>
@@ -20,7 +20,10 @@ const MemoriesModal = ({ onClose }: { onClose: () => void }) => {
           id="share-input"
           className="w-full space-y-3"
           validationSchema={validation}
-          onSubmit={() => {}}
+          onSubmit={async () => {
+            await share()
+            onClose()
+          }}
         >
           <Input
             value={url}
