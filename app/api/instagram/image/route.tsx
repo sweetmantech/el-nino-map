@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
     const $ = cheerio.load(htmlText)
 
     const images = []
-    $('.aagv img').each((_, element) => {
+    $('img').each((_, element) => {
       const src = $(element).attr('src')
       if (src) {
         images.push(src)
