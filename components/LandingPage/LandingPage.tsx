@@ -13,6 +13,7 @@ import { Account } from 'thirdweb/wallets'
 import Modals from './Modals'
 import { useMapProvider } from '@/providers/MapProvider'
 import Dialog from './Dialog'
+import getTooltipFontFamily from '@/lib/getTooltipFontFamily'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -75,6 +76,7 @@ const LandingPage = () => {
           style={{
             left: tooltipX,
             top: tooltipY,
+            fontFamily: getTooltipFontFamily(tooltipId),
           }}
         >
           {getTooltipText(tooltipId)}

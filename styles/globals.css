@@ -2,6 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+    font-family: "Italipixel";
+    src: url("/fonts/Italipixel.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "Brush Script";
+    src: url("/fonts/Brush Script.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "discotechia";
+    src: url("/fonts/discotechia.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "Necosmic-Display";
+    src: url("/fonts/Necosmic-Display.otf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "New Digital";
+    src: url("/fonts/New X Digital tfb Cursive.ttf") format("truetype");
+  }
+
+  
+  @font-face {
+    font-family: "poxel-font";
+    src: url("/fonts/poxel-font.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "TitilliumWeb-Bold";
+    src: url("/fonts/TitilliumWeb-Bold.ttf") format("truetype");
+  }
+
+  @font-face {
+    font-family: "Akira Expanded Demo";
+    src: url("/fonts/Akira Expanded Demo.otf") format("truetype");
+  }
 .bubble-name {
     position: absolute;
     margin-top: 2rem;

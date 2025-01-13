@@ -35,6 +35,9 @@ module.exports = {
           DEFAULT: '#f2e8cd',
         },
       },
+      fontFamily: {
+        italipixel: 'Italipixel',
+      },
     },
   },
   variants: {
