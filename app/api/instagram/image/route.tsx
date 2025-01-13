@@ -5,7 +5,7 @@ export async function GET(req: NextRequest) {
   const postURL = req.nextUrl.searchParams.get('postURL')
 
   try {
-    const response = await fetch(postURL)
+    const response = await fetch(`${postURL}?img_index=1`)
     const htmlText = await response.text()
     const $ = cheerio.load(htmlText)
 
