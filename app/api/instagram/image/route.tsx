@@ -9,15 +9,15 @@ export async function GET(req: NextRequest) {
     const htmlText = await response.text()
     const $ = cheerio.load(htmlText)
 
-    const children = $("[class*='_aagv']").children()
-
     const images = []
-    children.each((i, element) => {
-      const image = $('img', element)
-      images.push(image.html())
+    $('.aagv img').each((_, element) => {
+      const src = $(element).attr('src')
+      if (src) {
+        images.push(src)
+      }
     })
 
-    return Response.json({ success: true, images }, { status: 200 })
+    return Response.json({ success: true, images, postURL }, { status: 200 })
   } catch (error) {
     console.error(error)
     const message = error instanceof Error ? error.message : 'failed'
