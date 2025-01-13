@@ -27,6 +27,7 @@
     "@vercel/og": "^0.6.2",
     "@zoralabs/protocol-deployments": "^0.1.13",
     "@zoralabs/protocol-sdk": "^0.9.6",
+    "cheerio": "^1.0.0",
     "encoding": "^0.1.13",
     "ethers": "^5",
     "framer-motion": "^11.3.9",
