@@ -52,7 +52,7 @@ const LandingPage = () => {
   return (
     <div
       className="relative w-screen h-screen overflow-hidden
-      flex items-center justify-center bg-[#352d69]"
+      flex items-center justify-center bg-[#1125a8]"
       ref={containerRef}
       onClick={close}
     >
@@ -61,7 +61,7 @@ const LandingPage = () => {
           src="/images/home.jpg"
           map={map}
           responsive
-          parentWidth={(height / 1620) * 2880}
+          parentWidth={(height / 4500) * 8000}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
           onClick={clickMap}
