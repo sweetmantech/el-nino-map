@@ -6,7 +6,7 @@ import Imagination from './Imagination'
 const ImaginationPage = () => {
   const { events } = useImagination()
   return (
-    <div className="w-full grid grid-cols-3 mx-auto max-w-3xl pt-20 gap-2">
+    <div className="w-full flex flex-wrap px-10 pt-20 gap-2">
       {events.map((event) => (
         <Imagination key={event.metadata.uniqueId} event={event} />
       ))}
