@@ -7,83 +7,118 @@
     src: url("/fonts/Italipixel.ttf") format("truetype");
   }
 
-  @font-face {
-    font-family: "Brush Script";
-    src: url("/fonts/Brush Script.ttf") format("truetype");
-  }
+@font-face {
+  font-family: "Brush Script";
+  src: url("/fonts/Brush Script.ttf") format("truetype");
+}
 
-  @font-face {
-    font-family: "discotechia";
-    src: url("/fonts/discotechia.ttf") format("truetype");
-  }
+@font-face {
+  font-family: "discotechia";
+  src: url("/fonts/discotechia.ttf") format("truetype");
+}
 
-  @font-face {
-    font-family: "Necosmic-Display";
-    src: url("/fonts/Necosmic-Display.otf") format("truetype");
-  }
+@font-face {
+  font-family: "Necosmic-Display";
+  src: url("/fonts/Necosmic-Display.otf") format("truetype");
+}
 
-  @font-face {
-    font-family: "New Digital";
-    src: url("/fonts/New X Digital tfb Cursive.ttf") format("truetype");
-  }
+@font-face {
+  font-family: "New Digital";
+  src: url("/fonts/New X Digital tfb Cursive.ttf") format("truetype");
+}
 
-  
-  @font-face {
-    font-family: "poxel-font";
-    src: url("/fonts/poxel-font.ttf") format("truetype");
-  }
 
-  @font-face {
-    font-family: "TitilliumWeb-Bold";
-    src: url("/fonts/TitilliumWeb-Bold.ttf") format("truetype");
-  }
+@font-face {
+  font-family: "poxel-font";
+  src: url("/fonts/poxel-font.ttf") format("truetype");
+}
 
-  @font-face {
-    font-family: "Akira Expanded Demo";
-    src: url("/fonts/Akira Expanded Demo.otf") format("truetype");
-  }
+@font-face {
+  font-family: "TitilliumWeb-Bold";
+  src: url("/fonts/TitilliumWeb-Bold.ttf") format("truetype");
+}
+
+@font-face {
+  font-family: "Akira Expanded Demo";
+  src: url("/fonts/Akira Expanded Demo.otf") format("truetype");
+}
+
 .bubble-name {
-    position: absolute;
-    margin-top: 2rem;
-    max-width: 20rem;
-    --tw-translate-x: -0.5rem;
-    --tw-translate-y: calc(calc(100% + 3rem) * -1);
-    transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
-    border-radius: 1rem;
-    border-width: 4px;
-    border-color: black;
-    background-color: white;
-    padding: 12px;
-    text-align: left;
-    font-size: 18px;
-    line-height: 120%;
-    font-weight: 500;
-    z-index: 30;
+  position: absolute;
+  max-width: 20rem;
+  background-color: plum;
+  font-size: 18px;
+  line-height: 120%;
+  font-weight: 500;
+  z-index: 30;
+  display: flex;
+  border: 1px solid white;
+  margin-top: -3rem;
 }
 
-.bubble-name:after, .bubble-name:before {
-    content: " ";
-    position: absolute;
-    width: 0;
-    height: 0;
-    right: auto;
-    top: auto;
+.x-label {
+  background-color: plum;
+  height: 100%;
+  width: 20px;
+  position: relative;
+  border-left: 1px solid white;
 }
 
-.bubble-name:after {
-    left: 23.5px;
-    bottom: -16.5px;
-    border-color: #fff transparent transparent #fff;
-    border-style: solid;
-    border-width: 12px;
+.x-label-text {
+  position: absolute;
+  bottom: 100%;
+  left: -2px;
+  width: 100%;
+  background-color: plum;
+  text-align: center;
+  z-index: 3;
+  font-family: "Necosmic-Display";
+  font-size: 10px;
+  line-height: 100%;
+  border-left: 1px solid white;
+  border-top: 1px solid white;
+  border-top-left-radius: 4px;
 }
 
-.bubble-name:before {
-    left: 20px;
-    bottom: -26px;
-    border-color: #000 transparent transparent #000;
-    border-style: solid;
-    border-width: 12px;
+.x-label-skew {
+  position: absolute;
+  bottom: 100%;
+  left: 9px;
+  width: 11px;
+  height: 10px;
+  transform: skew(23deg);
+  background-color: plum;
+  z-index: 2;
+  border-right: 1px solid white;
+}
+
+.bottom {
+  position: absolute;
+  top: 100%;
+  left: -1px;
+  width: calc(100% - 4px);
+  background-color: plum;
+  z-index: 3;
+  font-family: "Necosmic-Display";
+  font-size: 10px;
+  line-height: 100%;
+  border-left: 1px solid white;
+  border-bottom: 1px solid white;
+  border-bottom-left-radius: 4px;
+  height: 8px;
+}
+
+.bottom-skew {
+  position: absolute;
+  top: 100%;
+  right: -3px;
+  width: 11px;
+  height: 8px;
+  transform: skew(-40deg);
+  background-color: plum;
+  z-index: 2;
+  border-right: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
 .no_typecursor .Typewriter__cursor {

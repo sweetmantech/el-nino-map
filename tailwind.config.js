@@ -34,6 +34,9 @@ module.exports = {
         background: {
           DEFAULT: '#f2e8cd',
         },
+        plum: {
+          DEFAULT: '#dda0dd',
+        },
       },
       fontFamily: {
         italipixel: 'Italipixel',
