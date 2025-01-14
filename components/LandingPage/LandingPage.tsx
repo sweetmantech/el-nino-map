@@ -7,13 +7,13 @@ import useDialog from '@/hooks/useDialog'
 import { useEffect } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
-import getTooltipText from '@/lib/getTooltipText'
 import { useActiveAccount } from 'thirdweb/react'
 import { Account } from 'thirdweb/wallets'
 import Modals from './Modals'
 import { useMapProvider } from '@/providers/MapProvider'
 import Dialog from './Dialog'
-import getTooltipFontFamily from '@/lib/getTooltipFontFamily'
+import Tooltip from './Tooltip'
+import getTooltipText from '@/lib/getTooltipText'
 
 const LandingPage = () => {
   const [containerRef, { height }] = useMeasure() as any
@@ -70,18 +70,7 @@ const LandingPage = () => {
           disabled={purchasing}
         />
       </div>
-      {isVisibleToolTip && (
-        <div
-          className="bubble-name"
-          style={{
-            left: tooltipX,
-            top: tooltipY,
-            fontFamily: getTooltipFontFamily(tooltipId),
-          }}
-        >
-          {getTooltipText(tooltipId)}
-        </div>
-      )}
+      {isVisibleToolTip && <Tooltip text={getTooltipText(tooltipId)} x={tooltipX} y={tooltipY} />}
       {isDialogOpen && <Dialog />}
       <Modals />
     </div>
