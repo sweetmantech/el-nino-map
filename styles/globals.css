@@ -47,33 +47,36 @@
   position: absolute;
   max-width: 20rem;
   background-color: plum;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 120%;
   font-weight: 500;
   z-index: 30;
   display: flex;
-  border: 1px solid white;
+  border-top: 1px solid white;
+  border-left: 1px solid white;
+  border-right: 1px solid plum;
+  border-bottom: 1px solid plum;
   margin-top: -3rem;
 }
 
 .x-label {
   background-color: plum;
   height: 100%;
-  width: 20px;
+  width: 16px;
   position: relative;
   border-left: 1px solid white;
 }
 
 .x-label-text {
   position: absolute;
-  bottom: 100%;
+  bottom: calc(100% - 1px);
   left: -2px;
   width: 100%;
   background-color: plum;
   text-align: center;
   z-index: 3;
   font-family: "Necosmic-Display";
-  font-size: 10px;
+  font-size: 9px;
   line-height: 100%;
   border-left: 1px solid white;
   border-top: 1px solid white;
@@ -82,8 +85,8 @@
 
 .x-label-skew {
   position: absolute;
-  bottom: 100%;
-  left: 9px;
+  bottom: calc(100% - 1px);
+  left: 5px;
   width: 11px;
   height: 10px;
   transform: skew(23deg);
@@ -94,7 +97,7 @@
 
 .bottom {
   position: absolute;
-  top: 100%;
+  top: calc(100% - 1px);
   left: -1px;
   width: calc(100% - 4px);
   background-color: plum;
@@ -105,20 +108,19 @@
   border-left: 1px solid white;
   border-bottom: 1px solid white;
   border-bottom-left-radius: 4px;
-  height: 8px;
+  height: 8.5px;
 }
 
 .bottom-skew {
   position: absolute;
-  top: 100%;
+  top: calc(100% - 1px);
   right: -3px;
   width: 11px;
-  height: 8px;
+  height: 9px;
   transform: skew(-40deg);
   background-color: plum;
   z-index: 2;
   border-right: 1px solid white;
-  border-bottom: 1px solid white;
 }
 
 .no_typecursor .Typewriter__cursor {
