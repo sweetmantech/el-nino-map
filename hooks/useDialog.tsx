@@ -2,8 +2,10 @@
 
 import { useState } from 'react'
 import useIsMobile from './useIsMobile'
+import { useMeasure } from 'react-use'
 
 const useDialog = () => {
+  const [containerRef, { width, height }] = useMeasure()
   const [tooltipId, setTooltipId] = useState('connect')
   const isMobile = useIsMobile()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -32,8 +34,9 @@ const useDialog = () => {
     const x = e.clientX
     const y = e.clientY
 
-    setTooltipX(x)
-    setTooltipY(y)
+    const container = document.getElementById('container')
+    setTooltipX(container.scrollLeft + x)
+    setTooltipY(container.scrollTop + y)
   }
 
   return {
@@ -46,6 +49,9 @@ const useDialog = () => {
     close,
     closeTooltip,
     tooltipId,
+    containerRef,
+    width,
+    height,
   }
 }
 

@@ -2,7 +2,6 @@
 
 import ImageMapper from 'react-img-mapper'
 import map from '@/lib/image-map.json'
-import { useMeasure } from 'react-use'
 import useDialog from '@/hooks/useDialog'
 import { useEffect } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
@@ -14,9 +13,9 @@ import { useMapProvider } from '@/providers/MapProvider'
 import Dialog from './Dialog'
 import Tooltip from './Tooltip'
 import getTooltipText from '@/lib/getTooltipText'
+import calculateScaledWidth from '@/lib/calculateScaledWidth'
 
 const LandingPage = () => {
-  const [containerRef, { height }] = useMeasure() as any
   const {
     close,
     showTooltip,
@@ -26,6 +25,9 @@ const LandingPage = () => {
     tooltipX,
     tooltipY,
     tooltipId,
+    containerRef,
+    width,
+    height,
   } = useDialog()
 
   const { clickMap, mapperKey, setMapperKey, purchasing, isSpinampOpen } = useMapProvider()
@@ -52,9 +54,10 @@ const LandingPage = () => {
 
   return (
     <div
-      className="relative w-screen h-screen overflow-hidden
+      className="relative w-screen h-screen overflow-auto
       flex items-center justify-center bg-[#1125a8]"
       ref={containerRef}
+      id="container"
       onClick={close}
     >
       <div className="cursor-pointer relative z-[2]">
@@ -62,7 +65,7 @@ const LandingPage = () => {
           src="/images/home.jpg"
           map={map}
           responsive
-          parentWidth={(height / 4500) * 8000}
+          parentWidth={calculateScaledWidth(width, height)}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
           onClick={clickMap}
