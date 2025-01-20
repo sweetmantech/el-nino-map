@@ -17,9 +17,9 @@ const Tooltip = ({ x, y, text }: { x: number; y: number; text: string }) => {
           <div className="bottom-skew" />
         </div>
       </div>
-      <p className="translate-x-[-12px] pt-2 pb-1 min-w-[70px] text-sm">{text}</p>
+      <p className="translate-x-[-9px] pt-1 min-w-[70px] text-sm">{text}</p>
       <div
-        className="absolute right-[-18px] top-[-1px] h-[calc(100%+1px)] flex flex-col justify-evenly pl-1 min-w-[18px] bg-plum border-r-white border-b-white border-t-white border-r-[1px] border-t-[1px] border-b-[1px]
+        className="absolute right-[-12px] top-[-1.5px] h-[calc(100%+1px)] flex flex-col justify-evenly pl-1 min-w-[16px] bg-plum border-r-white border-b-white border-t-white border-r-[1px] border-t-[1px] border-b-[1px]
         rounded-tr-[4px] rounded-br-[4px]"
       >
         <div>

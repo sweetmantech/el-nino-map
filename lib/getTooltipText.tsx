@@ -6,7 +6,7 @@ const getTooltipText = (tooltipId) => {
     case 'leaderboard':
       return 'Leaderboard'
     case 'mint':
-      return 'Purchase'
+      return 'Collect'
     case 'spinamp':
       return 'Spinamp Player'
     case 'metadata':
@@ -20,7 +20,7 @@ const getTooltipText = (tooltipId) => {
     case 'subscribe':
       return 'Subscribe'
     case 'control':
-      return 'Guest Book'
+      return 'Inventory'
     case 'memories':
       return 'Share Memories'
   }
