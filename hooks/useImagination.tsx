@@ -7,7 +7,8 @@ const useImagination = () => {
   useEffect(() => {
     const init = async () => {
       const points = await getMemoriesPoints()
-      setEvents(points)
+      const filtered = points.filter((point) => point.metadata.url.includes('instagram.com'))
+      setEvents(filtered)
     }
     init()
   }, [])
