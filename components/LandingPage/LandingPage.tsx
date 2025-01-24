@@ -30,7 +30,7 @@ const LandingPage = () => {
     height,
   } = useDialog()
 
-  const { clickMap, mapperKey, setMapperKey, purchasing, isSpinampOpen } = useMapProvider()
+  const { clickMap, mapperKey, setMapperKey, purchasing } = useMapProvider()
 
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
@@ -69,7 +69,7 @@ const LandingPage = () => {
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
           onClick={clickMap}
-          key={`${mapperKey} ${isSpinampOpen}`}
+          key={`${mapperKey}`}
           disabled={purchasing}
         />
       </div>
