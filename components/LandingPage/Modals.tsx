@@ -7,6 +7,7 @@ import SpinampPlayer from './SpinampPlayer'
 import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
 import Video from '../Video'
+import DraggableModal from '../DraggableModal'
 
 const Modals = () => {
   const {
@@ -25,6 +26,7 @@ const Modals = () => {
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
+    setIsSpinampOpen,
   } = useMapProvider()
 
   return (
@@ -33,7 +35,11 @@ const Modals = () => {
       {isGuestbookOpen && <GuestBook onClose={() => setIsGuestbookOpen(false)} />}
       {isHypersubOpen && <Hypersub onClose={() => setIsHypersubOpen(false)} />}
       {isMemoriesOpen && <MemoriesModal onClose={() => setIsMemoriesOpen(false)} />}
-      {isSpinampOpen && <SpinampPlayer />}
+      {isSpinampOpen && (
+        <DraggableModal handleClose={() => setIsSpinampOpen(!isSpinampOpen)}>
+          <SpinampPlayer />
+        </DraggableModal>
+      )}
       {isLeaderboardOpen && (
         <Leaderboard onClose={() => setIsLeaderboardOpen(!isLeaderboardOpen)} />
       )}
