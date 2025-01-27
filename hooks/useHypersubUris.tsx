@@ -49,8 +49,9 @@ const useHypersubUris = () => {
         const data = await response.json()
         return data.image
       })
-      const images = await Promise.all(imagesPromises)
-      setPhotos(images)
+      const images: any = await Promise.all(imagesPromises)
+      const uniqueImages = new Set(images)
+      setPhotos(Array.from(uniqueImages) as any)
     }
 
     init()
