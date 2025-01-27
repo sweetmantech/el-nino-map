@@ -41,6 +41,7 @@ module.exports = {
       fontFamily: {
         italipixel: 'Italipixel',
         titilliumweb: 'TitilliumWeb-Bold',
+        akira: 'Akira Expanded Demo',
       },
     },
   },
