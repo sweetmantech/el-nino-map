@@ -13,11 +13,11 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
   return (
     <Modal onClose={onClose}>
       <div
-        className="max-w-[584px] min-w-[400px] px-6 py-2 bg-white rounded-md flex-col flex gap-2"
+        className="max-w-[400px] px-6 py-2 bg-white rounded-md flex-col flex gap-2"
         id="subscribe"
       >
         <p className="text-xl font-bold text-center font-italipixel text-xl">Subscription</p>
-        <div className="flex gap-2">
+        <div className="flex gap-2 justify-center">
           {photos.map((photo) => (
             <div
               className="w-[100px] aspect-[1/1] relative z-[10] border-[2px] border-grey-light rounded-full overflow-hidden"
