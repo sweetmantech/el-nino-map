@@ -40,6 +40,7 @@ module.exports = {
       },
       fontFamily: {
         italipixel: 'Italipixel',
+        titilliumweb: 'TitilliumWeb-Bold',
       },
     },
   },
