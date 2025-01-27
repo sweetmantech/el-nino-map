@@ -13,8 +13,10 @@ import { parseEther } from 'viem'
 import { subscriptionAbi } from '@/lib/abi/subscription'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
+import useHypersubUris from './useHypersubUris'
 
 const useSubscribe = () => {
+  const { photos } = useHypersubUris()
   const activeAccount = useActiveAccount()
   const wallets = useConnectedWallets()
   const { connect } = useConnectModal()
@@ -68,6 +70,7 @@ const useSubscribe = () => {
   return {
     subscribe,
     loading,
+    photos,
   }
 }
 
