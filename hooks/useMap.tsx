@@ -12,6 +12,8 @@ const useMap = () => {
   const [isGuestbookOpen, setIsGuestbookOpen] = useState(false)
   const [isHypersubOpen, setIsHypersubOpen] = useState(false)
   const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
+  const [isPlannetOpen, setIsPlannetOpen] = useState(false)
+  const [isComingSoonOpen, setIsComingSoonOpen] = useState(false)
 
   const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
@@ -19,11 +21,12 @@ const useMap = () => {
     if (area.id === 'metadata') setIsMetadataOpen(!isMetadataOpen)
     if (area.id === 'video') setIsVideoOpen(!isVideoOpen)
     if (area.id === 'merch') window.open('http://shopxcelencia.com/', '_blank')
-    if (area.id === 'live-show') window.open('https://xcelencia.world', '_blank')
+    if (area.id === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
     if (area.id === 'mint') mint()
     if (area.id === 'control') setIsGuestbookOpen(!isGuestbookOpen)
     if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
     if (area.id === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
+    if (area.id === 'plannet') setIsPlannetOpen(!isPlannetOpen)
   }
 
   return {
@@ -47,6 +50,10 @@ const useMap = () => {
     setIsHypersubOpen,
     isMemoriesOpen,
     setIsMemoriesOpen,
+    isPlannetOpen,
+    setIsPlannetOpen,
+    isComingSoonOpen,
+    setIsComingSoonOpen,
   }
 }
 

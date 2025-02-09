@@ -23,6 +23,8 @@ const getTooltipText = (tooltipId) => {
       return 'Inventory'
     case 'memories':
       return 'Share Memories'
+    case 'plannet':
+      return 'SMS'
   }
 }
 
