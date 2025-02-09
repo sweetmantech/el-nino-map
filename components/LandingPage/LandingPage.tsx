@@ -27,10 +27,10 @@ const LandingPage = () => {
     containerRef,
     width,
     height,
+    scale,
   } = useDialog()
 
   const { clickMap, mapperKey, setMapperKey, purchasing } = useMapProvider()
-
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
 
@@ -62,7 +62,7 @@ const LandingPage = () => {
           src="/images/home.jpg"
           map={map}
           responsive
-          parentWidth={calculateScaledWidth(width, height)}
+          parentWidth={scale * calculateScaledWidth(width, height)}
           onMouseMove={(area, index, e) => showTooltip(area, e)}
           onMouseLeave={closeTooltip}
           onClick={clickMap}
