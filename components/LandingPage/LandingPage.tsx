@@ -17,7 +17,6 @@ import calculateScaledWidth from '@/lib/calculateScaledWidth'
 
 const LandingPage = () => {
   const {
-    close,
     showTooltip,
     closeTooltip,
     isVisibleToolTip,
@@ -54,11 +53,9 @@ const LandingPage = () => {
 
   return (
     <div
-      className="relative w-screen h-screen overflow-auto
-      flex items-center justify-center bg-[#1125a8]"
+      className="relative w-screen h-screen overflow-auto flex items-center justify-center bg-[#1125a8]"
       ref={containerRef}
       id="container"
-      onClick={close}
     >
       <div className="cursor-pointer relative z-[2]">
         <ImageMapper
