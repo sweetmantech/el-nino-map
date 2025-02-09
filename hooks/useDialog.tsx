@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import useIsMobile from './useIsMobile'
 import { useMeasure } from 'react-use'
+import usePan from './usePan'
 
 const useDialog = () => {
   const [containerRef, { width, height }] = useMeasure()
@@ -12,6 +13,7 @@ const useDialog = () => {
   const [isVisibleToolTip, setIsVisibleTooltip] = useState(false)
   const [tooltipX, setTooltipX] = useState(0)
   const [tooltipY, setTooltipY] = useState(0)
+  const { scale } = usePan()
 
   const show = () => {
     setIsVisibleTooltip(isMobile)
@@ -52,6 +54,7 @@ const useDialog = () => {
     containerRef,
     width,
     height,
+    scale,
   }
 }
 
