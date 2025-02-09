@@ -60,7 +60,7 @@ const LandingPage = () => {
       id="container"
       onClick={close}
     >
-      <div className="cursor-pointer relative z-[2]">
+      <div className="relative z-[2]">
         <ImageMapper
           src="/images/home.jpg"
           map={map}
