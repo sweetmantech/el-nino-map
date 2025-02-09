@@ -8,6 +8,8 @@ import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
 import Video from '../Video'
 import DraggableModal from '../DraggableModal'
+import SMS from '../SMS'
+import ComingSoon from '../ComingSoon'
 
 const Modals = () => {
   const {
@@ -27,6 +29,10 @@ const Modals = () => {
     isVideoOpen,
     setIsVideoOpen,
     setIsSpinampOpen,
+    isPlannetOpen,
+    setIsPlannetOpen,
+    isComingSoonOpen,
+    setIsComingSoonOpen,
   } = useMapProvider()
 
   return (
@@ -45,6 +51,8 @@ const Modals = () => {
       )}
       {isMetadataOpen && <Metadata onClose={() => setIsMetadataOpen(!isMetadataOpen)} />}
       {isVideoOpen && <Video onClose={() => setIsVideoOpen(!isVideoOpen)} />}
+      {isPlannetOpen && <SMS onClose={() => setIsPlannetOpen(!isPlannetOpen)} />}
+      {isComingSoonOpen && <ComingSoon onClose={() => setIsComingSoonOpen(!isComingSoonOpen)} />}
     </>
   )
 }

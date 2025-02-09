@@ -90,6 +90,15 @@
       "fillColor": "#eeeeee00",
       "strokeColor": "#eeeeee00",
       "coords": [750, 1200, 1450, 800, 1500, 1400, 1400, 1450, 750, 1300]
+    },
+    {
+      "id": "plannet",
+      "title": "color_red",
+      "shape": "poly",
+      "name": "2",
+      "fillColor": "#eeeeee00",
+      "strokeColor": "#eeeeee00",
+      "coords": [6530, 3710, 6960, 3740, 6940, 3860, 6530, 3830]
     }
   ]
 }
