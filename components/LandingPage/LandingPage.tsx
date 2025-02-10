@@ -24,7 +24,6 @@ const LandingPage = () => {
     tooltipX,
     tooltipY,
     tooltipId,
-    containerRef,
     width,
     height,
     scale,
@@ -53,11 +52,12 @@ const LandingPage = () => {
 
   return (
     <div
-      className="relative w-screen h-screen overflow-auto flex items-center justify-center bg-[#1125a8]"
-      ref={containerRef}
+      className={`relative h-screen w-screen overflow-auto bg-[#1125a8] flex
+      ${width > scale * calculateScaledWidth(width, height) && 'justify-center'}
+      ${height > scale * height && 'items-center'}`}
       id="container"
     >
-      <div className="relative z-[2]">
+      <div className="relative z-[2]" id="map">
         <ImageMapper
           src="/images/home.jpg"
           map={map}
