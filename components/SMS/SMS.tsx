@@ -1,21 +1,34 @@
 import Script from 'next/script'
-import Modal from '../Modal'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Skeleton } from '../ui/skeleton'
+import { useMapProvider } from '@/providers/MapProvider'
 
-const SMS = ({ onClose }: { onClose: () => void }) => {
+const SMS = () => {
   const [isLoaded, setIsLoaded] = useState(false)
+  const { isPlannetOpen, setIsPlannetOpen } = useMapProvider()
+
+  useEffect(() => {
+    const handleEscapeEvent = (e) => {
+      if (e.key === 'Escape') setIsPlannetOpen(() => false)
+    }
+
+    window.addEventListener('keydown', handleEscapeEvent)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
-    <Modal
-      onClose={() => {
-        setIsLoaded(false)
-        onClose()
+    <div
+      className={`absolute left-0 top-0 w-full h-full z-[150] 
+          flex items-center justify-center ${isPlannetOpen ? 'block' : 'hidden pointer-events-none'}`}
+      onClick={(e: any) => {
+        if (e.target === e.currentTarget) setIsPlannetOpen(!isPlannetOpen)
       }}
     >
       <div className="min-w-[500px] p-3 bg-black rounded-md" id="sms">
         <Script
           src="https://embed.laylo.com/laylo-sdk.js"
-          strategy="afterInteractive"
+          // strategy="afterInteractive"
+          async
           onLoad={() => {
             setIsLoaded(true)
           }}
@@ -35,7 +48,7 @@ const SMS = ({ onClose }: { onClose: () => void }) => {
           <Skeleton className="w-full h-[200px] bg-grey" />
         )}
       </div>
-    </Modal>
+    </div>
   )
 }
 
