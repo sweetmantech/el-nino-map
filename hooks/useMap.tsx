@@ -2,6 +2,25 @@ import { CustomArea } from 'react-img-mapper'
 import { useState } from 'react'
 import usePurchase from './usePurchase'
 
+interface Laylo {
+  openPopup: (options: {
+    id: string
+    minimal: boolean
+    customCTA: string
+    color: string
+    theme: string
+    background: string
+    fullWidth: boolean
+    secondsToWait: number
+  }) => void
+}
+
+declare global {
+  interface Window {
+    laylo?: Laylo
+  }
+}
+
 const useMap = () => {
   const [mapperKey, setMapperKey] = useState(0)
   const { isCrossmintOpen, setIsCrossmintOpen, mint, purchasing } = usePurchase()

@@ -29,8 +29,6 @@ const Modals = () => {
     isVideoOpen,
     setIsVideoOpen,
     setIsSpinampOpen,
-    isPlannetOpen,
-    setIsPlannetOpen,
     isComingSoonOpen,
     setIsComingSoonOpen,
   } = useMapProvider()
@@ -51,7 +49,7 @@ const Modals = () => {
       )}
       {isMetadataOpen && <Metadata onClose={() => setIsMetadataOpen(!isMetadataOpen)} />}
       {isVideoOpen && <Video onClose={() => setIsVideoOpen(!isVideoOpen)} />}
-      {isPlannetOpen && <SMS onClose={() => setIsPlannetOpen(!isPlannetOpen)} />}
+      <SMS />
       {isComingSoonOpen && <ComingSoon onClose={() => setIsComingSoonOpen(!isComingSoonOpen)} />}
     </>
   )

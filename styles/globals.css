@@ -126,3 +126,9 @@
 .no_typecursor .Typewriter__cursor {
     display: none;
 }
+
+@layer base {
+  :root {
+        --radius: 0.5rem;
+    }
+}

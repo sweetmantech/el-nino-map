@@ -17,7 +17,6 @@ export const viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="overflow-hidden">
-      <script async src="https://embed.laylo.com/laylo-sdk.js" />
       <body className="!cursor-pointer overflow-hidden">
         <Providers>
           <Header />
