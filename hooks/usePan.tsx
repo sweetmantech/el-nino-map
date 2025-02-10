@@ -6,7 +6,7 @@ const usePan = () => {
   const [scale, setScale] = useState(1)
 
   useEffect(() => {
-    const container = document.getElementById('container')
+    const map = document.getElementById('map')
     const handleDragStart = (e) => {
       setStartPointX(() => e.clientX)
       setStartPointY(() => e.clientY)
@@ -14,6 +14,7 @@ const usePan = () => {
     const handleDragEnd = (e) => {
       const offsetX = startPointX - e.clientX
       const offsetY = startPointY - e.clientY
+      const container = document.getElementById('container')
       container.scrollBy({
         left: offsetX,
         top: offsetY,
@@ -31,14 +32,14 @@ const usePan = () => {
       setScale((prevScale) => prevScale * 0.8)
     }
 
-    container.addEventListener('wheel', handleZoom)
-    container.addEventListener('dragstart', handleDragStart)
-    container.addEventListener('dragend', handleDragEnd)
+    map.addEventListener('wheel', handleZoom)
+    map.addEventListener('dragstart', handleDragStart)
+    map.addEventListener('dragend', handleDragEnd)
 
     return () => {
-      container.removeEventListener('wheel', handleZoom)
-      container.removeEventListener('dragstart', handleDragStart)
-      container.removeEventListener('dragend', handleDragEnd)
+      map.removeEventListener('wheel', handleZoom)
+      map.removeEventListener('dragstart', handleDragStart)
+      map.removeEventListener('dragend', handleDragEnd)
     }
   }, [startPointX, startPointY, scale])
 

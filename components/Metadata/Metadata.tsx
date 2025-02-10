@@ -1,3 +1,4 @@
+import { X } from 'lucide-react'
 import Modal from '../Modal'
 
 const Metadata = ({ onClose }: { onClose: () => void }) => {
@@ -9,7 +10,7 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
           onClick={onClose}
           className="text-xl absolute right-4 top-2 text-black font-akira"
         >
-          X
+          <X className="size-4" />
         </button>
         <p className="font-akira text-xl pb-2">Metadata</p>
         <fieldset className="max-h-[450px] overflow-y-auto font-[600] text-lg border-grey-light border rounded-lg px-4 py-2">

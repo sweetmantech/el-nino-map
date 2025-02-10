@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import useIsMobile from './useIsMobile'
-import { useMeasure } from 'react-use'
 import usePan from './usePan'
+import calculateScaledWidth from '@/lib/calculateScaledWidth'
 
 const useDialog = () => {
-  const [containerRef, { width, height }] = useMeasure()
+  const [width, setWidth] = useState(0)
+  const [height, setHeight] = useState(0)
   const [tooltipId, setTooltipId] = useState('connect')
   const isMobile = useIsMobile()
   const [isDialogOpen, setIsDialogOpen] = useState(false)
@@ -41,6 +42,29 @@ const useDialog = () => {
     setTooltipY(container.scrollTop + y)
   }
 
+  useEffect(() => {
+    const windowWidth = document.documentElement.clientWidth
+    const windowHeight = document.documentElement.clientHeight
+    setWidth(windowWidth)
+    setHeight(windowHeight)
+  }, [isMobile, scale])
+
+  useEffect(() => {
+    let timer = null
+    if (isMobile) {
+      const offsetX = (scale * calculateScaledWidth(width, height) - width) / 2
+      const container = document.getElementById('container')
+      timer = setTimeout(() => {
+        container.scrollBy({
+          left: offsetX,
+          behavior: 'smooth',
+        })
+      }, 2000)
+    }
+    return () => clearInterval(timer)
+    // eslint-disable-next-line
+  }, [isMobile, width, height])
+
   return {
     isDialogOpen,
     isVisibleToolTip,
@@ -51,7 +75,6 @@ const useDialog = () => {
     close,
     closeTooltip,
     tooltipId,
-    containerRef,
     width,
     height,
     scale,
