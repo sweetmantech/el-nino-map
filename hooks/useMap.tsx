@@ -46,19 +46,6 @@ const useMap = () => {
     if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
     if (area.id === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
     if (area.id === 'plannet') setIsPlannetOpen(!isPlannetOpen)
-
-    // {
-    //   window.laylo.openPopup({
-    //     id: 'd6tew',
-    //     minimal: false,
-    //     customCTA: '',
-    //     color: 'FF7300',
-    //     theme: 'dark',
-    //     background: '',
-    //     fullWidth: false,
-    //     secondsToWait: 5,
-    //   });
-    // }
   }
 
   return {
