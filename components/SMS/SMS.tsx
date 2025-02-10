@@ -6,7 +6,12 @@ import { Skeleton } from '../ui/skeleton'
 const SMS = ({ onClose }: { onClose: () => void }) => {
   const [isLoaded, setIsLoaded] = useState(false)
   return (
-    <Modal onClose={onClose}>
+    <Modal
+      onClose={() => {
+        setIsLoaded(false)
+        onClose()
+      }}
+    >
       <div className="min-w-[500px] p-3 bg-black rounded-md" id="sms">
         <Script
           src="https://embed.laylo.com/laylo-sdk.js"
