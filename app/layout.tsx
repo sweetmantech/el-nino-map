@@ -8,6 +8,7 @@ import { ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify'
 import Providers from '@/providers/Providers'
 import Header from '@/components/Header'
+import Script from 'next/script'
 
 export const viewport = {
   width: 'device-width',
@@ -17,7 +18,7 @@ export const viewport = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en" className="overflow-hidden">
-      <script async src="https://embed.laylo.com/laylo-sdk.js" />
+      <Script async src="https://embed.laylo.com/laylo-sdk.js" />
       <body className="!cursor-pointer overflow-hidden">
         <Providers>
           <Header />

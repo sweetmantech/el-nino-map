@@ -2,6 +2,25 @@ import { CustomArea } from 'react-img-mapper'
 import { useState } from 'react'
 import usePurchase from './usePurchase'
 
+interface Laylo {
+  openPopup: (options: {
+    id: string;
+    minimal: boolean;
+    customCTA: string;
+    color: string;
+    theme: string;
+    background: string;
+    fullWidth: boolean;
+    secondsToWait: number;
+  }) => void;
+}
+
+declare global {
+  interface Window {
+    laylo?: Laylo;
+  }
+}
+
 const useMap = () => {
   const [mapperKey, setMapperKey] = useState(0)
   const { isCrossmintOpen, setIsCrossmintOpen, mint, purchasing } = usePurchase()
@@ -27,6 +46,19 @@ const useMap = () => {
     if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
     if (area.id === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
     if (area.id === 'plannet') setIsPlannetOpen(!isPlannetOpen)
+
+      // {
+      //   window.laylo.openPopup({
+      //     id: 'd6tew',
+      //     minimal: false,
+      //     customCTA: '',
+      //     color: 'FF7300',
+      //     theme: 'dark',
+      //     background: '',
+      //     fullWidth: false,
+      //     secondsToWait: 5,
+      //   });
+      // }
   }
 
   return {
