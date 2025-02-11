@@ -5,7 +5,7 @@ import { wallets } from '@/lib/thirdweb/wallets'
 
 const Header = () => {
   return (
-    <div className="fixed z-[100] top-4 right-4 w-fit">
+    <div className="fixed z-[100] top-4 right-8 w-fit">
       <ConnectButton
         client={client}
         wallets={wallets}
