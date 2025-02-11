@@ -12,7 +12,7 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
         >
           <X className="size-4" />
         </button>
-        <p className="font-akira text-xl pb-2">Metadata</p>
+        <p className="font-titilliumweb text-xl pb-2">El Niño Maravilla Pt. 1</p>
         <fieldset className="max-h-[450px] overflow-y-auto font-[600] text-lg border-grey-light border rounded-lg px-4 py-2">
           <p className="font-titilliumweb py-1">Description</p>
           <p className="font-titilliumweb text-grey text-sm pb-1">
@@ -33,8 +33,11 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
           </ul>
           <p className="font-titilliumweb py-1">Producers</p>
           <ul className="font-titilliumweb list-inside pb-1">
-            <li className="text-grey text-sm list-disc">emme</li>
-            <li className="text-grey text-sm list-disc">shine</li>
+            <li className="text-grey text-sm list-disc">Emme</li>
+            <li className="text-grey text-sm list-disc">Shine</li>
+            <li className="text-grey text-sm list-disc">JVYBoy</li>
+            <li className="text-grey text-sm list-disc">Lelo</li>
+            <li className="text-grey text-sm list-disc">Kris Kruz</li>
           </ul>
         </fieldset>
       </div>
