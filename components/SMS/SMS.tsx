@@ -5,11 +5,14 @@ import { useMapProvider } from '@/providers/MapProvider'
 
 const SMS = () => {
   const [isLoaded, setIsLoaded] = useState(false)
-  const { isPlannetOpen, setIsPlannetOpen } = useMapProvider()
+  const { isPlannetOpen, setIsPlannetOpen, revealed, setRevealed } = useMapProvider()
 
   useEffect(() => {
     const handleEscapeEvent = (e) => {
-      if (e.key === 'Escape') setIsPlannetOpen(() => false)
+      if (e.key === 'Escape') {
+        setRevealed(() => false)
+        setIsPlannetOpen(() => false)
+      }
     }
 
     window.addEventListener('keydown', handleEscapeEvent)
@@ -18,12 +21,15 @@ const SMS = () => {
 
   return (
     <div
-      className={`fixed left-0 top-0 z-[100] w-screen h-screen ${isPlannetOpen ? 'block' : 'hidden pointer-events-none'}`}
+      className={`fixed left-0 top-0 z-[100] w-screen h-screen ${isPlannetOpen || !revealed ? 'block' : 'hidden pointer-events-none'}`}
     >
       <div
         className="absolute left-0 top-0 w-full h-full z-[150] flex items-center justify-center"
         onClick={(e: any) => {
-          if (e.target === e.currentTarget) setIsPlannetOpen(!isPlannetOpen)
+          if (e.target === e.currentTarget) {
+            setRevealed(true)
+            setIsPlannetOpen(false)
+          }
         }}
       >
         <div className="min-w-[500px] p-3 bg-black rounded-md" id="sms">

@@ -33,6 +33,7 @@ const useMap = () => {
   const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
   const [isPlannetOpen, setIsPlannetOpen] = useState(false)
   const [isComingSoonOpen, setIsComingSoonOpen] = useState(false)
+  const [revealed, setRevealed] = useState(false)
 
   const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
@@ -45,7 +46,7 @@ const useMap = () => {
     if (area.id === 'control') setIsGuestbookOpen(!isGuestbookOpen)
     if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
     if (area.id === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
-    if (area.id === 'plannet') setIsPlannetOpen(!isPlannetOpen)
+    if (area.id === 'plannet') setIsPlannetOpen(true)
   }
 
   return {
@@ -73,6 +74,8 @@ const useMap = () => {
     setIsPlannetOpen,
     isComingSoonOpen,
     setIsComingSoonOpen,
+    revealed,
+    setRevealed,
   }
 }
 
