@@ -29,7 +29,7 @@ const LandingPage = () => {
     scale,
   } = useDialog()
 
-  const { clickMap, mapperKey, setMapperKey, purchasing, revealed } = useMapProvider()
+  const { clickMap, mapperKey, setMapperKey, purchasing } = useMapProvider()
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
 
@@ -58,19 +58,17 @@ const LandingPage = () => {
       id="container"
     >
       <div className="relative z-[2]" id="map">
-        {revealed && (
-          <ImageMapper
-            src="/images/home.jpg"
-            map={map}
-            responsive
-            parentWidth={scale * calculateScaledWidth(width, height)}
-            onMouseMove={(area, index, e) => showTooltip(area, e)}
-            onMouseLeave={closeTooltip}
-            onClick={clickMap}
-            key={`${mapperKey}`}
-            disabled={purchasing}
-          />
-        )}
+        <ImageMapper
+          src="/images/home.jpg"
+          map={map}
+          responsive
+          parentWidth={scale * calculateScaledWidth(width, height)}
+          onMouseMove={(area, index, e) => showTooltip(area, e)}
+          onMouseLeave={closeTooltip}
+          onClick={clickMap}
+          key={`${mapperKey}`}
+          disabled={purchasing}
+        />
       </div>
       {isVisibleToolTip && <Tooltip text={getTooltipText(tooltipId)} x={tooltipX} y={tooltipY} />}
       {isDialogOpen && <Dialog />}
