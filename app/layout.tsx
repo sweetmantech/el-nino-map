@@ -15,7 +15,7 @@ export const viewport = {
 
 export const metadata: Metadata = {
   title: 'El Niño Maravilla Pt. 1',
-  description: ` El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
+  description: `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
   urban and pop sounds. This project brings together a talented team of designers,
   developers, and producers to create a groundbreaking musical experience.`,
   other: {
