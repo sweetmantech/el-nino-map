@@ -1,3 +1,5 @@
+'use client'
+
 import { client } from '@/lib/thirdweb/client'
 import { ConnectButton } from 'thirdweb/react'
 import { baseSepolia } from 'thirdweb/chains'
