@@ -52,14 +52,15 @@ const LandingPage = () => {
 
   return (
     <div
-      className={`relative h-screen w-screen overflow-auto bg-[#1125a8] flex
-      ${width > scale * calculateScaledWidth(width, height) && 'justify-center'}
+      className={`relative h-screen w-screen overflow-auto 
+      bg-[url('/images/background.png')] bg-cover bg-center
+      flex ${width > scale * calculateScaledWidth(width, height) && 'justify-center'}
       ${height > scale * height && 'items-center'}`}
       id="container"
     >
       <div className="relative z-[2]" id="map">
         <ImageMapper
-          src="/images/home.jpg"
+          src="/images/xcelencia-web-elements_only.png"
           map={map}
           responsive
           parentWidth={scale * calculateScaledWidth(width, height)}
