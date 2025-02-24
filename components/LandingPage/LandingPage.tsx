@@ -3,7 +3,7 @@
 import ImageMapper from 'react-img-mapper'
 import map from '@/lib/image-map.json'
 import useDialog from '@/hooks/useDialog'
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import { useActiveAccount } from 'thirdweb/react'
@@ -14,7 +14,6 @@ import Dialog from './Dialog'
 import Tooltip from './Tooltip'
 import getTooltipText from '@/lib/getTooltipText'
 import calculateScaledWidth from '@/lib/calculateScaledWidth'
-import sdk from '@farcaster/frame-sdk';
 
 const LandingPage = () => {
   const {
@@ -50,19 +49,6 @@ const LandingPage = () => {
     init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address])
-
-  const [isSDKLoaded, setIsSDKLoaded] = useState(false);
-
-  useEffect(() => {
-    const load = async () => {
-      sdk.actions.ready();
-    };
-    if (sdk && !isSDKLoaded) {
-      setIsSDKLoaded(true);
-      console.log('ziad load')
-      load();
-    }
-  }, [isSDKLoaded]);
 
   return (
     <div
