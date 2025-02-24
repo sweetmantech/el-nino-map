@@ -30,7 +30,7 @@ const LandingPage = () => {
     scale,
   } = useDialog()
 
-  const { clickMap, mapperKey, setMapperKey, purchasing, revealed } = useMapProvider()
+  const { clickMap, mapperKey, setMapperKey, purchasing } = useMapProvider()
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
 
@@ -66,25 +66,24 @@ const LandingPage = () => {
 
   return (
     <div
-      className={`relative h-screen w-screen overflow-auto bg-[#1125a8] flex
-      ${width > scale * calculateScaledWidth(width, height) && 'justify-center'}
+      className={`relative h-screen w-screen overflow-auto 
+      bg-[url('/images/background.png')] bg-cover bg-center
+      flex ${width > scale * calculateScaledWidth(width, height) && 'justify-center'}
       ${height > scale * height && 'items-center'}`}
       id="container"
     >
       <div className="relative z-[2]" id="map">
-        {revealed && (
-          <ImageMapper
-            src="/images/home.jpg"
-            map={map}
-            responsive
-            parentWidth={scale * calculateScaledWidth(width, height)}
-            onMouseMove={(area, index, e) => showTooltip(area, e)}
-            onMouseLeave={closeTooltip}
-            onClick={clickMap}
-            key={`${mapperKey}`}
-            disabled={purchasing}
-          />
-        )}
+        <ImageMapper
+          src="/images/xcelencia-web-elements_only.png"
+          map={map}
+          responsive
+          parentWidth={scale * calculateScaledWidth(width, height)}
+          onMouseMove={(area, index, e) => showTooltip(area, e)}
+          onMouseLeave={closeTooltip}
+          onClick={clickMap}
+          key={`${mapperKey}`}
+          disabled={purchasing}
+        />
       </div>
       {isVisibleToolTip && <Tooltip text={getTooltipText(tooltipId)} x={tooltipX} y={tooltipY} />}
       {isDialogOpen && <Dialog />}

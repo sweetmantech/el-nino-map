@@ -33,7 +33,6 @@ const useMap = () => {
   const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
   const [isPlannetOpen, setIsPlannetOpen] = useState(false)
   const [isComingSoonOpen, setIsComingSoonOpen] = useState(false)
-  const [revealed, setRevealed] = useState(false)
 
   const clickMap = (area: CustomArea) => {
     if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
@@ -74,8 +73,6 @@ const useMap = () => {
     setIsPlannetOpen,
     isComingSoonOpen,
     setIsComingSoonOpen,
-    revealed,
-    setRevealed,
   }
 }
 
