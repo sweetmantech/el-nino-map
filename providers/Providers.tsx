@@ -7,13 +7,13 @@ import { MapProvider } from './MapProvider'
 export default function Providers({ children }: { children: React.ReactNode }) {
   return (
     <AirstackProvider apiKey={process.env.NEXT_PUBLIC_AIRSTACK_API_KEY ?? ''}>
-      <ThirdwebProvider>
-        <WagmiProvider>
-          <FrameProvider>
+      <WagmiProvider>
+        <FrameProvider>
+          <ThirdwebProvider>
             <MapProvider>{children}</MapProvider>
-          </FrameProvider>
-        </WagmiProvider>
-      </ThirdwebProvider>
+          </ThirdwebProvider>
+        </FrameProvider>
+      </WagmiProvider>
     </AirstackProvider>
   )
 }
