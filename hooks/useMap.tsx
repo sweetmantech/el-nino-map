@@ -36,7 +36,6 @@ const useMap = () => {
   const { handleMouseMove, area } = useAreaDetection()
 
   const clickMap = () => {
-    console.log('ziad')
     if (area === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
     if (area === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
     if (area === 'metadata') setIsMetadataOpen(!isMetadataOpen)
