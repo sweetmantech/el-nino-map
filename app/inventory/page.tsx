@@ -1,6 +1,6 @@
-"use client"
+'use client'
 
-import InventoryPage from "@/components/InventoryPage";
+import InventoryPage from '@/components/InventoryPage'
 
 const Inventory = () => <InventoryPage />
 

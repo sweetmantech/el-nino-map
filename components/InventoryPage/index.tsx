@@ -1,3 +1,3 @@
-import InventoryPage from "./InventoryPage";
+import InventoryPage from './InventoryPage'
 
 export default InventoryPage
