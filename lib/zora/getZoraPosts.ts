@@ -21,7 +21,7 @@ export const fetchZoraPostsData = async (retries = 3, initialDelay = 1000) => {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'X-API-KEY': 'bvGOq2v_wSQ_a0ME1h65Fw',
+            'X-API-KEY': process.env.ZORA_API_KEY,
           },
           body: JSON.stringify({
             query,
