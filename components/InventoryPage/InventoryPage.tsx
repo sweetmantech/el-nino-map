@@ -1,6 +1,5 @@
 import usePosts from '@/hooks/usePosts'
 import { Skeleton } from '../ui/skeleton'
-import Image from 'next/image'
 import { Card, CardContent, CardFooter } from '../ui/card'
 import { CollectionMetadata } from '@/lib/viem/getMetadata'
 import getIpfsLink from '@/lib/getIpfsLink'
@@ -24,13 +23,11 @@ const InventoryPage = () => {
             <Card className="bg-slate-900" key={i}>
               <CardContent className="p-3">
                 <div className="aspect-video relative bg-slate-800 rounded-lg flex items-center justify-center">
-                  <Image
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
                     src={getIpfsLink(p.image)}
-                    layout="fill"
                     alt="not found preview"
-                    objectFit="cover"
-                    objectPosition="center"
-                    blurDataURL={getIpfsLink(p.image)}
+                    className="size-full object-cover"
                   />
                 </div>
               </CardContent>

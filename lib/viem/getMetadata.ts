@@ -70,7 +70,7 @@ export async function getMetadata(posts: ZoraPost[]): Promise<CollectionMetadata
             chainId: p.chainId,
             tokenContract: p.tokenContract,
           }
-        const response = await fetch(getIpfsLink(p.uri as string))
+        const response = await fetch(`/api/metadata?uri=${encodeURIComponent(p.uri as string)}`)
         const data = await response.json()
         return {
           image: getIpfsLink(data?.image || ''),
