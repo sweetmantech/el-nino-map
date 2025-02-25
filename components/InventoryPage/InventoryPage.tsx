@@ -23,6 +23,7 @@ const InventoryPage = () => {
             <Card className="bg-slate-900" key={i}>
               <CardContent className="p-3">
                 <div className="aspect-video relative bg-slate-800 rounded-lg flex items-center justify-center">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={getIpfsLink(p.image)}
                     alt="not found preview"
