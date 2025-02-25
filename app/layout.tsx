@@ -16,8 +16,8 @@ export const viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className="overflow-hidden">
-      <body className="!cursor-pointer overflow-hidden">
+    <html lang="en">
+      <body>
         <Providers>
           <Header />
           {children}
