@@ -8,7 +8,7 @@ import getIpfsLink from '@/lib/getIpfsLink'
 const InventoryPage = () => {
   const { data: posts, isLoading, error } = usePosts()
 
-  if (!error) return <p className="text-[red] font-titilliumweb">Failed to fetch collections.</p>
+  if (error) return <p className="text-[red] font-titilliumweb">Failed to fetch collections.</p>
 
   return (
     <main className="container grid grid-cols-3 gap-4 min-h-screen py-24 px-20">
