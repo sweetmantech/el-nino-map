@@ -4,7 +4,7 @@ export async function GET() {
   try {
     const posts = await fetchZoraPostsData()
 
-    Response.json(posts)
+    return Response.json(posts)
   } catch (e: any) {
     console.log(e)
     const message = e?.message ?? 'failed to fetch posts'
