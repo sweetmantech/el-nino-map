@@ -7,7 +7,7 @@ const InventoryPage = () => {
   const { data: posts, isLoading } = usePosts()
 
   return (
-    <main className="container grid grid-cols-3 gap-4 min-h-screen py-24">
+    <main className="container grid grid-cols-3 gap-4 min-h-screen py-24 px-20">
       {isLoading ? (
         <>
           {Array.from({ length: 9 }).map((_, i) => (
