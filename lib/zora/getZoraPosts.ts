@@ -66,7 +66,6 @@ export const fetchZoraPostsData = async (retries = 3, initialDelay = 1000) => {
 
         endCursor = profileZoraPosts.pageInfo.endCursor
         id = id ? allData.data.node.id : allData.data.profile.id
-        break
       }
 
       return allPosts
