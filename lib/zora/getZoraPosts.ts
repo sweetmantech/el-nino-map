@@ -11,6 +11,7 @@ export const fetchZoraPostsData = async (retries = 3, initialDelay = 1000) => {
     await wait(delay)
     const allPosts: any[] = []
     let endCursor: string | null = cursor
+    let id = null
 
     try {
       // eslint-disable-next-line no-constant-condition
@@ -53,15 +54,19 @@ export const fetchZoraPostsData = async (retries = 3, initialDelay = 1000) => {
           throw new Error(allData.errors[0].message)
         }
 
-        if (!allData.data || !allData.data.profile) {
+        if (!allData.data) {
           throw new Error('Unexpected API response structure')
         }
 
-        const currentPosts = allData.data.profile.profileZoraPosts.edges
+        const profileZoraPosts = allData.data?.profile
+          ? allData.data.profile.profileZoraPosts
+          : allData.data.node.profileZoraPosts
+        const currentPosts = profileZoraPosts.edges
         allPosts.push(...currentPosts)
 
-        endCursor = allData.data.profile.profileZoraPosts.pageInfo.endCursor
-        const hasNextPage = allData.data.profile.profileZoraPosts.pageInfo.hasNextPage
+        endCursor = profileZoraPosts.pageInfo.endCursor
+        id = id ? allData.data.profile.id : allData.data.node.id
+        const hasNextPage = profileZoraPosts.pageInfo.hasNextPage
         if (!hasNextPage) break
       }
 
