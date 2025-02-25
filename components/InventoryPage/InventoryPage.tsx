@@ -1,7 +1,9 @@
-import usePosts, { ZoraPost } from '@/hooks/usePosts'
+import usePosts from '@/hooks/usePosts'
 import { Skeleton } from '../ui/skeleton'
 import Image from 'next/image'
 import { Card, CardContent, CardFooter } from '../ui/card'
+import { CollectionMetadata } from '@/lib/viem/getMetadata'
+import getIpfsLink from '@/lib/getIpfsLink'
 
 const InventoryPage = () => {
   const { data: posts, isLoading, error } = usePosts()
@@ -18,17 +20,17 @@ const InventoryPage = () => {
         </>
       ) : (
         <>
-          {posts.map((p: ZoraPost, i) => (
+          {posts.map((p: CollectionMetadata, i) => (
             <Card className="bg-slate-900" key={i}>
               <CardContent className="p-3">
                 <div className="aspect-video relative bg-slate-800 rounded-lg flex items-center justify-center">
                   <Image
-                    src={p.preview}
+                    src={getIpfsLink(p.image)}
                     layout="fill"
                     alt="not found preview"
                     objectFit="cover"
                     objectPosition="center"
-                    blurDataURL={p.blurhash}
+                    blurDataURL={getIpfsLink(p.image)}
                   />
                 </div>
               </CardContent>

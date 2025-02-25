@@ -1,3 +1,4 @@
+import { CollectionMetadata, getMetadata } from '@/lib/viem/getMetadata'
 import { fetchZoraPostsData } from '@/lib/zora/getZoraPosts'
 import { useQuery } from '@tanstack/react-query'
 import { Address } from 'viem'
@@ -12,10 +13,18 @@ export type ZoraPost = {
   blurhash: string
   preview: string
 }
-async function fetchPosts(): Promise<ZoraPost[]> {
+async function fetchPosts(): Promise<CollectionMetadata[]> {
   try {
     const zoraPosts = await fetchZoraPostsData()
-    return zoraPosts
+    const aggregated = {}
+
+    for (const item of zoraPosts) {
+      const tokenContract = item.tokenContract
+      if (!aggregated[tokenContract]) aggregated[tokenContract] = item
+    }
+
+    const metadata = await getMetadata(Object.values(aggregated))
+    return metadata
   } catch (error) {
     throw new Error('Failed to fetch zora posts.')
   }
