@@ -6,7 +6,7 @@ const InventoryPage = () => {
   const { data: posts, isLoading } = usePosts()
 
   return (
-    <main className="container grid grid-cols-3 min-h-screen gap-10 gap-2 p-20">
+    <main className="container grid grid-cols-3 gap-4 min-h-screen gap-10 p-20">
       {isLoading ? (
         <>
           {Array.from({ length: 9 }).map((_, i) => (
@@ -16,8 +16,12 @@ const InventoryPage = () => {
       ) : (
         <>
           {posts.map((p: ZoraPost, i) => (
-            <div className="col-span-1 aspect-1/1 flex flex-col items-center" key={i}>
-              <div className="h-2/3 w-full relative overflow-hidden">
+            <div
+              className="col-span-1 aspect-1/1 flex flex-col items-center 
+              border-[2px] border-black overflow-hidden rounded-md bg-black"
+              key={i}
+            >
+              <div className="grow w-full relative overflow-hidden">
                 <Image
                   src={p.preview}
                   layout="fill"
@@ -27,7 +31,7 @@ const InventoryPage = () => {
                   blurDataURL={p.blurhash}
                 />
               </div>
-              <p className="font-titilliumweb">{p.name}</p>
+              <p className="font-titilliumweb text-left text-white">{p.name}</p>
             </div>
           ))}
         </>
