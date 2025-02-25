@@ -29,17 +29,40 @@ const abi = [
 
 export async function getMetadata(posts: ZoraPost[]): Promise<CollectionMetadata[]> {
   try {
-    const promise = posts.map(async (p: ZoraPost) => {
-      try {
-        const publicClient = getPublicClient(p.chainId)
+    const grouped = posts.reduce((acc: { [chainId: number]: ZoraPost[] }, item: ZoraPost) => {
+      if (!acc[item.chainId]) {
+        acc[item.chainId] = []
+      }
+      acc[item.chainId].push(item)
+      return acc
+    }, {})
 
-        const uri = await publicClient.readContract({
-          address: p.tokenContract,
+    const uriPromise = Object.entries(grouped).map(async ([chainId, collections]) => {
+      const publicClient: any = getPublicClient(parseInt(chainId, 10))
+      const calls = collections.map((c: ZoraPost) => {
+        return {
+          address: c.tokenContract,
           abi,
           functionName: 'contractURI',
-          args: [],
-        })
-        if (!uri)
+        }
+      })
+      const returnValues = await publicClient.multicall({
+        contracts: calls,
+      })
+      return collections.map((c: ZoraPost, i) => {
+        const uri = typeof returnValues?.[i]?.result === 'string' ? returnValues[i].result : ''
+        return {
+          ...c,
+          uri: getIpfsLink(uri),
+        }
+      })
+    })
+
+    const postsUris = await Promise.all(uriPromise)
+
+    const promise = postsUris.flat().map(async (p: any) => {
+      try {
+        if (!p.uri)
           return {
             image: p.preview,
             name: p.name,
@@ -47,7 +70,7 @@ export async function getMetadata(posts: ZoraPost[]): Promise<CollectionMetadata
             chainId: p.chainId,
             tokenContract: p.tokenContract,
           }
-        const response = await fetch(getIpfsLink(uri as string))
+        const response = await fetch(getIpfsLink(p.uri as string))
         const data = await response.json()
         return {
           image: getIpfsLink(data?.image || ''),
@@ -70,7 +93,7 @@ export async function getMetadata(posts: ZoraPost[]): Promise<CollectionMetadata
     const metadata = await Promise.all(promise)
     return metadata
   } catch (error) {
-    console.error('Error fetching tokens:', error)
+    console.error('Error fetching collections:', error)
     return []
   }
 }
