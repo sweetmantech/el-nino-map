@@ -25,9 +25,8 @@ export const fetchZoraPostsData = async (retries = 3, initialDelay = 1000) => {
           body: JSON.stringify({
             query,
             variables: {
-              ...(endCursor ? {} : { profileId: 'xcelencia' }),
               chainIds: null,
-              ...(endCursor ? { cursor: endCursor } : {}),
+              ...(endCursor ? { cursor: endCursor, id } : { profileId: 'xcelencia' }),
             },
           }),
         })
@@ -65,7 +64,7 @@ export const fetchZoraPostsData = async (retries = 3, initialDelay = 1000) => {
         allPosts.push(...currentPosts)
 
         endCursor = profileZoraPosts.pageInfo.endCursor
-        id = id ? allData.data.profile.id : allData.data.node.id
+        id = id ? allData.data.node.id : allData.data.profile.id
         const hasNextPage = profileZoraPosts.pageInfo.hasNextPage
         if (!hasNextPage) break
       }
