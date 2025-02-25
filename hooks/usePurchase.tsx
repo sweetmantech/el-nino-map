@@ -16,16 +16,16 @@ const usePurchase = () => {
   const mint = async () => {
     if (!address) return
     setPurchasing(true)
-    toast('Purchasing...', {
-      position: 'top-right',
-      autoClose: false,
-      closeOnClick: false,
-      pauseOnHover: false,
-      draggable: false,
-    })
     const balance = await getBalance(address)
     const hasSufficient = balance > 0.000111
     if (isExternalWallet && hasSufficient) {
+      toast('Purchasing...', {
+        position: 'top-right',
+        autoClose: false,
+        closeOnClick: false,
+        pauseOnHover: false,
+        draggable: false,
+      })
       await purchase(activeAccount)
       setPurchasing(false)
       return

@@ -6,7 +6,7 @@ export const CHAIN_ID = CHAIN.id
 
 // Zora
 export const DROP_ADDRESS = IS_TESTNET
-  ? '0xae3046bbed9bbdedd1996dae085b0e80634350e7' // base sepolia
+  ? '0xb2bf06A4fa038E878FBB280da9c53aCaa505747E' // base sepolia
   : '0x6af64b3735947e7295242350a7046434b8520bd5' // base mainnet
 
 export const ZORA_PRICE = '111000000000000'

@@ -1,5 +1,4 @@
 import { useMapProvider } from '@/providers/MapProvider'
-import CreditCardPayModal from '../CreditCardPayModal'
 import GuestBook from '../GuestBook'
 import Hypersub from '../Hypersub'
 import MemoriesModal from '../MemoriesModal'
@@ -10,6 +9,16 @@ import Video from '../Video'
 import DraggableModal from '../DraggableModal'
 import SMS from '../SMS'
 import ComingSoon from '../ComingSoon'
+import dynamic from 'next/dynamic'
+
+const CreditCardPayModal = dynamic(() => import('@/components/CreditCardPayModal'), {
+  loading: () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+      <div className="bg-white p-6 rounded-lg">Loading payment options...</div>
+    </div>
+  ),
+  ssr: false,
+})
 
 const Modals = () => {
   const {
