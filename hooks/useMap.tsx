@@ -1,6 +1,6 @@
-import { CustomArea } from 'react-img-mapper'
 import { useState } from 'react'
 import usePurchase from './usePurchase'
+import useAreaDetection from './useAreaDetection'
 
 interface Laylo {
   openPopup: (options: {
@@ -33,19 +33,21 @@ const useMap = () => {
   const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
   const [isPlannetOpen, setIsPlannetOpen] = useState(false)
   const [isComingSoonOpen, setIsComingSoonOpen] = useState(false)
+  const { handleMouseMove, area } = useAreaDetection()
 
-  const clickMap = (area: CustomArea) => {
-    if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
-    if (area.id === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
-    if (area.id === 'metadata') setIsMetadataOpen(!isMetadataOpen)
-    if (area.id === 'video') setIsVideoOpen(!isVideoOpen)
-    if (area.id === 'merch') window.open('http://shopxcelencia.com/', '_blank')
-    if (area.id === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
-    if (area.id === 'mint') mint()
-    if (area.id === 'control') setIsGuestbookOpen(!isGuestbookOpen)
-    if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
-    if (area.id === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
-    if (area.id === 'plannet') setIsPlannetOpen(true)
+  const clickMap = () => {
+    console.log('ziad')
+    if (area === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
+    if (area === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
+    if (area === 'metadata') setIsMetadataOpen(!isMetadataOpen)
+    if (area === 'video') setIsVideoOpen(!isVideoOpen)
+    if (area === 'merch') window.open('http://shopxcelencia.com/', '_blank')
+    if (area === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
+    if (area === 'mint') mint()
+    if (area === 'control') setIsGuestbookOpen(!isGuestbookOpen)
+    if (area === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
+    if (area === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
+    if (area === 'plannet') setIsPlannetOpen(true)
   }
 
   return {
@@ -73,6 +75,7 @@ const useMap = () => {
     setIsPlannetOpen,
     isComingSoonOpen,
     setIsComingSoonOpen,
+    handleMouseMove,
   }
 }
 
