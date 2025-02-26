@@ -10,7 +10,7 @@ const InventoryPage = () => {
   if (error) return <p className="text-[red] font-titilliumweb">Failed to fetch collections.</p>
 
   return (
-    <main className="container grid grid-cols-3 gap-4 min-h-screen py-24 px-20">
+    <main className="container grid grid-cols-1 md:grid-cols-3 gap-4 min-h-screen py-24 px-10 md:px-20">
       {isLoading ? (
         <>
           {Array.from({ length: 9 }).map((_, i) => (
