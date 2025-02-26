@@ -2,6 +2,7 @@ import Script from 'next/script'
 import { useEffect, useState } from 'react'
 import { Skeleton } from '../ui/skeleton'
 import { useMapProvider } from '@/providers/MapProvider'
+import PulsatingGlow from '../ui/pulsating-glow'
 
 const SMS = () => {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -30,30 +31,32 @@ const SMS = () => {
           }
         }}
       >
-        <div className="min-w-[500px] p-3 bg-black rounded-md" id="sms">
-          <Script
-            src="https://embed.laylo.com/laylo-sdk.js"
-            // strategy="afterInteractive"
-            async
-            onLoad={() => {
-              setIsLoaded(true)
-            }}
-          />
-          {isLoaded ? (
-            <iframe
-              title="Counter Down"
-              id="laylo-drop-d6tew"
-              frameBorder={0}
-              scrolling="no"
-              src="https://embed.laylo.com?dropId=d6tew&color=FF7300&minimal=false&theme=dark"
-              allow="web-share"
-              allowTransparency
-              className="w-[100%]"
+        <PulsatingGlow>
+          <div className="min-w-[500px] p-3 bg-black rounded-md" id="sms">
+            <Script
+              src="https://embed.laylo.com/laylo-sdk.js"
+              // strategy="afterInteractive"
+              async
+              onLoad={() => {
+                setIsLoaded(true)
+              }}
             />
-          ) : (
-            <Skeleton className="w-full h-[200px] bg-grey" />
-          )}
-        </div>
+            {isLoaded ? (
+              <iframe
+                title="Counter Down"
+                id="laylo-drop-d6tew"
+                frameBorder={0}
+                scrolling="no"
+                src="https://embed.laylo.com?dropId=d6tew&color=FF7300&minimal=false&theme=dark"
+                allow="web-share"
+                allowTransparency
+                className="w-[100%]"
+              />
+            ) : (
+              <Skeleton className="w-full h-[200px] bg-grey" />
+            )}
+          </div>
+        </PulsatingGlow>
       </div>
     </div>
   )
