@@ -1,4 +1,5 @@
 import Draggable from 'react-draggable'
+import PulsatingGlow from './ui/pulsating-glow'
 
 const DraggableModal = ({ children, handleClose }) => {
   return (
@@ -12,17 +13,19 @@ const DraggableModal = ({ children, handleClose }) => {
         />
         <Draggable scale={1} bounds="parent" allowAnyClick={false} handle=".handle">
           <div className="relative z-[1000] bg-white">
-            <div className="flex flex-col h-full w-full">
-              <div className="flex justify-between items-center gap-x-[20px] bg-black border-b-grey border-b text-grey">
-                <div className="flex-grow handle pl-3 py-2 cursor-pointer font-italipixel">
-                  Spinamp Player
+            <PulsatingGlow>
+              <div className="flex flex-col h-full w-full bg-white">
+                <div className="flex justify-between items-center gap-x-[20px] bg-black border-b-grey border-b text-grey">
+                  <div className="flex-grow handle pl-3 py-2 cursor-pointer font-italipixel">
+                    Spinamp Player
+                  </div>
+                  <button type="button" onClick={handleClose} className="mr-3 font-bold">
+                    X
+                  </button>
                 </div>
-                <button type="button" onClick={handleClose} className="mr-3 font-bold">
-                  X
-                </button>
+                <div className="h-[calc(100%-35px)]">{children}</div>
               </div>
-              <div className="h-[calc(100%-35px)]">{children}</div>
-            </div>
+            </PulsatingGlow>
           </div>
         </Draggable>
       </div>
