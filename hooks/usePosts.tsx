@@ -1,6 +1,5 @@
 import { CollectionMetadata, getMetadata } from '@/lib/viem/getMetadata'
 import getBalancesUris from '@/lib/viem/getBalancesUris'
-import { fetchZoraPostsData } from '@/lib/zora/getZoraPosts'
 import { useQuery } from '@tanstack/react-query'
 import { useActiveAccount } from 'thirdweb/react'
 import { Address } from 'viem'
@@ -23,9 +22,8 @@ export type FormattedZoraPost = ZoraPost & {
 
 async function fetchPosts(address: Address | undefined): Promise<CollectionMetadata[]> {
   try {
-    // const response = await fetch('/api/posts/zora')
-    // const zoraPosts = await response.json()
-    const zoraPosts = await fetchZoraPostsData()
+    const response = await fetch('/api/posts/zora')
+    const zoraPosts = await response.json()
     const ownedNfts = await getBalancesUris(address, zoraPosts)
     const filtered = ownedNfts.filter((nft) => nft.balance !== BigInt(0))
     const aggregated = {}

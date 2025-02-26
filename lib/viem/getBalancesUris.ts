@@ -4,6 +4,12 @@ import { Address } from 'viem'
 import getIpfsLink from '../getIpfsLink'
 import abi from '@/lib/abi/1155'
 
+const functionArgsMap: { [key: string]: (t: ZoraPost, address?: Address) => any[] } = {
+  balanceOf: (t: ZoraPost, address: Address) => [address, t.tokenId],
+  uri: (t: ZoraPost) => [t.tokenId],
+  contractURI: () => [],
+}
+
 const createCalls = (tokens: ZoraPost[], functionName: string, address?: Address) => {
   return tokens.map((t: ZoraPost) => {
     const call: { address: string; abi: typeof abi; functionName: string; args?: any[] } = {
@@ -11,11 +17,7 @@ const createCalls = (tokens: ZoraPost[], functionName: string, address?: Address
       abi,
       functionName,
     }
-    if (functionName === 'balanceOf') {
-      call.args = [address, t.tokenId]
-    } else if (functionName === 'uri') {
-      call.args = [t.tokenId]
-    }
+    call.args = functionArgsMap[functionName] ? functionArgsMap[functionName](t, address) : []
     return call
   })
 }

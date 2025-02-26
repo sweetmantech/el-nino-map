@@ -20,7 +20,7 @@ const InventoryPage = () => {
       ) : (
         <>
           {posts.map((p: CollectionMetadata, i) => (
-            <Card className="bg-slate-900" key={i}>
+            <Card className="bg-slate-900 !h-fit" key={i}>
               <CardContent className="p-3">
                 <div className="aspect-video relative bg-slate-800 rounded-lg flex items-center justify-center">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
