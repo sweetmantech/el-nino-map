@@ -1,6 +1,5 @@
-import { ZoraPost } from '@/hooks/usePosts'
+import { FormattedZoraPost } from '@/hooks/usePosts'
 import { Address } from 'viem'
-import { getPublicClient } from '../clients'
 import getIpfsLink from '../getIpfsLink'
 
 export interface CollectionMetadata {
@@ -11,56 +10,9 @@ export interface CollectionMetadata {
   tokenContract: Address
 }
 
-const abi = [
-  {
-    inputs: [],
-    name: 'contractURI',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string',
-      },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-]
-
-export async function getMetadata(posts: ZoraPost[]): Promise<CollectionMetadata[]> {
+export async function getMetadata(posts: FormattedZoraPost[]): Promise<CollectionMetadata[]> {
   try {
-    const grouped = posts.reduce((acc: { [chainId: number]: ZoraPost[] }, item: ZoraPost) => {
-      if (!acc[item.chainId]) {
-        acc[item.chainId] = []
-      }
-      acc[item.chainId].push(item)
-      return acc
-    }, {})
-
-    const uriPromise = Object.entries(grouped).map(async ([chainId, collections]) => {
-      const publicClient: any = getPublicClient(parseInt(chainId, 10))
-      const calls = collections.map((c: ZoraPost) => {
-        return {
-          address: c.tokenContract,
-          abi,
-          functionName: 'contractURI',
-        }
-      })
-      const returnValues = await publicClient.multicall({
-        contracts: calls,
-      })
-      return collections.map((c: ZoraPost, i) => {
-        const uri = typeof returnValues?.[i]?.result === 'string' ? returnValues[i].result : ''
-        return {
-          ...c,
-          uri: getIpfsLink(uri),
-        }
-      })
-    })
-
-    const postsUris = await Promise.all(uriPromise)
-
-    const promise = postsUris.flat().map(async (p: any) => {
+    const promise = posts.map(async (p: FormattedZoraPost) => {
       try {
         if (!p.uri)
           return {
@@ -70,7 +22,9 @@ export async function getMetadata(posts: ZoraPost[]): Promise<CollectionMetadata
             chainId: p.chainId,
             tokenContract: p.tokenContract,
           }
-        const response = await fetch(`/api/metadata?uri=${encodeURIComponent(p.uri as string)}`)
+        const response = await fetch(
+          `/api/metadata?uri=${encodeURIComponent(p.contractURI as string)}`,
+        )
         const data = await response.json()
         return {
           image: getIpfsLink(data?.image || ''),
