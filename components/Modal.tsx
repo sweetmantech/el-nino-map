@@ -1,7 +1,7 @@
 import { ReactNode, useEffect } from 'react'
 import PulsatingGlow from './ui/pulsating-glow'
 
-const Modal = ({ onClose, children }: { onClose: () => void; children: ReactNode }) => {
+const Modal = ({ onClose = () => {}, children }: { onClose?: () => void; children: ReactNode }) => {
   useEffect(() => {
     const handleEscapeEvent = (e) => {
       if (e.key === 'Escape') onClose()
