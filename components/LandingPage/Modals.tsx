@@ -1,5 +1,4 @@
 import { useMapProvider } from '@/providers/MapProvider'
-import GuestBook from '../GuestBook'
 import Hypersub from '../Hypersub'
 import MemoriesModal from '../MemoriesModal'
 import SpinampPlayer from './SpinampPlayer'
@@ -26,8 +25,6 @@ const Modals = () => {
     setIsCrossmintOpen,
     isHypersubOpen,
     setIsHypersubOpen,
-    isGuestbookOpen,
-    setIsGuestbookOpen,
     isMemoriesOpen,
     setIsMemoriesOpen,
     isSpinampOpen,
@@ -45,7 +42,6 @@ const Modals = () => {
   return (
     <>
       {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
-      {isGuestbookOpen && <GuestBook onClose={() => setIsGuestbookOpen(false)} />}
       {isHypersubOpen && <Hypersub onClose={() => setIsHypersubOpen(false)} />}
       {isMemoriesOpen && <MemoriesModal onClose={() => setIsMemoriesOpen(false)} />}
       {isSpinampOpen && (
