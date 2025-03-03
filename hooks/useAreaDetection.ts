@@ -33,6 +33,7 @@ const useAreaDetection = () => {
 
             j = i
           }
+
           return inside
         }
         return false
@@ -41,6 +42,24 @@ const useAreaDetection = () => {
       if (area) {
         showTooltip(area, e)
         setArea(area.id)
+
+        const { sumX, sumY } = area.coords.reduce(
+          (acc, coord, index) => {
+            if (index % 2 === 0) {
+              acc.sumX += coord
+            } else {
+              acc.sumY += coord
+            }
+            return acc
+          },
+          { sumX: 0, sumY: 0 },
+        )
+
+        const centerCoords = {
+          x: sumX / (area.coords.length / 2),
+          y: sumY / (area.coords.length / 2),
+        }
+        return centerCoords
       } else {
         closeTooltip()
         setArea(null)
