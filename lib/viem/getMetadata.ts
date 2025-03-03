@@ -1,4 +1,4 @@
-import { FormattedZoraPost } from '@/hooks/usePosts'
+import { CreatedContract } from '@/hooks/usePosts'
 import { Address } from 'viem'
 import getIpfsLink from '../getIpfsLink'
 
@@ -10,42 +10,25 @@ export interface CollectionMetadata {
   tokenContract: Address
 }
 
-export async function getMetadata(posts: FormattedZoraPost[]): Promise<CollectionMetadata[]> {
+export async function getMetadata(collections: CreatedContract[]): Promise<CollectionMetadata[]> {
   try {
-    const promise = posts.map(async (p: FormattedZoraPost) => {
+    const promise = collections.map(async (c: CreatedContract) => {
       try {
-        if (!p.uri)
-          return {
-            image: p.preview,
-            name: p.name,
-            description: '',
-            chainId: p.chainId,
-            tokenContract: p.tokenContract,
-          }
-        const response = await fetch(
-          `/api/metadata?uri=${encodeURIComponent(p.contractURI as string)}`,
-        )
+        const response = await fetch(`/api/metadata?uri=${encodeURIComponent(c.contractURI)}`)
         const data = await response.json()
         return {
           image: getIpfsLink(data?.image || ''),
+          name: (data?.name as string) || '',
           description: data?.description || '',
-          name: data?.name || '',
-          chainId: p.chainId,
-          tokenContract: p.tokenContract,
+          chainId: c.chainId,
+          tokenContract: c.newContract,
         }
       } catch (error) {
-        return {
-          image: p.preview,
-          name: p.name,
-          description: '',
-          chainId: p.chainId,
-          tokenContract: p.tokenContract,
-        }
+        return null
       }
     })
-
     const metadata = await Promise.all(promise)
-    return metadata
+    return metadata.filter((m) => m)
   } catch (error) {
     console.error('Error fetching collections:', error)
     return []

@@ -1,38 +1,24 @@
 import { CollectionMetadata, getMetadata } from '@/lib/viem/getMetadata'
-import getBalancesUris from '@/lib/viem/getBalancesUris'
+import getBalances from '@/lib/viem/getBalances'
 import { useQuery } from '@tanstack/react-query'
 import { useActiveAccount } from 'thirdweb/react'
 import { Address } from 'viem'
 
-export type ZoraPost = {
-  tokenContract: Address
+export type CreatedContract = {
+  newContract: Address
   chainId: number
-  media: string
-  tokenId: string
   name: string
-  mimeType: string
-  blurhash: string
-  preview: string
-}
-export type FormattedZoraPost = ZoraPost & {
   contractURI: string
-  uri: string
-  balance: bigint
+  nextTokenId: bigint
+  batchBalances: bigint[]
 }
 
 async function fetchPosts(address: Address | undefined): Promise<CollectionMetadata[]> {
   try {
-    const response = await fetch('/api/posts/zora')
-    const zoraPosts = await response.json()
-    const ownedNfts = await getBalancesUris(address, zoraPosts)
-    const filtered = ownedNfts.filter((nft) => nft.balance !== BigInt(0))
-    const aggregated = {}
-
-    for (const item of filtered) {
-      const tokenContract = item.tokenContract
-      if (!aggregated[tokenContract]) aggregated[tokenContract] = item
-    }
-    const metadata = await getMetadata(Object.values(aggregated))
+    const response = await fetch(`/api/posts/zora`)
+    const zoraCreatedContracts = await response.json()
+    const collectionsAndBalances = await getBalances(address, zoraCreatedContracts)
+    const metadata = await getMetadata(collectionsAndBalances)
     return metadata
   } catch (error) {
     throw new Error('Failed to fetch zora posts.')
@@ -46,7 +32,6 @@ const usePosts = () => {
   return useQuery({
     queryKey: ['posts', address],
     queryFn: () => fetchPosts(address),
-    staleTime: 1000 * 60 * 5,
     enabled: !!address,
     refetchOnMount: true,
   })
