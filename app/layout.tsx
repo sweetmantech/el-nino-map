@@ -8,6 +8,7 @@ import { ReactNode } from 'react'
 import { ToastContainer } from 'react-toastify'
 import Providers from '@/providers/Providers'
 import Header from '@/components/Header'
+import OnBoarding from '@/components/OnBoarding'
 
 export const viewport = {
   width: 'device-width',
@@ -19,6 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
     <html lang="en">
       <body>
         <Providers>
+          <OnBoarding />
           <Header />
           {children}
           <ToastContainer />
