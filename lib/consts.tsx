@@ -27,3 +27,5 @@ export const SETUP_NEW_CONTRACT_EVENT_SIGNATURE = encodeEventTopics({
   abi: zoraCreator1155FactoryImplABI,
   eventName: 'SetupNewContract',
 })[0]
+
+export const xcelencia_eth = '0x089036a0835C6cF82e7fC42e9e95DfE05e110c81'

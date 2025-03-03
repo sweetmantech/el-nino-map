@@ -1,4 +1,4 @@
-import { SETUP_NEW_CONTRACT_EVENT_SIGNATURE } from '@/lib/consts'
+import { SETUP_NEW_CONTRACT_EVENT_SIGNATURE, xcelencia_eth } from '@/lib/consts'
 import { DuneDecodedEvent } from '@/types/dune'
 import { zoraCreator1155FactoryImplAddress } from '@zoralabs/protocol-deployments'
 import { mainnet } from 'viem/chains'
@@ -17,7 +17,7 @@ const getSetupContractEvents = async (): Promise<DuneDecodedEvent[]> => {
   const urlSearchParams = new URLSearchParams(params)
 
   const response = await fetch(
-    `https://api.dune.com/api/echo/v1/transactions/evm/0x089036a0835C6cF82e7fC42e9e95DfE05e110c81?${urlSearchParams}`,
+    `https://api.dune.com/api/echo/v1/transactions/evm/${xcelencia_eth}?${urlSearchParams}`,
     options,
   )
   if (!response.ok) throw Error('failed to call Dune API.')
