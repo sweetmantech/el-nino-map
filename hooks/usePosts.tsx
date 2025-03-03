@@ -15,10 +15,14 @@ export type CreatedContract = {
 
 async function fetchPosts(address: Address | undefined): Promise<CollectionMetadata[]> {
   try {
+    if (!address) return []
     const response = await fetch(`/api/posts/zora`)
     const zoraCreatedContracts = await response.json()
     const collectionsAndBalances = await getBalances(address, zoraCreatedContracts)
-    const metadata = await getMetadata(collectionsAndBalances)
+    const filtered = collectionsAndBalances.filter((c) =>
+      c.batchBalances.flat().some((b) => BigInt(b) > BigInt(0)),
+    )
+    const metadata = await getMetadata(filtered)
     return metadata
   } catch (error) {
     throw new Error('Failed to fetch zora posts.')
@@ -32,7 +36,6 @@ const usePosts = () => {
   return useQuery({
     queryKey: ['posts', address],
     queryFn: () => fetchPosts(address),
-    enabled: !!address,
     refetchOnMount: true,
   })
 }
