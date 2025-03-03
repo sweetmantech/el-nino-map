@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import usePurchase from './usePurchase'
 import useAreaDetection from './useAreaDetection'
+import { useRouter } from 'next/navigation'
 
 interface Laylo {
   openPopup: (options: {
@@ -22,13 +23,13 @@ declare global {
 }
 
 const useMap = () => {
+  const { push } = useRouter()
   const [mapperKey, setMapperKey] = useState(0)
   const { isCrossmintOpen, setIsCrossmintOpen, mint, purchasing } = usePurchase()
   const [isSpinampOpen, setIsSpinampOpen] = useState(false)
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
   const [isVideoOpen, setIsVideoOpen] = useState(false)
-  const [isGuestbookOpen, setIsGuestbookOpen] = useState(false)
   const [isHypersubOpen, setIsHypersubOpen] = useState(false)
   const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
   const [isPlannetOpen, setIsPlannetOpen] = useState(false)
@@ -43,7 +44,7 @@ const useMap = () => {
     if (area === 'merch') window.open('http://shopxcelencia.com/', '_blank')
     if (area === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
     if (area === 'mint') mint()
-    if (area === 'control') setIsGuestbookOpen(!isGuestbookOpen)
+    if (area === 'control') push('/inventory')
     if (area === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
     if (area === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
     if (area === 'plannet') setIsPlannetOpen(true)
@@ -64,8 +65,6 @@ const useMap = () => {
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
-    isGuestbookOpen,
-    setIsGuestbookOpen,
     isHypersubOpen,
     setIsHypersubOpen,
     isMemoriesOpen,
