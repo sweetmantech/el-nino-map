@@ -1,5 +1,4 @@
 import { ReactNode, useEffect } from 'react'
-import PulsatingGlow from './ui/pulsating-glow'
 
 const Modal = ({ onClose = () => {}, children }: { onClose?: () => void; children: ReactNode }) => {
   useEffect(() => {
@@ -20,7 +19,7 @@ const Modal = ({ onClose = () => {}, children }: { onClose?: () => void; childre
           if (e.target === e.currentTarget) onClose()
         }}
       >
-        <PulsatingGlow>{children}</PulsatingGlow>
+        {children}
       </div>
     </div>
   )
