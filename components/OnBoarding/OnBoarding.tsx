@@ -10,21 +10,21 @@ const OnBoarding = () => {
   const steps = [
     {
       title: 'Welcome to  El Niño Maravilla!',
-      message: "¡Hola! I'm Kid Wonder, your guide through this magical journey.",
+      message: '¡Q hay! I’m Atlas, your guide through this journey.',
     },
     {
       title: 'Your Adventure Map',
       message:
-        'Explore freely to discover new music, videos, and hidden surprises. Stay curious - updates appear like shooting stars!',
+        'Discover new music, videos, and hidden surprises. Stay sharp, updates drop like shooting stars.',
     },
     {
       title: 'Cosmic Features',
       message:
-        'Every planet has its purpose: Collect the latest songs in the center, watch videos, and subscribe for special experiences. Pro tip: Look for the comet to share your own memories!',
+        'Every planet has its own vibe: Collect the latest drop in the center, watch videos, and subscribe for exclusive experiences. Pro tip: Spot the comet? That’s your chance to share your own memories.',
     },
     {
-      title: 'Ready for Launch?',
-      message: "Your  journey awaits! Click 'Start Journey' to begin exploring.",
+      title: 'Estas ready?',
+      message: 'Your journey starts now. Hit EXPLORE (top right) to sign in and unlock more.',
     },
   ]
 
