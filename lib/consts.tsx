@@ -1,17 +1,20 @@
-import { base, baseSepolia } from 'thirdweb/chains'
+import { base, sepolia } from 'thirdweb/chains'
 import { encodeEventTopics } from 'viem'
 import { zoraCreator1155FactoryImplABI } from '@zoralabs/protocol-deployments'
 
 export const IS_TESTNET = process.env.NEXT_PUBLIC_TEST === 'true'
-export const CHAIN = IS_TESTNET ? baseSepolia : base
+export const CHAIN = IS_TESTNET ? sepolia : base
 export const CHAIN_ID = CHAIN.id
 
-// Zora
 export const DROP_ADDRESS = IS_TESTNET
-  ? '0xb2bf06A4fa038E878FBB280da9c53aCaa505747E' // base sepolia
-  : '0x6af64b3735947e7295242350a7046434b8520bd5' // base mainnet
+  ? '0x9875a02597614f2903bd84D5A3Ad6AaaA01dF541' // sepolia testnet
+  : '0xed17615d8bf5948fe4bb236f476d47ac57901945' // base mainnet
 
+export const ERC721_LAZY_PAYABLE_CLAIM = '0x23aA05a271DEBFFAA3D75739aF5581f744b326E4'
+
+export const INSTANCE_ID = BigInt(4262256880)
 export const ZORA_PRICE = '111000000000000'
+export const MANIFOLD_FEE = '500000000000000'
 
 export const COMMENT = 'XCELENCIA - ERC6551 smart album 🪄'
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'
