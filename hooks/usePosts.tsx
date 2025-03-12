@@ -33,6 +33,7 @@ const usePosts = () => {
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
 
+  console.log('ziad', address)
   return useQuery({
     queryKey: ['posts', address],
     queryFn: () => fetchPosts(address),
