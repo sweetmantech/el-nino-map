@@ -28,7 +28,7 @@ export const metadata: Metadata = {
         title: 'Collect',
         action: {
           type: 'launch_frame',
-          name: 'In Process',
+          name: TITLE,
           url: 'https://el-nino-map.vercel.app',
           iconImageUrl: IMAGE,
           splashImageUrl: IMAGE,
