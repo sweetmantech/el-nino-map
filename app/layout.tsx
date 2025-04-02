@@ -7,17 +7,33 @@ import { ToastContainer } from 'react-toastify'
 import Providers from '@/providers/Providers'
 import Header from '@/components/Header'
 import { Metadata } from 'next'
+import { getFrameMetadata } from '@coinbase/onchainkit/frame'
 
 export const viewport = {
   width: 'device-width',
   initialScale: 1.0,
 }
 
-const VERCEL_OG = 'https://el-nino-map.vercel.app'
 const TITLE = 'El Niño Maravilla Pt. 1'
 const DESCRIPTION = `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
 urban and pop sounds. This project brings together a talented team of designers,
 developers, and producers to create a groundbreaking musical experience.`
+const IMAGE =
+  'https://got3wwl5l6yqyl6kye4gs2fgzlfwlen6ufvpj4cl2b4ddpzm5mkq.arweave.net/M6e7WX1fsQwvysE4aWimystlkb6havTwS9B4Mb8s6xU'
+
+const frameMetadata = getFrameMetadata({
+  buttons: [
+    {
+      action: 'link',
+      label: 'Collect',
+      target: `https://www.estrella.city/`,
+    },
+  ],
+  image: {
+    src: IMAGE,
+    aspectRatio: '1:1',
+  },
+})
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -25,25 +41,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    images: [
-      `${VERCEL_OG}/images/space-station.png`
-    ]
+    images: [IMAGE],
   },
   other: {
-    'fc:frame': JSON.stringify({
-      version: 'next',
-      imageUrl: '/images/space-station.png',
-      button: {
-        title: 'El Niño',
-        action: {
-          type: 'launch_frame',
-          name: 'El Niño Maravilla Pt. 1',
-          url: 'https://el-nino-map-git-techengme-myc-983-31152c-sweetmantechs-projects.vercel.app/',
-          splashImageUrl: '/images/space-station.png',
-          splashBackgroundColor: '#ffffff',
-        },
-      },
-    }),
+    ...frameMetadata,
   },
 }
 
