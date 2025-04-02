@@ -1,6 +1,7 @@
-import { CustomArea } from 'react-img-mapper'
 import { useState } from 'react'
 import usePurchase from './usePurchase'
+import useAreaDetection from './useAreaDetection'
+import { useRouter } from 'next/navigation'
 
 interface Laylo {
   openPopup: (options: {
@@ -22,30 +23,31 @@ declare global {
 }
 
 const useMap = () => {
+  const { push } = useRouter()
   const [mapperKey, setMapperKey] = useState(0)
   const { isCrossmintOpen, setIsCrossmintOpen, mint, purchasing } = usePurchase()
   const [isSpinampOpen, setIsSpinampOpen] = useState(false)
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
   const [isVideoOpen, setIsVideoOpen] = useState(false)
-  const [isGuestbookOpen, setIsGuestbookOpen] = useState(false)
   const [isHypersubOpen, setIsHypersubOpen] = useState(false)
   const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
   const [isPlannetOpen, setIsPlannetOpen] = useState(false)
   const [isComingSoonOpen, setIsComingSoonOpen] = useState(false)
+  const { handleMouseMove, area } = useAreaDetection()
 
-  const clickMap = (area: CustomArea) => {
-    if (area.id === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
-    if (area.id === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
-    if (area.id === 'metadata') setIsMetadataOpen(!isMetadataOpen)
-    if (area.id === 'video') setIsVideoOpen(!isVideoOpen)
-    if (area.id === 'merch') window.open('http://shopxcelencia.com/', '_blank')
-    if (area.id === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
-    if (area.id === 'mint') mint()
-    if (area.id === 'control') setIsGuestbookOpen(!isGuestbookOpen)
-    if (area.id === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
-    if (area.id === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
-    if (area.id === 'plannet') setIsPlannetOpen(true)
+  const clickMap = () => {
+    if (area === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
+    if (area === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
+    if (area === 'metadata') setIsMetadataOpen(!isMetadataOpen)
+    if (area === 'video') setIsVideoOpen(!isVideoOpen)
+    if (area === 'merch') window.open('http://shopxcelencia.com/', '_blank')
+    if (area === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
+    if (area === 'mint') mint()
+    if (area === 'control') push('/inventory')
+    if (area === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
+    if (area === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
+    if (area === 'plannet') setIsPlannetOpen(true)
   }
 
   return {
@@ -63,8 +65,6 @@ const useMap = () => {
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
-    isGuestbookOpen,
-    setIsGuestbookOpen,
     isHypersubOpen,
     setIsHypersubOpen,
     isMemoriesOpen,
@@ -73,6 +73,7 @@ const useMap = () => {
     setIsPlannetOpen,
     isComingSoonOpen,
     setIsComingSoonOpen,
+    handleMouseMove,
   }
 }
 

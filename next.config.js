@@ -36,6 +36,9 @@ const nextConfig = {
       {
         hostname: 'storage.withfabric.xyz',
       },
+      {
+        hostname: 'magic.decentralized-content.com',
+      },
     ],
   },
 }

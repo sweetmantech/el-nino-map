@@ -12,7 +12,7 @@ const DraggableModal = ({ children, handleClose }) => {
         />
         <Draggable scale={1} bounds="parent" allowAnyClick={false} handle=".handle">
           <div className="relative z-[1000] bg-white">
-            <div className="flex flex-col h-full w-full">
+            <div className="flex flex-col h-full w-full bg-white">
               <div className="flex justify-between items-center gap-x-[20px] bg-black border-b-grey border-b text-grey">
                 <div className="flex-grow handle pl-3 py-2 cursor-pointer font-italipixel">
                   Spinamp Player

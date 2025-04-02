@@ -1,11 +1,15 @@
-'use client'
+import LandingPage from '@/components/LandingPage'
+import { MapProvider } from '@/providers/MapProvider'
+import { TipProvider } from '@/providers/TipProvider'
+import OnBoarding from '@/components/OnBoarding'
 
-import dynamic from 'next/dynamic'
-
-const LandingPage = dynamic(() => import('@/components/LandingPage'), {
-  ssr: false,
-})
-
-const Page = () => <LandingPage />
+const Page = () => (
+  <TipProvider>
+    <MapProvider>
+      <LandingPage />
+      <OnBoarding />
+    </MapProvider>
+  </TipProvider>
+)
 
 export default Page

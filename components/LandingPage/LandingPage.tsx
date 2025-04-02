@@ -1,37 +1,28 @@
 'use client'
 
-import ImageMapper from 'react-img-mapper'
-import map from '@/lib/image-map.json'
-import useDialog from '@/hooks/useDialog'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import { useActiveAccount } from 'thirdweb/react'
 import { Account } from 'thirdweb/wallets'
 import Modals from './Modals'
 import { useMapProvider } from '@/providers/MapProvider'
-import Dialog from './Dialog'
 import Tooltip from './Tooltip'
 import getTooltipText from '@/lib/getTooltipText'
-import calculateScaledWidth from '@/lib/calculateScaledWidth'
+import calculateScaledSize from '@/lib/calculateScaledSize'
+import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
+import ImageMapper from 'react-img-mapper'
+import map from '@/lib/image-map.json'
+import { useTipProvider } from '@/providers/TipProvider'
 
 const LandingPage = () => {
-  const {
-    showTooltip,
-    closeTooltip,
-    isVisibleToolTip,
-    isDialogOpen,
-    tooltipX,
-    tooltipY,
-    tooltipId,
-    width,
-    height,
-    scale,
-  } = useDialog()
+  const { isVisibleToolTip, tooltipX, tooltipY, tooltipId, width, height, imageRef } =
+    useTipProvider()
 
-  const { clickMap, mapperKey, setMapperKey, purchasing } = useMapProvider()
+  const { clickMap, setMapperKey, handleMouseMove } = useMapProvider()
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
+  const [pulsatingCenter, setPulsatingCenter] = useState<{ x: number; y: number } | null>(null)
 
   useEffect(() => {
     const init = async () => {
@@ -43,36 +34,50 @@ const LandingPage = () => {
         setMapperKey(Math.floor(Math.random() * 1000))
       }
     }
-
     if (!address) return
-
     init()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address])
 
+  const handleMoseMoveWithPosition = (e) => {
+    const centerCoords = handleMouseMove(e)
+    if (centerCoords) {
+      setPulsatingCenter(centerCoords)
+      return
+    }
+    setPulsatingCenter(null)
+  }
   return (
-    <div
-      className={`relative h-screen w-screen overflow-auto 
-      bg-[url('/images/background.png')] bg-cover bg-center
-      flex ${width > scale * calculateScaledWidth(width, height) && 'justify-center'}
-      ${height > scale * height && 'items-center'}`}
-      id="container"
-    >
-      <div className="relative z-[2]" id="map">
-        <ImageMapper
-          src="/images/xcelencia-web-elements_only.png"
-          map={map}
-          responsive
-          parentWidth={scale * calculateScaledWidth(width, height)}
-          onMouseMove={(area, index, e) => showTooltip(area, e)}
-          onMouseLeave={closeTooltip}
-          onClick={clickMap}
-          key={`${mapperKey}`}
-          disabled={purchasing}
-        />
-      </div>
+    <div id="container">
+      <TransformWrapper initialScale={1.1} centerOnInit>
+        <TransformComponent
+          contentProps={{
+            onMouseMove: handleMoseMoveWithPosition,
+            onClick: clickMap,
+          }}
+          wrapperClass={`!w-screen !h-screen !overflow-hidden bg-[url('/images/background.png')] bg-cover bg-center`}
+        >
+          <div ref={imageRef} className="size-full relative">
+            <ImageMapper
+              src="/images/xcelencia-web-elements_only.png"
+              map={map}
+              responsive
+              parentWidth={calculateScaledSize(width, height).width}
+            />
+            {pulsatingCenter && imageRef.current && (
+              <div
+                className="absolute rounded-full animate-glow pointer-events-none bg-[#ef4444] opacity-[0.6] blur-[25px] w-[200px] h-[200px]"
+                style={{
+                  left: (pulsatingCenter.x / 8000) * calculateScaledSize(width, height).width - 100,
+                  top: (pulsatingCenter.y / 4500) * calculateScaledSize(width, height).height - 100,
+                }}
+              />
+            )}
+          </div>
+          F
+        </TransformComponent>
+      </TransformWrapper>
       {isVisibleToolTip && <Tooltip text={getTooltipText(tooltipId)} x={tooltipX} y={tooltipY} />}
-      {isDialogOpen && <Dialog />}
       <Modals />
     </div>
   )

@@ -48,6 +48,15 @@ module.exports = {
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
       },
+      keyframes: {
+        glow: {
+          '0%, 100%': { opacity: 0.7 },
+          '50%': { opacity: 0.3 },
+        },
+      },
+      animation: {
+        glow: 'glow 2s ease-in-out infinite',
+      },
     },
   },
   variants: {
