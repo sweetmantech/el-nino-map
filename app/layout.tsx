@@ -13,11 +13,22 @@ export const viewport = {
   initialScale: 1.0,
 }
 
+const VERCEL_OG = 'https://el-nino-map.vercel.app'
+const TITLE = 'El Niño Maravilla Pt. 1'
+const DESCRIPTION = `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
+urban and pop sounds. This project brings together a talented team of designers,
+developers, and producers to create a groundbreaking musical experience.`
+
 export const metadata: Metadata = {
-  title: 'El Niño Maravilla Pt. 1',
-  description: `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
-  urban and pop sounds. This project brings together a talented team of designers,
-  developers, and producers to create a groundbreaking musical experience.`,
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [
+      `${VERCEL_OG}/images/space-station.png`
+    ]
+  },
   other: {
     'fc:frame': JSON.stringify({
       version: 'next',
