@@ -11,6 +11,8 @@ developers, and producers to create a groundbreaking musical experience.`
 const IMAGE =
   'https://got3wwl5l6yqyl6kye4gs2fgzlfwlen6ufvpj4cl2b4ddpzm5mkq.arweave.net/M6e7WX1fsQwvysE4aWimystlkb6havTwS9B4Mb8s6xU'
 
+export const revalidate = 300
+
 export const metadata: Metadata = {
   title: TITLE,
   description: DESCRIPTION,
