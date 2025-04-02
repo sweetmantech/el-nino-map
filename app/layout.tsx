@@ -26,7 +26,7 @@ const frameMetadata = getFrameMetadata({
     {
       action: 'link',
       label: 'Collect',
-      target: `https://www.estrella.city/`,
+      target: 'https://el-nino-map.vercel.app/',
     },
   ],
   image: {
