@@ -1,3 +1,5 @@
+'use client'
+
 import { AirstackProvider } from '@airstack/airstack-react'
 import WagmiProvider from './WagmiProvider'
 import FrameProvider from './FrameProvider'
