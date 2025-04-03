@@ -11,7 +11,7 @@ export async function GET() {
       version: '1',
       name: 'Example Frame',
       iconUrl: 'https://el-nino-map.vercel.app/icon.png',
-      homeUrl: 'https://el-nino-map.vercel.app/home',
+      homeUrl: 'https://el-nino-map.vercel.app/inventory',
       imageUrl: 'https://el-nino-map.vercel.app/image.png',
       buttonTitle: 'Check this out',
       splashImageUrl: 'https://el-nino-map.vercel.app/splash.png',
