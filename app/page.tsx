@@ -8,8 +8,7 @@ const TITLE = 'El Niño Maravilla Pt. 1'
 const DESCRIPTION = `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
 urban and pop sounds. This project brings together a talented team of designers,
 developers, and producers to create a groundbreaking musical experience.`
-const IMAGE =
-  'https://got3wwl5l6yqyl6kye4gs2fgzlfwlen6ufvpj4cl2b4ddpzm5mkq.arweave.net/M6e7WX1fsQwvysE4aWimystlkb6havTwS9B4Mb8s6xU'
+const IMAGE = 'https://arweave.net/M6e7WX1fsQwvysE4aWimystlkb6havTwS9B4Mb8s6xU'
 
 export const revalidate = 300
 
@@ -34,7 +33,7 @@ export const metadata: Metadata = {
           url: 'https://el-nino-map.vercel.app',
           iconImageUrl: IMAGE,
           splashImageUrl: IMAGE,
-          splashBackgroundColor: '#f7f7f7',
+          splashBackgroundColor: '#6330d0',
         },
       },
     }),
