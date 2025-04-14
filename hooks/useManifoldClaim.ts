@@ -37,7 +37,7 @@ const useManifoldClaim = () => {
         method:
           'function mintBatch(address creatorContractAddress, uint256 instanceId, uint16 mintCount, uint32[] mintIndices, bytes32[][] merkleProofs, address mintFor) payable',
         params: [DROP_ADDRESS, INSTANCE_ID, amount, [], [[]], address],
-        value: BigInt('500000000000000'),
+        value: BigInt('500000000000000') * BigInt(amount),
       })
 
       const { transactionHash } = await sendTransaction({

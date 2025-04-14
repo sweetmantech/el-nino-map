@@ -10,10 +10,10 @@ const Preview = () => {
 
   return (
     <div
-      className="bg-white p-2 rounded-md fixed z-[9999]"
+      className="bg-white p-2 rounded-md fixed z-[9999] flex flex-col items-center"
       style={{
         left: tooltipX,
-        top: tooltipY - 250,
+        top: tooltipY - 350,
       }}
     >
       <Image
