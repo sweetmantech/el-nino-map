@@ -22,9 +22,9 @@ const Preview = () => {
         height={200}
         alt="not found preview"
       />
-      <div className="mt-2 px-2">
+      <div className="mt-2 px-2 w-full">
         <p className="font-titilliumweb">Free</p>
-        <p className="font-titilliumweb">{`+ MANIFOLD FEE (${0.0005 * amount} ETH)`}</p>
+        <p className="font-titilliumweb">{`+ MANIFOLD FEE (${Number(0.0005 * amount).toPrecision(2)} ETH)`}</p>
       </div>
       <div className="flex font-titilliumweb justify-center gap-2 mt-1">
         <button
