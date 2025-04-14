@@ -9,7 +9,7 @@ const usePurchase = () => {
   const address = activeAccount?.address
   const wallets = useConnectedWallets()
   const isExternalWallet = wallets?.[0]?.id !== 'inApp'
-  const { claim } = useManifoldClaim()
+  const { claim, amount, setAmount } = useManifoldClaim()
   const [isCrossmintOpen, setIsCrossmintOpen] = useState(false)
   const [purchasing, setPurchasing] = useState(false)
 
@@ -39,6 +39,8 @@ const usePurchase = () => {
     setIsCrossmintOpen,
     mint,
     purchasing,
+    amount,
+    setAmount,
   }
 }
 

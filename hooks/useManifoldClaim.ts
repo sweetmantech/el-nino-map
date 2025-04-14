@@ -6,10 +6,12 @@ import { client } from '@/lib/thirdweb/client'
 import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
 import { wallets } from '@/lib/thirdweb/wallets'
 import { erc1155LazyPayableClaimAbi } from '@/lib/abi/erc_1155_lazy_payable'
+import { useState } from 'react'
 
 const useManifoldClaim = () => {
   const { connect } = useConnectModal()
   const switchChain = useSwitchActiveWalletChain()
+  const [amount, setAmount] = useState<number>(1)
 
   const claim = async (activeAccount: any) => {
     try {
@@ -33,8 +35,8 @@ const useManifoldClaim = () => {
       const transaction = prepareContractCall({
         contract,
         method:
-          'function mint(address creatorContractAddress, uint256 instanceId, uint32 mintIndex, bytes32[] merkleProof, address mintFor) payable',
-        params: [DROP_ADDRESS, INSTANCE_ID, 0, [], address],
+          'function mintBatch(address creatorContractAddress, uint256 instanceId, uint16 mintCount, uint32[] mintIndices, bytes32[][] merkleProofs, address mintFor) payable',
+        params: [DROP_ADDRESS, INSTANCE_ID, amount, [], [[]], address],
         value: BigInt('500000000000000'),
       })
 
@@ -53,6 +55,8 @@ const useManifoldClaim = () => {
 
   return {
     claim,
+    amount,
+    setAmount,
   }
 }
 
