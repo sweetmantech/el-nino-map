@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { CrossmintEmbeddedCheckout, useCrossmintCheckout } from '@crossmint/client-sdk-react-ui'
-import { COMMENT, DROP_ADDRESS, MINT_REFERRAL } from '../../lib/consts'
+import { DROP_ADDRESS, INSTANCE_ID } from '../../lib/consts'
 import { useActiveAccount } from 'thirdweb/react'
 import Modal from '../Modal'
 import { Address } from 'viem'
@@ -26,18 +26,18 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
         {address && (
           <CrossmintEmbeddedCheckout
             lineItems={{
-              collectionLocator: 'crossmint:22373fe5-17e4-4ac9-8682-3ba5f83ef2d4',
+              collectionLocator: 'crossmint:c8e93456-aa08-4f03-85d3-1aed3ae668f6',
               callData: {
-                quantity: 1,
-                collection: DROP_ADDRESS,
-                tokenId: 5,
-                mintReferral: MINT_REFERRAL,
-                totalPrice: '0.000000111',
-                comment: COMMENT,
+                totalPrice: '0.0005',
+                creatorContractAddress: DROP_ADDRESS,
+                instanceId: INSTANCE_ID.toString(),
+                mintIndex: 0,
+                merkleProof: '[]',
+                mintFor: address,
               },
             }}
             payment={{
-              crypto: { enabled: true },
+              crypto: { enabled: false },
               fiat: {
                 enabled: true,
                 defaultCurrency: 'usd',
