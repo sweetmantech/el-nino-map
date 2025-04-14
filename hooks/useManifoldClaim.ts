@@ -1,11 +1,11 @@
-import { CHAIN, DROP_ADDRESS, ERC721_LAZY_PAYABLE_CLAIM, INSTANCE_ID } from '@/lib/consts'
+import { CHAIN, DROP_ADDRESS, ERC1155_LAZY_PAYABLE_CLAIM, INSTANCE_ID } from '@/lib/consts'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import { useConnectModal, useSwitchActiveWalletChain } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
 import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
 import { wallets } from '@/lib/thirdweb/wallets'
-import { erc721LazyPayableClaimAbi } from '@/lib/abi/erc721_lazy_payable'
+import { erc1155LazyPayableClaimAbi } from '@/lib/abi/erc_1155_lazy_payable'
 
 const useManifoldClaim = () => {
   const { connect } = useConnectModal()
@@ -24,9 +24,9 @@ const useManifoldClaim = () => {
       }
       await switchChain(CHAIN)
       const contract: any = getContract({
-        address: ERC721_LAZY_PAYABLE_CLAIM,
+        address: ERC1155_LAZY_PAYABLE_CLAIM,
         chain: CHAIN,
-        abi: erc721LazyPayableClaimAbi as any,
+        abi: erc1155LazyPayableClaimAbi as any,
         client,
       })
 
