@@ -1,6 +1,7 @@
 import { base, sepolia } from 'thirdweb/chains'
 import { encodeEventTopics } from 'viem'
 import { zoraCreator1155FactoryImplABI } from '@zoralabs/protocol-deployments'
+import { erc1155LazyPayableClaimAbi } from './abi/erc_1155_lazy_payable'
 
 export const IS_TESTNET = process.env.NEXT_PUBLIC_TEST === 'true'
 export const CHAIN = IS_TESTNET ? sepolia : base
@@ -30,6 +31,11 @@ export const STPV2 = '0x3Fb6478F4f767993a5eD804608c7ABe31B73DeA9'
 export const SETUP_NEW_CONTRACT_EVENT_SIGNATURE = encodeEventTopics({
   abi: zoraCreator1155FactoryImplABI,
   eventName: 'SetupNewContract',
+})[0]
+
+export const CLAIM_INITIALIZED_EVENT_SIGNATURE = encodeEventTopics({
+  abi: erc1155LazyPayableClaimAbi,
+  eventName: 'ClaimInitialized',
 })[0]
 
 export const xcelencia_eth = '0x089036a0835C6cF82e7fC42e9e95DfE05e110c81'
