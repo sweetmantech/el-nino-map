@@ -14,6 +14,7 @@ import { TransformWrapper, TransformComponent } from 'react-zoom-pan-pinch'
 import ImageMapper from 'react-img-mapper'
 import map from '@/lib/image-map.json'
 import { useTipProvider } from '@/providers/TipProvider'
+import Preview from './Preview'
 
 const LandingPage = () => {
   const { isVisibleToolTip, tooltipX, tooltipY, tooltipId, width, height, imageRef } =
@@ -74,10 +75,10 @@ const LandingPage = () => {
               />
             )}
           </div>
-          F
         </TransformComponent>
       </TransformWrapper>
       {isVisibleToolTip && <Tooltip text={getTooltipText(tooltipId)} x={tooltipX} y={tooltipY} />}
+      <Preview />
       <Modals />
     </div>
   )

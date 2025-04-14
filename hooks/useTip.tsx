@@ -6,7 +6,7 @@ import useIsMobile from './useIsMobile'
 const useTip = () => {
   const [width, setWidth] = useState(0)
   const [height, setHeight] = useState(0)
-  const [tooltipId, setTooltipId] = useState('connect')
+  const [tooltipId, setTooltipId] = useState<string | null>('connect')
   const isMobile = useIsMobile()
   const [isVisibleToolTip, setIsVisibleTooltip] = useState(false)
   const [tooltipX, setTooltipX] = useState(0)
@@ -14,12 +14,13 @@ const useTip = () => {
   const imageRef = useRef<HTMLDivElement>(null)
 
   const closeTooltip = () => {
+    setTooltipId(null)
     setIsVisibleTooltip(false)
   }
 
   const showTooltip = (area: any, e: any) => {
     setTooltipId(area.id)
-    setIsVisibleTooltip(true)
+    setIsVisibleTooltip(area.id !== 'mint')
     const x = e.clientX
     const y = e.clientY
 
