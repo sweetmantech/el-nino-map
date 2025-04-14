@@ -17,7 +17,7 @@ const usePurchase = () => {
     if (!address) return
     setPurchasing(true)
     const balance = await getBalance(address)
-    const hasSufficient = balance > 0.000111
+    const hasSufficient = balance > 0.0005 * amount
     if (isExternalWallet && hasSufficient) {
       toast('Purchasing...', {
         position: 'top-right',

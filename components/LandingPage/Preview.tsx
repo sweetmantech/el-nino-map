@@ -24,7 +24,7 @@ const Preview = () => {
       />
       <div className="mt-2 px-2">
         <p className="font-titilliumweb">Free</p>
-        <p className="font-titilliumweb">{`+ MANIFOLD FEE (0.0005 ETH)`}</p>
+        <p className="font-titilliumweb">{`+ MANIFOLD FEE (${0.0005 * amount} ETH)`}</p>
       </div>
       <div className="flex font-titilliumweb justify-center gap-2 mt-1">
         <button
