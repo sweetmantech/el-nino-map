@@ -25,7 +25,7 @@ declare global {
 const useMap = () => {
   const { push } = useRouter()
   const [mapperKey, setMapperKey] = useState(0)
-  const { isCrossmintOpen, setIsCrossmintOpen, mint, purchasing } = usePurchase()
+  const { isCrossmintOpen, setIsCrossmintOpen, purchasing, mint, amount, setAmount } = usePurchase()
   const [isSpinampOpen, setIsSpinampOpen] = useState(false)
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
@@ -43,7 +43,6 @@ const useMap = () => {
     if (area === 'video') setIsVideoOpen(!isVideoOpen)
     if (area === 'merch') window.open('http://shopxcelencia.com/', '_blank')
     if (area === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
-    if (area === 'mint') mint()
     if (area === 'control') push('/inventory')
     if (area === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
     if (area === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
@@ -74,6 +73,9 @@ const useMap = () => {
     isComingSoonOpen,
     setIsComingSoonOpen,
     handleMouseMove,
+    mint,
+    amount,
+    setAmount,
   }
 }
 
