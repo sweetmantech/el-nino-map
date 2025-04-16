@@ -1,10 +1,10 @@
-import { CreatedContract } from '../../hooks/usePosts'
 import { getPublicClient } from '../clients'
 import { Address } from 'viem'
 import { zoraCreator1155ImplABI } from '@zoralabs/protocol-deployments'
+import { ZoraCreatedContract } from '@/types/inventory'
 
-const createCalls = (collections: CreatedContract[], functionName: string) => {
-  return collections.map((c: CreatedContract) => {
+const createCalls = (collections: ZoraCreatedContract[], functionName: string) => {
+  return collections.map((c: ZoraCreatedContract) => {
     const call: {
       address: string
       abi: typeof zoraCreator1155ImplABI
@@ -19,13 +19,10 @@ const createCalls = (collections: CreatedContract[], functionName: string) => {
   })
 }
 
-const getBalances = async (
-  address: Address,
-  contracts: CreatedContract[],
-): Promise<CreatedContract[]> => {
+const getZoraBalances = async (address: Address, contracts: ZoraCreatedContract[]) => {
   try {
     const grouped = contracts.reduce(
-      (acc: { [chainId: number]: CreatedContract[] }, item: CreatedContract) => {
+      (acc: { [chainId: number]: ZoraCreatedContract[] }, item: ZoraCreatedContract) => {
         if (!acc[item.chainId]) {
           acc[item.chainId] = []
         }
@@ -40,7 +37,7 @@ const getBalances = async (
       const nextTokenIdCalls = createCalls(collections, 'nextTokenId')
       const nextTokenIdResults = await publicClient.multicall({ contracts: nextTokenIdCalls })
 
-      const balanceCalls = collections.map((c: CreatedContract, i) => {
+      const balanceCalls = collections.map((c: ZoraCreatedContract, i) => {
         const nextTokenId =
           typeof nextTokenIdResults?.[i]?.result === 'bigint'
             ? nextTokenIdResults[i].result
@@ -61,7 +58,7 @@ const getBalances = async (
       })
 
       const batchBalanceResults = await publicClient.multicall({ contracts: balanceCalls })
-      return collections.map((c: CreatedContract) => ({
+      return collections.map((c: ZoraCreatedContract) => ({
         ...c,
         batchBalances: batchBalanceResults.map((r) => (r?.result as bigint[]) || []),
       }))
@@ -73,4 +70,4 @@ const getBalances = async (
   }
 }
 
-export default getBalances
+export default getZoraBalances

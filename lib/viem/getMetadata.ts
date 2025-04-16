@@ -1,4 +1,3 @@
-import { CreatedContract } from '@/hooks/usePosts'
 import { Address } from 'viem'
 import getIpfsLink from '../getIpfsLink'
 
@@ -10,11 +9,13 @@ export interface CollectionMetadata {
   tokenContract: Address
 }
 
-export async function getMetadata(collections: CreatedContract[]): Promise<CollectionMetadata[]> {
+export async function getMetadata(collections): Promise<CollectionMetadata[]> {
   try {
-    const promise = collections.map(async (c: CreatedContract) => {
+    const promise = collections.map(async (c) => {
       try {
-        const response = await fetch(`/api/metadata?uri=${encodeURIComponent(c.contractURI)}`)
+        const response = await fetch(
+          `/api/metadata?uri=${encodeURIComponent(c.contractURI || c.uri)}`,
+        )
         const data = await response.json()
         return {
           image: getIpfsLink(data?.image || ''),
