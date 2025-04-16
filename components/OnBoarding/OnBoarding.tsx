@@ -1,10 +1,10 @@
 'use client'
 
-import { Fragment, useState } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import Modal from '../Modal'
 
 const OnBoarding = () => {
-  const [isOpenOnboarding, setIsOpenOnboarding] = useState(true)
+  const [isOpenOnboarding, setIsOpenOnboarding] = useState(false)
   const [currentStep, setCurrentStep] = useState<number>(0)
 
   const steps = [
@@ -30,11 +30,17 @@ const OnBoarding = () => {
 
   const onStep = () => {
     if (currentStep === steps.length - 1) {
+      localStorage.setItem('onboarded', 'true')
       setIsOpenOnboarding(false)
       return
     }
     setCurrentStep(currentStep + 1)
   }
+
+  useEffect(() => {
+    setIsOpenOnboarding(localStorage.getItem('onboarded') !== 'true')
+  }, [])
+
   if (!isOpenOnboarding) return <Fragment />
   return (
     <Modal>
