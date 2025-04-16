@@ -13,7 +13,7 @@ async function fetchPosts(address: Address | undefined): Promise<CollectionMetad
     const metadata = await getMetadata([...zoraCreatedPosts, ...manifoldCreatedPosts])
     return metadata
   } catch (error) {
-    throw new Error('Failed to fetch zora posts.')
+    throw new Error('Failed to fetch posts.')
   }
 }
 

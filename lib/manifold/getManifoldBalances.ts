@@ -71,8 +71,8 @@ const getManifoldBalances = async (address: Address, contracts: Token[]) => {
         return {
           address: t.tokenContract,
           abi,
-          functionName: 'balanceOf',
-          args: [address, t.tokenId],
+          functionName: 'uri',
+          args: [t.tokenId],
         }
       })
       const balanceCallsResults = await publicClient.multicall({ contracts: balanceCalls })
