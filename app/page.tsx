@@ -30,7 +30,6 @@ export const metadata: Metadata = {
           type: 'launch_frame',
           name: TITLE,
           url: 'https://el-nino-map.vercel.app',
-          iconUrl: 'https://el-nino-map.vercel.app/favicon.png',
           splashImageUrl: 'https://el-nino-map.vercel.app/miniapp-icon.png',
           splashBackgroundColor: '#6330d0',
         },
