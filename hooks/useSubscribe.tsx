@@ -22,6 +22,7 @@ const useSubscribe = () => {
   const { connect } = useConnectModal()
   const switchChain = useSwitchActiveWalletChain()
   const [loading, setLoading] = useState(false)
+  const [subscribed, setSubscribed] = useState(false)
 
   const subscribe = async () => {
     setLoading(true)
@@ -59,15 +60,18 @@ const useSubscribe = () => {
 
       toast.success('Subscribed!')
       setLoading(false)
+      setSubscribed(true)
       return transactionHash
     } catch (error) {
       handleTxError(error)
       setLoading(false)
+      setSubscribed(false)
       return { error }
     }
   }
 
   return {
+    subscribed,
     subscribe,
     loading,
     photos,
