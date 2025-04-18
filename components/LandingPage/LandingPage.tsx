@@ -15,15 +15,21 @@ import ImageMapper from 'react-img-mapper'
 import map from '@/lib/image-map.json'
 import { useTipProvider } from '@/providers/TipProvider'
 import Preview from './Preview'
+import { PULSATING_COLORS } from '@/lib/consts'
 
 const LandingPage = () => {
   const { isVisibleToolTip, tooltipX, tooltipY, tooltipId, width, height, imageRef } =
     useTipProvider()
 
-  const { clickMap, setMapperKey, handleMouseMove } = useMapProvider()
+  const { clickMap, setMapperKey, handleMouseMove, area } = useMapProvider()
   const activeAccount: Account = useActiveAccount()
   const address = activeAccount?.address
   const [pulsatingCenter, setPulsatingCenter] = useState<{ x: number; y: number } | null>(null)
+
+  const randomHexColorCode = () => {
+    const n = (Math.random() * 0xfffff * 1000000).toString(16)
+    return '#' + n.slice(0, 6)
+  }
 
   useEffect(() => {
     const init = async () => {
@@ -44,6 +50,7 @@ const LandingPage = () => {
     const centerCoords = handleMouseMove(e)
     if (centerCoords) {
       setPulsatingCenter(centerCoords)
+      console.log('ziad', randomHexColorCode(), area)
       return
     }
     setPulsatingCenter(null)
@@ -67,10 +74,11 @@ const LandingPage = () => {
             />
             {pulsatingCenter && imageRef.current && (
               <div
-                className="absolute rounded-full animate-glow pointer-events-none bg-[#ef4444] opacity-[0.6] blur-[25px] w-[200px] h-[200px]"
+                className="absolute rounded-full animate-glow pointer-events-none opacity-[0.6] blur-[25px] w-[200px] h-[200px]"
                 style={{
                   left: (pulsatingCenter.x / 8000) * calculateScaledSize(width, height).width - 100,
                   top: (pulsatingCenter.y / 4500) * calculateScaledSize(width, height).height - 100,
+                  background: PULSATING_COLORS[area],
                 }}
               />
             )}
