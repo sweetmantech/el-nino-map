@@ -26,11 +26,6 @@ const LandingPage = () => {
   const address = activeAccount?.address
   const [pulsatingCenter, setPulsatingCenter] = useState<{ x: number; y: number } | null>(null)
 
-  const randomHexColorCode = () => {
-    const n = (Math.random() * 0xfffff * 1000000).toString(16)
-    return '#' + n.slice(0, 6)
-  }
-
   useEffect(() => {
     const init = async () => {
       if (address) {
@@ -50,7 +45,6 @@ const LandingPage = () => {
     const centerCoords = handleMouseMove(e)
     if (centerCoords) {
       setPulsatingCenter(centerCoords)
-      console.log('ziad', randomHexColorCode(), area)
       return
     }
     setPulsatingCenter(null)
