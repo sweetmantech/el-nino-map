@@ -58,7 +58,6 @@ const useSubscribe = () => {
       })
 
       toast.success('Subscribed!')
-      window.open('https://hypersub.xyz', '_blank')
       setLoading(false)
       return transactionHash
     } catch (error) {
