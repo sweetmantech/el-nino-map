@@ -4,7 +4,6 @@ import Image from 'next/image'
 
 const Hypersub = ({ onClose }: { onClose: () => void }) => {
   const { subscribe, loading, photos, subscribed } = useSubscribe()
-
   const handleClick = async () => {
     if (subscribed) {
       window.open('https://hypersub.xyz', '_blank')
