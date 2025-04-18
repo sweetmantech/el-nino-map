@@ -3,12 +3,13 @@ import Modal from '../Modal'
 import Image from 'next/image'
 
 const Hypersub = ({ onClose }: { onClose: () => void }) => {
-  const { subscribe, loading, photos } = useSubscribe()
-
+  const { subscribe, loading, photos, subscribed } = useSubscribe()
   const handleClick = async () => {
+    if (subscribed) {
+      window.open('https://hypersub.xyz', '_blank')
+      return
+    }
     await subscribe()
-    window.open('https://hypersub.xyz', '_blank')
-    onClose()
   }
 
   return (
@@ -29,8 +30,9 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
           ))}
         </div>
         <p className="font-titilliumweb">
-          Subscribe to ENM by La Equis $5 USDC/month for exclusive content, early access & surprise
-          drops.
+          {subscribed
+            ? `To stay up to date with your subscription, visit the hypersub`
+            : 'Subscribe to ENM by La Equis $5 USDC/month for exclusive content, early access & surprise drops.'}
         </p>
         <button
           type="button"
@@ -38,7 +40,7 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
           onClick={handleClick}
           disabled={loading}
         >
-          {loading ? 'Subscribing...' : 'Subscribe'}
+          {loading ? 'Subscribing...' : <>{subscribed ? 'View' : 'Subscribe'}</>}
         </button>
       </div>
     </Modal>
