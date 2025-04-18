@@ -11,7 +11,6 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
       return
     }
     await subscribe()
-    onClose()
   }
 
   return (
