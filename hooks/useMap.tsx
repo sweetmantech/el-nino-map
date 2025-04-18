@@ -76,6 +76,7 @@ const useMap = () => {
     mint,
     amount,
     setAmount,
+    area,
   }
 }
 
