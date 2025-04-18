@@ -7,6 +7,7 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
 
   const handleClick = async () => {
     await subscribe()
+    window.open('https://hypersub.xyz', '_blank')
     onClose()
   }
 
