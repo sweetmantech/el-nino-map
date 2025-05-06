@@ -16,7 +16,7 @@ export const ERC1155_LAZY_PAYABLE_CLAIM = '0x26BBEA7803DcAc346D5F5f135b57Cf2c752
 
 export const INSTANCE_ID = IS_TESTNET ? BigInt(4244961520) : BigInt(4277512432)
 export const ZORA_PRICE = '111000000000000'
-export const MANIFOLD_FEE = '500000000000000'
+export const MANIFOLD_FEE = BigInt(500000000000000)
 
 export const COMMENT = 'XCELENCIA - ERC6551 smart album 🪄'
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'

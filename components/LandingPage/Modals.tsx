@@ -9,6 +9,7 @@ import DraggableModal from '../DraggableModal'
 import SMS from '../SMS'
 import ComingSoon from '../ComingSoon'
 import dynamic from 'next/dynamic'
+import { usePurchaseProvider } from '@/providers/PurchaseProvider'
 
 const CreditCardPayModal = dynamic(() => import('@/components/CreditCardPayModal'), {
   loading: () => (
@@ -21,8 +22,6 @@ const CreditCardPayModal = dynamic(() => import('@/components/CreditCardPayModal
 
 const Modals = () => {
   const {
-    isCrossmintOpen,
-    setIsCrossmintOpen,
     isHypersubOpen,
     setIsHypersubOpen,
     isMemoriesOpen,
@@ -38,6 +37,7 @@ const Modals = () => {
     isComingSoonOpen,
     setIsComingSoonOpen,
   } = useMapProvider()
+  const { isCrossmintOpen, setIsCrossmintOpen } = usePurchaseProvider()
 
   return (
     <>

@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import usePurchase from './usePurchase'
 import useAreaDetection from './useAreaDetection'
 import { useRouter } from 'next/navigation'
 
@@ -25,7 +24,6 @@ declare global {
 const useMap = () => {
   const { push } = useRouter()
   const [mapperKey, setMapperKey] = useState(0)
-  const { isCrossmintOpen, setIsCrossmintOpen, purchasing, mint, amount, setAmount } = usePurchase()
   const [isSpinampOpen, setIsSpinampOpen] = useState(false)
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
@@ -51,13 +49,10 @@ const useMap = () => {
 
   return {
     clickMap,
-    isCrossmintOpen,
-    setIsCrossmintOpen,
     isLeaderboardOpen,
     setIsLeaderboardOpen,
     mapperKey,
     setMapperKey,
-    purchasing,
     isSpinampOpen,
     setIsSpinampOpen,
     isMetadataOpen,
@@ -73,9 +68,6 @@ const useMap = () => {
     isComingSoonOpen,
     setIsComingSoonOpen,
     handleMouseMove,
-    mint,
-    amount,
-    setAmount,
     area,
   }
 }
