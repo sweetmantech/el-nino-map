@@ -9,7 +9,7 @@ const usePurchase = () => {
   const address = activeAccount?.address
   const wallets = useConnectedWallets()
   const isExternalWallet = wallets?.[0]?.id !== 'inApp'
-  const { claim, amount, setAmount } = useManifoldClaim()
+  const manifold = useManifoldClaim()
   const [isCrossmintOpen, setIsCrossmintOpen] = useState(false)
   const [purchasing, setPurchasing] = useState(false)
 
@@ -17,7 +17,7 @@ const usePurchase = () => {
     if (!address) return
     setPurchasing(true)
     const balance = await getBalance(address)
-    const hasSufficient = balance > 0.0005 * amount
+    const hasSufficient = balance > 0.0005 * manifold.amount
     if (isExternalWallet && hasSufficient) {
       toast('Purchasing...', {
         position: 'top-right',
@@ -26,7 +26,7 @@ const usePurchase = () => {
         pauseOnHover: false,
         draggable: false,
       })
-      await claim(activeAccount)
+      await manifold.claim(activeAccount)
       setPurchasing(false)
       return
     }
@@ -39,8 +39,7 @@ const usePurchase = () => {
     setIsCrossmintOpen,
     mint,
     purchasing,
-    amount,
-    setAmount,
+    ...manifold,
   }
 }
 

@@ -1,11 +1,15 @@
-import { useMapProvider } from '@/providers/MapProvider'
+import { usePurchaseProvider } from '@/providers/PurchaseProvider'
 import { useTipProvider } from '@/providers/TipProvider'
 import Image from 'next/image'
 import { Fragment } from 'react'
+import { formatEther, formatUnits } from 'viem'
+import { Skeleton } from '../ui/skeleton'
+import { MANIFOLD_FEE } from '@/lib/consts'
 
 const Preview = () => {
   const { tooltipX, tooltipY, tooltipId } = useTipProvider()
-  const { mint, purchasing, amount, setAmount } = useMapProvider()
+  const { mint, purchasing, amount, setAmount, symbol, price, decimal, isLoading } =
+    usePurchaseProvider()
   if (tooltipId !== 'mint') return <Fragment />
 
   return (
@@ -23,8 +27,14 @@ const Preview = () => {
         alt="not found preview"
       />
       <div className="mt-2 px-2 w-full">
-        <p className="font-titilliumweb">Free</p>
-        <p className="font-titilliumweb">{`+ MANIFOLD FEE (${Number(0.0005 * amount).toPrecision(2)} ETH)`}</p>
+        {isLoading ? (
+          <Skeleton className="w-12 h-5" />
+        ) : (
+          <p className="font-titilliumweb">
+            {formatUnits(price * BigInt(amount), decimal)} {price > BigInt(0) && symbol}
+          </p>
+        )}
+        <p className="font-titilliumweb">{`+ MANIFOLD FEE (${formatEther(MANIFOLD_FEE * BigInt(amount))} ETH)`}</p>
       </div>
       <div className="flex font-titilliumweb justify-center gap-2 mt-1">
         <button

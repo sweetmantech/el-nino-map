@@ -1,18 +1,18 @@
-import { CHAIN, DROP_ADDRESS, ERC1155_LAZY_PAYABLE_CLAIM } from '@/lib/consts'
+import { CHAIN, DROP_ADDRESS } from '@/lib/consts'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import { useConnectModal, useSwitchActiveWalletChain } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
-import { prepareContractCall, sendTransaction, getContract } from 'thirdweb'
+import { prepareContractCall, sendTransaction } from 'thirdweb'
 import { wallets } from '@/lib/thirdweb/wallets'
-import { erc1155LazyPayableClaimAbi } from '@/lib/abi/erc_1155_lazy_payable'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import useClaimInfo, { extensionContract } from './useClaimInfo'
 
 const useManifoldClaim = () => {
   const { connect } = useConnectModal()
   const switchChain = useSwitchActiveWalletChain()
   const [amount, setAmount] = useState<number>(1)
-  const [instanceId, setInstanceId] = useState(0)
+  const claimInfo = useClaimInfo()
 
   const claim = async (activeAccount: any) => {
     try {
@@ -26,18 +26,12 @@ const useManifoldClaim = () => {
         return
       }
       await switchChain(CHAIN)
-      const contract: any = getContract({
-        address: ERC1155_LAZY_PAYABLE_CLAIM,
-        chain: CHAIN,
-        abi: erc1155LazyPayableClaimAbi as any,
-        client,
-      })
 
       const transaction = prepareContractCall({
-        contract,
+        contract: extensionContract,
         method:
           'function mintBatch(address creatorContractAddress, uint256 instanceId, uint16 mintCount, uint32[] mintIndices, bytes32[][] merkleProofs, address mintFor) payable',
-        params: [DROP_ADDRESS, BigInt(instanceId), amount, [], [[]], address],
+        params: [DROP_ADDRESS, BigInt(claimInfo.instanceId), amount, [], [[]], address],
         value: BigInt('500000000000000') * BigInt(amount),
       })
 
@@ -54,20 +48,11 @@ const useManifoldClaim = () => {
     }
   }
 
-  useEffect(() => {
-    const getInstanceId = async () => {
-      const response = await fetch('/api/dune/instanceId')
-      const data = await response.json()
-      setInstanceId(data)
-    }
-
-    getInstanceId()
-  }, [])
-
   return {
     claim,
     amount,
     setAmount,
+    ...claimInfo,
   }
 }
 

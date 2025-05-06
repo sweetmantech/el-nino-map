@@ -4,6 +4,7 @@ import { TipProvider } from '@/providers/TipProvider'
 import OnBoarding from '@/components/OnBoarding'
 import { Metadata } from 'next'
 import { APP_URL } from '@/lib/farcaster/consts'
+import { PurchaseProvider } from '@/providers/PurchaseProvider'
 
 const TITLE = 'El Niño Maravilla Pt. 1'
 const DESCRIPTION = `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
@@ -40,12 +41,14 @@ export const metadata: Metadata = {
 }
 
 const Page = () => (
-  <TipProvider>
-    <MapProvider>
-      <LandingPage />
-      <OnBoarding />
-    </MapProvider>
-  </TipProvider>
+  <PurchaseProvider>
+    <TipProvider>
+      <MapProvider>
+        <LandingPage />
+        <OnBoarding />
+      </MapProvider>
+    </TipProvider>
+  </PurchaseProvider>
 )
 
 export default Page
