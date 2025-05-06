@@ -4,6 +4,7 @@ import { getContract, readContract } from 'thirdweb'
 import { useEffect, useState } from 'react'
 import { Address, erc20Abi, zeroAddress } from 'viem'
 import { erc1155LazyPayableClaimAbi } from '@/lib/abi/erc_1155_lazy_payable'
+import { erc1155Abi } from '@/lib/abi/erc1155Abi'
 
 export const extensionContract: any = getContract({
   address: ERC1155_LAZY_PAYABLE_CLAIM,
@@ -11,6 +12,12 @@ export const extensionContract: any = getContract({
   abi: erc1155LazyPayableClaimAbi as any,
   client,
 })
+
+const fetchMetadata = async (uri: string) => {
+  const response = await fetch(`/api/metadata?uri=${encodeURIComponent(uri)}`)
+  const data = await response.json()
+  return data
+}
 
 const getInstanceId = async () => {
   const response = await fetch('/api/dune/instanceId')
@@ -25,6 +32,7 @@ const useClaimInfo = () => {
   const [erc20Address, setErc20Address] = useState<Address>(zeroAddress)
   const [symbol, setSymbol] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
+  const [metadata, setMetadata] = useState(null)
 
   useEffect(() => {
     const init = async () => {
@@ -38,6 +46,7 @@ const useClaimInfo = () => {
         params: [DROP_ADDRESS, instanceId],
       })
 
+      const tokenId = response.tokenId
       const isERC20Token = response.erc20 !== zeroAddress
       setPrice(response.cost)
       if (isERC20Token) {
@@ -65,6 +74,19 @@ const useClaimInfo = () => {
         setErc20Address(zeroAddress)
         setSymbol('ETH')
       }
+      const mainfoldContract = getContract({
+        address: DROP_ADDRESS,
+        chain: CHAIN,
+        abi: erc1155Abi as any,
+        client,
+      })
+      const uri = await readContract({
+        contract: mainfoldContract,
+        method: 'function uri(uint256 tokenId) view returns (string)',
+        params: [tokenId],
+      })
+      const meatadata = await fetchMetadata(uri)
+      setMetadata(meatadata)
       setIsLoading(false)
     }
 
@@ -78,6 +100,7 @@ const useClaimInfo = () => {
     erc20Address,
     isLoading,
     instanceId,
+    metadata,
   }
 }
 
