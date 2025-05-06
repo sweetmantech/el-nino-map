@@ -1,4 +1,3 @@
-import getBalance from '@/lib/getBalance'
 import { useActiveAccount, useConnectedWallets } from 'thirdweb/react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
@@ -16,9 +15,7 @@ const usePurchase = () => {
   const mint = async () => {
     if (!address) return
     setPurchasing(true)
-    const balance = await getBalance(address)
-    const hasSufficient = balance > 0.0005 * manifold.amount
-    if (isExternalWallet && hasSufficient) {
+    if (isExternalWallet) {
       toast('Purchasing...', {
         position: 'top-right',
         autoClose: false,
