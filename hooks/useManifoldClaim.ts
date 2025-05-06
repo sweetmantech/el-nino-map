@@ -1,19 +1,18 @@
-import { CHAIN, DROP_ADDRESS } from '@/lib/consts'
+import { CHAIN, DROP_ADDRESS, MANIFOLD_FEE } from '@/lib/consts'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import { useConnectModal, useSwitchActiveWalletChain } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
 import { prepareContractCall, sendTransaction } from 'thirdweb'
 import { wallets } from '@/lib/thirdweb/wallets'
-import { useState } from 'react'
 import useClaimInfo, { extensionContract } from './useClaimInfo'
+import usePrepareClaim from './usePrepareClaim'
 
 const useManifoldClaim = () => {
   const { connect } = useConnectModal()
   const switchChain = useSwitchActiveWalletChain()
-  const [amount, setAmount] = useState<number>(1)
   const claimInfo = useClaimInfo()
-
+  const { isPrepared } = usePrepareClaim()
   const claim = async (activeAccount: any) => {
     try {
       const address = activeAccount?.address
@@ -26,13 +25,14 @@ const useManifoldClaim = () => {
         return
       }
       await switchChain(CHAIN)
-
+      const isPreparedClaim = await isPrepared(claimInfo, activeAccount)
+      if (!isPreparedClaim) return
       const transaction = prepareContractCall({
         contract: extensionContract,
         method:
           'function mintBatch(address creatorContractAddress, uint256 instanceId, uint16 mintCount, uint32[] mintIndices, bytes32[][] merkleProofs, address mintFor) payable',
-        params: [DROP_ADDRESS, BigInt(claimInfo.instanceId), amount, [], [[]], address],
-        value: BigInt('500000000000000') * BigInt(amount),
+        params: [DROP_ADDRESS, BigInt(claimInfo.instanceId), claimInfo.amount, [], [[]], address],
+        value: MANIFOLD_FEE * BigInt(claimInfo.amount),
       })
 
       const { transactionHash } = await sendTransaction({
@@ -50,8 +50,6 @@ const useManifoldClaim = () => {
 
   return {
     claim,
-    amount,
-    setAmount,
     ...claimInfo,
   }
 }

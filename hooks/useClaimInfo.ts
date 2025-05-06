@@ -19,7 +19,7 @@ const fetchMetadata = async (uri: string) => {
   return data
 }
 
-const getInstanceId = async () => {
+const getLatestInstanceId = async () => {
   const response = await fetch('/api/dune/instanceId')
   const data = await response.json()
   return data
@@ -33,10 +33,11 @@ const useClaimInfo = () => {
   const [symbol, setSymbol] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [metadata, setMetadata] = useState(null)
+  const [amount, setAmount] = useState<number>(1)
 
   useEffect(() => {
     const init = async () => {
-      const instanceId = await getInstanceId()
+      const instanceId = await getLatestInstanceId()
       setInstanceId(instanceId)
 
       const response = await readContract({
@@ -101,6 +102,8 @@ const useClaimInfo = () => {
     isLoading,
     instanceId,
     metadata,
+    amount,
+    setAmount,
   }
 }
 
