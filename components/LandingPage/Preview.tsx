@@ -8,7 +8,7 @@ import { MANIFOLD_FEE } from '@/lib/consts'
 
 const Preview = () => {
   const { tooltipX, tooltipY, tooltipId } = useTipProvider()
-  const { mint, purchasing, amount, setAmount, symbol, price, decimal, isLoading } =
+  const { mint, purchasing, amount, setAmount, symbol, price, decimal, isLoading, metadata } =
     usePurchaseProvider()
   if (tooltipId !== 'mint') return <Fragment />
 
@@ -20,13 +20,19 @@ const Preview = () => {
         top: tooltipY - 350,
       }}
     >
-      <Image
-        src={'https://arweave.net/qdA4w5H9lQTtp-9az4qIIlrq9AQD4pfAasuErfUMzXk'}
-        width={200}
-        height={200}
-        alt="not found preview"
-      />
+      {metadata?.image && (
+        <div className="w-[200px] aspect-[1/1] relative">
+          <Image
+            src={metadata.image}
+            alt="not found preview"
+            layout="fill"
+            objectFit="cover"
+            objectPosition="center"
+          />
+        </div>
+      )}
       <div className="mt-2 px-2 w-full">
+        <p className="font-titilliumweb">{metadata?.name || ''}</p>
         {isLoading ? (
           <Skeleton className="w-12 h-5" />
         ) : (
