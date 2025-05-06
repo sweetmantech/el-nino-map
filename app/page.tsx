@@ -3,6 +3,7 @@ import { MapProvider } from '@/providers/MapProvider'
 import { TipProvider } from '@/providers/TipProvider'
 import OnBoarding from '@/components/OnBoarding'
 import { Metadata } from 'next'
+import { APP_URL } from '@/lib/consts'
 
 const TITLE = 'El Niño Maravilla Pt. 1'
 const DESCRIPTION = `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
@@ -17,20 +18,20 @@ export const metadata: Metadata = {
   openGraph: {
     title: TITLE,
     description: DESCRIPTION,
-    images: ['https://el-nino-map.vercel.app/favicon.png'],
+    images: [`${APP_URL}/favicon.png`],
   },
   other: {
     'fc:frame': JSON.stringify({
       version: 'next',
-      imageUrl: 'https://el-nino-map.vercel.app/favicon.png',
+      imageUrl: `${APP_URL}/favicon.png`,
       aspectRatio: '1:1',
       button: {
         title: 'Collect',
         action: {
           type: 'launch_frame',
           name: TITLE,
-          url: 'https://el-nino-map.vercel.app',
-          splashImageUrl: 'https://el-nino-map.vercel.app/miniapp-icon.png',
+          url: APP_URL,
+          splashImageUrl: `${APP_URL}/miniapp-icon.png`,
           splashBackgroundColor: '#6330d0',
         },
       },
