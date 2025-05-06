@@ -3,7 +3,7 @@ import { MapProvider } from '@/providers/MapProvider'
 import { TipProvider } from '@/providers/TipProvider'
 import OnBoarding from '@/components/OnBoarding'
 import { Metadata } from 'next'
-import { APP_URL } from '@/lib/consts'
+import { APP_URL } from '@/lib/farcaster/consts'
 
 const TITLE = 'El Niño Maravilla Pt. 1'
 const DESCRIPTION = `El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin

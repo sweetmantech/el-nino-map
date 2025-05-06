@@ -1,4 +1,4 @@
-import { APP_URL } from '../../../../lib/consts'
+import { APP_URL } from '../../../../lib/farcaster/consts'
 
 export async function GET() {
   const config = {
