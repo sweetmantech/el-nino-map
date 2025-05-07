@@ -1,14 +1,40 @@
 import { usePurchaseProvider } from '@/providers/PurchaseProvider'
 import { useTipProvider } from '@/providers/TipProvider'
 import Image from 'next/image'
-import { Fragment } from 'react'
+import { Fragment, ReactNode } from 'react'
 import { formatEther, formatUnits } from 'viem'
 import { Skeleton } from '../ui/skeleton'
 import { MANIFOLD_FEE } from '@/lib/consts'
 import useIsMobile from '@/hooks/useIsMobile'
+import Modal from '../Modal'
+
+const PreviewContainer = ({ children }: { children: ReactNode }) => {
+  const { setIsOpenCollect, isOpenCollect } = usePurchaseProvider()
+  const isMobile = useIsMobile()
+  const { tooltipX, tooltipY } = useTipProvider()
+
+  if (isMobile)
+    return (
+      <Modal onClose={() => setIsOpenCollect(false)} open={isOpenCollect}>
+        {children}
+      </Modal>
+    )
+
+  return (
+    <div
+      className="fixed z-[9999] w-screen h-screen md:size-fit flex justify-center items-center"
+      style={{
+        left: isMobile ? 0 : tooltipX,
+        top: isMobile ? 0 : tooltipY - 350,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
 
 const Preview = () => {
-  const { tooltipX, tooltipY, tooltipId } = useTipProvider()
+  const { tooltipId } = useTipProvider()
   const {
     mint,
     purchasing,
@@ -27,13 +53,7 @@ const Preview = () => {
   if (isMobile && !isOpenCollect) return <Fragment />
 
   return (
-    <div
-      className="fixed z-[9999] w-screen h-screen md:size-fit flex justify-center items-center"
-      style={{
-        left: isMobile ? 0 : tooltipX,
-        top: isMobile ? 0 : tooltipY - 350,
-      }}
-    >
+    <PreviewContainer>
       <main className="bg-white p-2 rounded-md flex flex-col items-center">
         <div className="w-[200px] aspect-[1/1] relative">
           {metadata?.image ? (
@@ -90,7 +110,7 @@ const Preview = () => {
           {purchasing ? 'Collecting...' : 'Collect'}
         </button>
       </main>
-    </div>
+    </PreviewContainer>
   )
 }
 
