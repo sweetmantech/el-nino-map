@@ -17,7 +17,8 @@ export async function GET() {
       data.released_at = new Date(transaction.block_time).getTime()
       return data
     })
-    return Response.json(formattedEvents[0].instanceId)
+
+    return Response.json(formattedEvents[0].claimIndex)
   } catch (e: any) {
     console.log(e)
     const message = e?.message ?? 'failed to get Dune transactions'
