@@ -6,6 +6,7 @@ import FrameProvider from './FrameProvider'
 import { ThirdwebProvider } from 'thirdweb/react'
 import { CrossmintCheckoutProvider, CrossmintProvider } from '@crossmint/client-sdk-react-ui'
 import { Fragment } from 'react'
+import { SubscriptionProvider } from './SubscriptionProvider'
 
 export default function Providers({ children }: { children: React.ReactNode }) {
   if (!process.env.NEXT_PUBLIC_CROSSMINT_API_KEY)
@@ -17,7 +18,9 @@ export default function Providers({ children }: { children: React.ReactNode }) {
         <CrossmintCheckoutProvider>
           <FrameProvider>
             <AirstackProvider apiKey={process.env.NEXT_PUBLIC_AIRSTACK_API_KEY ?? ''}>
-              <ThirdwebProvider>{children}</ThirdwebProvider>
+              <ThirdwebProvider>
+                <SubscriptionProvider>{children}</SubscriptionProvider>
+              </ThirdwebProvider>
             </AirstackProvider>
           </FrameProvider>
         </CrossmintCheckoutProvider>

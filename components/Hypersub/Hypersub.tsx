@@ -1,9 +1,11 @@
-import useSubscribe from '@/hooks/useSubscribe'
 import Modal from '../Modal'
 import Image from 'next/image'
+import { useSubscriptionProvider } from '@/providers/SubscriptionProvider'
 
 const Hypersub = ({ onClose }: { onClose: () => void }) => {
-  const { subscribe, loading, photos, subscribed } = useSubscribe()
+  const { subscribe, loading, photos, subscribed, pricePerPeriod, symbol } =
+    useSubscriptionProvider()
+
   const handleClick = async () => {
     if (subscribed) {
       window.open('https://hypersub.xyz/s/enm-lb6jxqtldv5s', '_blank')
@@ -32,7 +34,7 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
         <p className="font-titilliumweb">
           {subscribed
             ? `To stay up to date with your subscription, visit the hypersub`
-            : 'Subscribe to ENM by La Equis $5 USDC/month for exclusive content, early access & surprise drops.'}
+            : `Subscribe to ENM by La Equis ${pricePerPeriod} ${symbol}/month for exclusive content, early access & surprise drops.`}
         </p>
         <button
           type="button"
