@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import useAreaDetection from './useAreaDetection'
 import { useRouter } from 'next/navigation'
+import { usePurchaseProvider } from '@/providers/PurchaseProvider'
+import useIsMobile from './useIsMobile'
 
 interface Laylo {
   openPopup: (options: {
@@ -33,6 +35,8 @@ const useMap = () => {
   const [isPlannetOpen, setIsPlannetOpen] = useState(false)
   const [isComingSoonOpen, setIsComingSoonOpen] = useState(false)
   const { handleMouseMove, area } = useAreaDetection()
+  const { setIsOpenCollect } = usePurchaseProvider()
+  const isMobile = useIsMobile()
 
   const clickMap = () => {
     if (area === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
@@ -45,6 +49,7 @@ const useMap = () => {
     if (area === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
     if (area === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
     if (area === 'plannet') setIsPlannetOpen(true)
+    if (isMobile && area === 'mint') setIsOpenCollect(true)
   }
 
   return {

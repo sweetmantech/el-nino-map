@@ -11,8 +11,10 @@ const usePurchase = () => {
   const manifold = useManifoldClaim()
   const [isCrossmintOpen, setIsCrossmintOpen] = useState(false)
   const [purchasing, setPurchasing] = useState(false)
+  const [isOpenCollect, setIsOpenCollect] = useState(false)
 
   const mint = async () => {
+    setIsOpenCollect(false)
     if (!address) return
     setPurchasing(true)
     if (isExternalWallet) {
@@ -37,6 +39,8 @@ const usePurchase = () => {
     mint,
     purchasing,
     ...manifold,
+    isOpenCollect,
+    setIsOpenCollect,
   }
 }
 
