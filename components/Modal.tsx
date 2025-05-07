@@ -1,6 +1,14 @@
-import { ReactNode, useEffect } from 'react'
+import { Fragment, ReactNode, useEffect } from 'react'
 
-const Modal = ({ onClose = () => {}, children }: { onClose?: () => void; children: ReactNode }) => {
+const Modal = ({
+  onClose = () => {},
+  children,
+  open = true,
+}: {
+  onClose?: () => void
+  children: ReactNode
+  open?: boolean
+}) => {
   useEffect(() => {
     const handleEscapeEvent = (e) => {
       if (e.key === 'Escape') onClose()
@@ -9,6 +17,8 @@ const Modal = ({ onClose = () => {}, children }: { onClose?: () => void; childre
     window.addEventListener('keydown', handleEscapeEvent)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+
+  if (!open) return <Fragment />
 
   return (
     <div className="fixed left-0 top-0 z-[100] w-screen h-screen">
