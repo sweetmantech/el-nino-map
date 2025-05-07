@@ -6,7 +6,7 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
   const { subscribe, loading, photos, subscribed } = useSubscribe()
   const handleClick = async () => {
     if (subscribed) {
-      window.open('https://hypersub.xyz', '_blank')
+      window.open('https://hypersub.xyz/s/enm-lb6jxqtldv5s', '_blank')
       return
     }
     await subscribe()
