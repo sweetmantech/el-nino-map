@@ -1,17 +1,16 @@
 import {
-  CHAIN,
   CHAIN_ID,
   ERC1155_LAZY_PAYABLE_CLAIM,
   MANIFOLD_FEE,
   OUTCOMING_WRAPPER_ETH,
   WALLET_STATUS,
 } from '@/lib/consts'
-import { client } from '@/lib/thirdweb/client'
-import { getContract, prepareContractCall, readContract, sendTransaction } from 'thirdweb'
-import { erc20Abi, maxUint256, zeroAddress } from 'viem'
+import { prepareContractCall, readContract, sendTransaction } from 'thirdweb'
+import { maxUint256, zeroAddress } from 'viem'
 import useClaimInfo from './useClaimInfo'
 import getBalance from '@/lib/getBalance'
 import { getPublicClient } from '@/lib/clients'
+import { currencyContract } from '@/lib/contracts'
 
 const usePrepareClaim = () => {
   const isPrepared = async (claimInfo: ReturnType<typeof useClaimInfo>, activeAccount: any) => {
@@ -23,14 +22,8 @@ const usePrepareClaim = () => {
 
     if (erc20Address === zeroAddress) return WALLET_STATUS.ENOUGH_ETH
     const totalClaimPrice = price * BigInt(amount)
-    const erc20Contract = getContract({
-      address: erc20Address,
-      abi: erc20Abi,
-      chain: CHAIN,
-      client,
-    }) as any
     const balanceOf = await readContract({
-      contract: erc20Contract,
+      contract: currencyContract(erc20Address) as any,
       method: 'function balanceOf(address account) view returns (uint256)',
       params: [account],
     })
@@ -40,13 +33,13 @@ const usePrepareClaim = () => {
       return WALLET_STATUS.INSUFFICIENT_BALANCE
     }
     const allowance = await readContract({
-      contract: erc20Contract,
+      contract: currencyContract(erc20Address) as any,
       method: 'function allowance(address owner, address spender) view returns (uint256)',
       params: [account, ERC1155_LAZY_PAYABLE_CLAIM],
     })
     if (allowance < totalClaimPrice) {
       const transaction = prepareContractCall({
-        contract: erc20Contract,
+        contract: currencyContract(erc20Address) as any,
         method: 'function approve(address spender, uint256 value) returns (bool)',
         params: [ERC1155_LAZY_PAYABLE_CLAIM, maxUint256],
       })

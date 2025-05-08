@@ -1,7 +1,8 @@
 import { Address, prepareContractCall, sendTransaction } from 'thirdweb'
-import useClaimInfo, { extensionContract } from './useClaimInfo'
+import useClaimInfo from './useClaimInfo'
 import { DROP_ADDRESS, MANIFOLD_FEE } from '@/lib/consts'
 import { Account } from 'thirdweb/wallets'
+import { extensionContract } from '@/lib/contracts'
 
 const useUsdcClaim = () => {
   const claimWithUsdc = async (
