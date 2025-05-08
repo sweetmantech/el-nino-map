@@ -3,10 +3,13 @@ import Image from 'next/image'
 import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
 import useSubscribe from '@/hooks/useSubscribe'
 import { formatUnits } from 'viem'
+import FiatSubscribeModal from './FiatSubscribeModal'
+import { useMapProvider } from '@/providers/MapProvider'
 
 const Hypersub = ({ onClose }: { onClose: () => void }) => {
   const { pricePerPeriod, symbol, decimals } = useSubscriptionInfoProvider()
-  const { subscribe, loading, photos, subscribed } = useSubscribe()
+  const { subscribe, loading, photos, subscribed, fiatActive, setFiatActive } = useSubscribe()
+  const { setIsHypersubOpen } = useMapProvider()
 
   const handleClick = async () => {
     if (subscribed) {
@@ -15,6 +18,16 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
     }
     await subscribe()
   }
+
+  if (fiatActive)
+    return (
+      <FiatSubscribeModal
+        onClose={() => {
+          setIsHypersubOpen(false)
+          setFiatActive(false)
+        }}
+      />
+    )
 
   return (
     <Modal onClose={onClose}>
