@@ -3,6 +3,7 @@ import {
   CHAIN,
   DROP_ADDRESS,
   ERC1155_LAZY_PAYABLE_CLAIM,
+  STPV2_WRAPPER_ADAPTER,
   SUBSCRIPTION,
   WRAPPER_ADAPTER,
 } from './consts'
@@ -12,6 +13,7 @@ import { Address, erc20Abi } from 'viem'
 import { erc1155LazyPayableClaimAbi } from './abi/erc_1155_lazy_payable'
 import { erc1155Abi } from './abi/erc1155Abi'
 import { wrapperAbi } from './abi/wrapperAbi'
+import { stpv2WrapperAbi } from './abi/stpv2WrapperAbi'
 
 export const subscriptionContract = getContract({
   address: SUBSCRIPTION as Address,
@@ -46,6 +48,13 @@ export const mainfoldContract = getContract({
 export const wrapperContract = getContract({
   address: WRAPPER_ADAPTER,
   abi: wrapperAbi as any,
+  chain: CHAIN,
+  client,
+})
+
+export const STPV2WrapperContract = getContract({
+  address: STPV2_WRAPPER_ADAPTER,
+  abi: stpv2WrapperAbi as any,
   chain: CHAIN,
   client,
 })
