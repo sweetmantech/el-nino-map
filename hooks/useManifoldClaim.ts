@@ -1,32 +1,21 @@
 import { CHAIN, DROP_ADDRESS, MANIFOLD_FEE } from '@/lib/consts'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
-import { useConnectModal, useSwitchActiveWalletChain } from 'thirdweb/react'
-import { client } from '@/lib/thirdweb/client'
+import { useSwitchActiveWalletChain } from 'thirdweb/react'
 import { prepareContractCall, sendTransaction } from 'thirdweb'
-import { wallets } from '@/lib/thirdweb/wallets'
 import useClaimInfo, { extensionContract } from './useClaimInfo'
 import usePrepareClaim from './usePrepareClaim'
 
 const useManifoldClaim = () => {
-  const { connect } = useConnectModal()
   const switchChain = useSwitchActiveWalletChain()
   const claimInfo = useClaimInfo()
   const { isPrepared } = usePrepareClaim()
   const claim = async (activeAccount: any) => {
     try {
       const address = activeAccount?.address
-      if (!address) {
-        connect({
-          client,
-          wallets,
-          chain: CHAIN,
-        })
-        return
-      }
       await switchChain(CHAIN)
       const isPreparedClaim = await isPrepared(claimInfo, activeAccount)
-      if (!isPreparedClaim) return
+      if (!isPreparedClaim) return { error: 'Insuffient ETH' }
       const transaction = prepareContractCall({
         contract: extensionContract,
         method:
@@ -41,7 +30,10 @@ const useManifoldClaim = () => {
       })
 
       toast.success('Purchased!')
-      return transactionHash
+      return {
+        transactionHash,
+        error: null,
+      }
     } catch (error) {
       handleTxError(error)
       return { error }
