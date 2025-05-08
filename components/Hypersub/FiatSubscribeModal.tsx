@@ -14,6 +14,9 @@ const FiatSubscribeModal = ({ onClose }: { onClose: () => void }) => {
         </button>
         <p className="font-akira text-xl pb-1">Coming Soon !</p>
         <p className="font-titilliumweb text-lg py-1">
+          {`Insufficient funds in wallet to subscribe.`}
+        </p>
+        <p className="font-titilliumweb text-grey pb-1">
           {`We're cooking credit card subscription feature.`}
         </p>
         <button
