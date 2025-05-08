@@ -1,12 +1,13 @@
 import { usePurchaseProvider } from '@/providers/PurchaseProvider'
 import { useTipProvider } from '@/providers/TipProvider'
 import Image from 'next/image'
-import { Fragment, ReactNode } from 'react'
+import { Fragment, ReactNode, useEffect } from 'react'
 import { formatEther, formatUnits } from 'viem'
 import { Skeleton } from '../ui/skeleton'
 import { MANIFOLD_FEE } from '@/lib/consts'
 import useIsMobile from '@/hooks/useIsMobile'
 import Modal from '../Modal'
+import { toast } from 'react-toastify'
 
 const PreviewContainer = ({ children }: { children: ReactNode }) => {
   const { setIsOpenCollect, isOpenCollect } = usePurchaseProvider()
@@ -34,7 +35,7 @@ const PreviewContainer = ({ children }: { children: ReactNode }) => {
 }
 
 const Preview = () => {
-  const { tooltipId } = useTipProvider()
+  const { tooltipId, closeTooltip } = useTipProvider()
   const {
     mint,
     purchasing,
@@ -46,10 +47,18 @@ const Preview = () => {
     isLoading,
     metadata,
     isOpenCollect,
+    isCrossmintOpen,
+    toastId,
   } = usePurchaseProvider()
   const isMobile = useIsMobile()
 
-  if (tooltipId !== 'mint') return <Fragment />
+  useEffect(() => {
+    if (isCrossmintOpen) closeTooltip()
+    else toast.dismiss(toastId)
+    // eslint-disable-next-line
+  }, [isCrossmintOpen])
+
+  if (tooltipId !== 'mint' || isCrossmintOpen) return <Fragment />
   if (isMobile && !isOpenCollect) return <Fragment />
 
   return (
