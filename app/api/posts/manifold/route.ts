@@ -13,7 +13,7 @@ export async function GET() {
         const tokenContract = claimEvent.decoded.inputs.find(
           (input) => input.name === 'creatorContract',
         )?.value
-        const tokenId = transferEvent.decoded.inputs.find((input) => input.name === 'id')?.value
+        const tokenId = transferEvent.decoded.inputs.find((input) => input.name === '_id')?.value
         const released_at = new Date(transaction.block_time).getTime()
         if (!tokenId || !tokenContract) return null
         return {
