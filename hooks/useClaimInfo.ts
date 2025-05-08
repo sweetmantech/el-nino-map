@@ -1,17 +1,8 @@
-import { CHAIN, DROP_ADDRESS, ERC1155_LAZY_PAYABLE_CLAIM } from '@/lib/consts'
-import { client } from '@/lib/thirdweb/client'
-import { getContract, readContract } from 'thirdweb'
+import { DROP_ADDRESS } from '@/lib/consts'
+import { readContract } from 'thirdweb'
 import { useEffect, useState } from 'react'
-import { Address, erc20Abi, zeroAddress } from 'viem'
-import { erc1155LazyPayableClaimAbi } from '@/lib/abi/erc_1155_lazy_payable'
-import { erc1155Abi } from '@/lib/abi/erc1155Abi'
-
-export const extensionContract: any = getContract({
-  address: ERC1155_LAZY_PAYABLE_CLAIM,
-  chain: CHAIN,
-  abi: erc1155LazyPayableClaimAbi as any,
-  client,
-})
+import { Address, zeroAddress } from 'viem'
+import { currencyContract, extensionContract, mainfoldContract } from '@/lib/contracts'
 
 const fetchMetadata = async (uri: string) => {
   const response = await fetch(`/api/metadata?uri=${encodeURIComponent(uri)}`)
@@ -51,19 +42,13 @@ const useClaimInfo = () => {
       const isERC20Token = response.erc20 !== zeroAddress
       setPrice(response.cost)
       if (isERC20Token) {
-        const erc20Contract: any = getContract({
-          address: response.erc20,
-          chain: CHAIN,
-          abi: erc20Abi,
-          client,
-        })
         const decimal = await readContract({
-          contract: erc20Contract,
+          contract: currencyContract(response.erc20) as any,
           method: 'function decimals() view returns (uint8)',
           params: [],
         })
         const symbol = await readContract({
-          contract: erc20Contract,
+          contract: currencyContract(response.erc20) as any,
           method: 'function symbol() view returns (string)',
           params: [],
         })
@@ -75,12 +60,6 @@ const useClaimInfo = () => {
         setErc20Address(zeroAddress)
         setSymbol('ETH')
       }
-      const mainfoldContract = getContract({
-        address: DROP_ADDRESS,
-        chain: CHAIN,
-        abi: erc1155Abi as any,
-        client,
-      })
       const uri = await readContract({
         contract: mainfoldContract,
         method: 'function uri(uint256 tokenId) view returns (string)',

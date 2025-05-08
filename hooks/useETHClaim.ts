@@ -1,17 +1,13 @@
-import { Address, getContract, prepareContractCall, sendTransaction } from 'thirdweb'
+import { Address, prepareContractCall, sendTransaction } from 'thirdweb'
 import useClaimInfo from './useClaimInfo'
 import {
-  CHAIN,
   CHAIN_ID,
   DROP_ADDRESS,
   ERC1155_LAZY_PAYABLE_CLAIM,
   MANIFOLD_FEE,
   OUTCOMING_WRAPPER_ETH,
-  WRAPPER_ADAPTER,
 } from '@/lib/consts'
 import { Account } from 'thirdweb/wallets'
-import { client } from '@/lib/thirdweb/client'
-import { wrapperAbi } from '@/lib/abi/wrapperAbi'
 import {
   QUOTER_ADDRESSES,
   SWAP_ROUTER_02_ADDRESSES,
@@ -19,6 +15,7 @@ import {
 } from '@uniswap/sdk-core'
 import { WETH_TOKEN } from '@/lib/tokens'
 import { FeeAmount } from '@uniswap/v3-sdk'
+import { wrapperContract } from '@/lib/contracts'
 
 const useETHClaim = () => {
   const claimWithETH = async (
@@ -26,12 +23,6 @@ const useETHClaim = () => {
     activeAccount: Account,
     to: Address,
   ) => {
-    const wrapperContract = getContract({
-      address: WRAPPER_ADAPTER,
-      abi: wrapperAbi as any,
-      chain: CHAIN,
-      client,
-    })
     const transaction = prepareContractCall({
       contract: wrapperContract,
       method:

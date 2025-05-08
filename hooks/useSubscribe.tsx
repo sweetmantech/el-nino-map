@@ -6,14 +6,14 @@ import {
   useSwitchActiveWalletChain,
 } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
-import { baseSepolia } from 'thirdweb/chains'
-import { CHAIN, MINT_REFERRAL, SUBSCRIPTION } from '@/lib/consts'
-import { getContract, prepareContractCall, sendTransaction } from 'thirdweb'
-import { parseEther } from 'viem'
-import { subscriptionAbi } from '@/lib/abi/subscription'
+import { CHAIN, WALLET_STATUS } from '@/lib/consts'
+import { prepareContractCall, sendTransaction } from 'thirdweb'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import useHypersubUris from './useHypersubUris'
+import usePrepareSubscribe from './usePrepareSubscribe'
+import { subscriptionContract } from '@/lib/contracts'
+import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
 
 const useSubscribe = () => {
   const { photos } = useHypersubUris()
@@ -23,50 +23,42 @@ const useSubscribe = () => {
   const switchChain = useSwitchActiveWalletChain()
   const [loading, setLoading] = useState(false)
   const [subscribed, setSubscribed] = useState(false)
+  const { isPrepared } = usePrepareSubscribe()
+  const { pricePerPeriod, initPrice, balanceOf } = useSubscriptionInfoProvider()
 
   const subscribe = async () => {
-    setLoading(true)
-    try {
-      const address = activeAccount?.address
-      if (!address) {
-        connect({
-          client,
-          wallets,
-          chain: baseSepolia,
-        })
-        return
-      }
-
-      await switchChain(CHAIN)
-
-      const contract: any = getContract({
-        address: SUBSCRIPTION,
-        chain: CHAIN,
-        abi: subscriptionAbi as any,
+    const address = activeAccount?.address
+    if (!address) {
+      connect({
         client,
+        wallets,
+        chain: CHAIN,
       })
-
-      const transaction: any = prepareContractCall({
-        contract,
-        method: 'function mintFor(address account, uint256 numTokens) payable',
-        params: [MINT_REFERRAL, parseEther('0.001')],
-        value: parseEther('0.001'),
-      })
-
-      const { transactionHash } = await sendTransaction({
-        transaction,
-        account: activeAccount,
-      })
-
+      return
+    }
+    try {
+      const price = balanceOf > 0 ? pricePerPeriod : initPrice
+      setLoading(true)
+      await switchChain(CHAIN)
+      const isPreparedSubscribe = await isPrepared(activeAccount)
+      if (isPreparedSubscribe === WALLET_STATUS.ENOUGH_ERC20) {
+        const transaction: any = prepareContractCall({
+          contract: subscriptionContract,
+          method: 'function mint(uint256 numTokens) payable',
+          params: [price],
+        })
+        await sendTransaction({
+          transaction,
+          account: activeAccount,
+        })
+      }
       toast.success('Subscribed!')
       setLoading(false)
       setSubscribed(true)
-      return transactionHash
     } catch (error) {
       handleTxError(error)
       setLoading(false)
       setSubscribed(false)
-      return { error }
     }
   }
 

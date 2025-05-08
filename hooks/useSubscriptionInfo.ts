@@ -1,21 +1,19 @@
-import { stpv2Abi } from '@/lib/abi/stpv2'
-import { CHAIN, SUBSCRIPTION } from '@/lib/consts'
-import { client } from '@/lib/thirdweb/client'
+import { currencyContract, subscriptionContract } from '@/lib/contracts'
 import { useEffect, useState } from 'react'
-import { Address, getContract, readContract } from 'thirdweb'
-import { erc20Abi, formatUnits } from 'viem'
+import { readContract } from 'thirdweb'
+import { useActiveAccount } from 'thirdweb/react'
 
 const useSubscriptionInfo = () => {
+  const activeAccount = useActiveAccount()
+  const address = activeAccount?.address
   const [symbol, setSymbol] = useState<string>('')
-  const [pricePerPeriod, setPricePerPeriod] = useState<string>('')
+  const [pricePerPeriod, setPricePerPeriod] = useState<bigint>(BigInt(0))
+  const [initPrice, setInitPrice] = useState<bigint>(BigInt(0))
+  const [decimals, setDecimals] = useState<number>(0)
   const tierId = 1
+  const [balanceOf, setBalanceOf] = useState<number>(0)
+  const [currency, setCurrency] = useState<string>('')
 
-  const subscriptionContract = getContract({
-    address: SUBSCRIPTION as Address,
-    abi: stpv2Abi as any,
-    chain: CHAIN,
-    client,
-  })
   useEffect(() => {
     const init = async () => {
       const contractDetail = await readContract({
@@ -26,43 +24,52 @@ const useSubscriptionInfo = () => {
       })
 
       const currency = contractDetail.currency
-
-      const currencyContract = getContract({
-        address: currency,
-        abi: erc20Abi,
-        chain: CHAIN,
-        client,
-      })
-
+      setCurrency(currency)
       const symbol = await readContract({
-        contract: currencyContract as any,
+        contract: currencyContract(currency) as any,
         method: 'function symbol() view returns (string)',
         params: [],
       })
       setSymbol(symbol)
       const decimals = await readContract({
-        contract: currencyContract as any,
+        contract: currencyContract(currency) as any,
         method: 'function decimals() view returns (uint8)',
         params: [],
       })
-
+      setDecimals(decimals)
       const tierDetail = await readContract({
         contract: subscriptionContract as any,
         method:
           'function tierDetail(uint16 tierId) view returns ((uint32 subCount, uint16 id, (uint32 periodDurationSeconds, uint32 maxSupply, uint48 maxCommitmentSeconds, uint48 startTimestamp, uint48 endTimestamp, uint8 rewardCurveId, uint16 rewardBasisPoints, bool paused, bool transferrable, uint256 initialMintPrice, uint256 pricePerPeriod, (uint8 gateType, address contractAddress, uint256 componentId, uint256 balanceMin) gate) params) tier)',
         params: [tierId],
       })
-
-      setPricePerPeriod(formatUnits(BigInt(tierDetail.params.pricePerPeriod), decimals))
+      setPricePerPeriod(BigInt(tierDetail.params.pricePerPeriod))
+      setInitPrice(BigInt(tierDetail.params.initialMintPrice))
     }
 
     init()
     // eslint-disable-next-line
   }, [])
 
+  useEffect(() => {
+    const getBalanceOf = async () => {
+      const balanceOf = await readContract({
+        contract: subscriptionContract,
+        method: 'function balanceOf(address account) view returns (uint256 numSeconds)',
+        params: [address],
+      })
+      setBalanceOf(parseInt(balanceOf.toString(), 10))
+    }
+    if (address) getBalanceOf()
+  }, [address])
+
   return {
     symbol,
     pricePerPeriod,
+    balanceOf,
+    initPrice,
+    decimals,
+    currency,
   }
 }
 
