@@ -2,11 +2,21 @@ import { useEffect } from 'react'
 import { CrossmintEmbeddedCheckout, useCrossmintCheckout } from '@crossmint/client-sdk-react-ui'
 import { useActiveAccount } from 'thirdweb/react'
 import Modal from '../Modal'
-import { Address } from 'viem'
+import { Address, formatEther } from 'viem'
 import { toast } from 'react-toastify'
-import { CHAIN_ID, DROP_ADDRESS, ERC1155_LAZY_PAYABLE_CLAIM } from '@/lib/consts'
+import {
+  CHAIN_ID,
+  DROP_ADDRESS,
+  ERC1155_LAZY_PAYABLE_CLAIM,
+  MANIFOLD_FEE,
+  OUTCOMING_WRAPPER_ETH,
+} from '@/lib/consts'
 import { usePurchaseProvider } from '@/providers/PurchaseProvider'
-import { QUOTER_ADDRESSES, SWAP_ROUTER_02_ADDRESSES, V2_FACTORY_ADDRESSES } from '@uniswap/sdk-core'
+import {
+  QUOTER_ADDRESSES,
+  SWAP_ROUTER_02_ADDRESSES,
+  V3_CORE_FACTORY_ADDRESSES,
+} from '@uniswap/sdk-core'
 import { WETH_TOKEN } from '@/lib/tokens'
 import { FeeAmount } from '@uniswap/v3-sdk'
 
@@ -14,7 +24,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
   const { order } = useCrossmintCheckout()
-  const { amount, instanceId } = usePurchaseProvider()
+  const { amount, instanceId, erc20Address } = usePurchaseProvider()
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -34,7 +44,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
               collectionLocator: 'crossmint:4e5f9aef-de17-4215-905e-4e62f1d79f6c',
               callData: {
                 swapData: {
-                  swapFactory: V2_FACTORY_ADDRESSES[CHAIN_ID],
+                  swapFactory: V3_CORE_FACTORY_ADDRESSES[CHAIN_ID],
                   swapRouter: SWAP_ROUTER_02_ADDRESSES(CHAIN_ID),
                   quoterV2: QUOTER_ADDRESSES[CHAIN_ID],
                   tokenIn: WETH_TOKEN.address,
@@ -49,7 +59,10 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
                   merkleProofs: [[]],
                 },
                 to: address,
-                totalPRice: '0.0011',
+                totalPrice: formatEther(
+                  MANIFOLD_FEE * BigInt(amount) +
+                    (erc20Address ? OUTCOMING_WRAPPER_ETH * BigInt(amount) : BigInt(0)),
+                ),
               },
             }}
             payment={{
