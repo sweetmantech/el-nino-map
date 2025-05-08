@@ -17,16 +17,16 @@ const useManifoldClaim = () => {
     try {
       const address = activeAccount?.address
       if (!address) {
-        connect({
+        await connect({
           client,
           wallets,
           chain: CHAIN,
         })
-        return
+        return { error: null }
       }
       await switchChain(CHAIN)
       const isPreparedClaim = await isPrepared(claimInfo, activeAccount)
-      if (!isPreparedClaim) return
+      if (!isPreparedClaim) return { error: 'Insuffient ETH' }
       const transaction = prepareContractCall({
         contract: extensionContract,
         method:
@@ -41,7 +41,10 @@ const useManifoldClaim = () => {
       })
 
       toast.success('Purchased!')
-      return transactionHash
+      return {
+        transactionHash,
+        error: null,
+      }
     } catch (error) {
       handleTxError(error)
       return { error }

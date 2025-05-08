@@ -1,15 +1,20 @@
 import { useEffect } from 'react'
 import { CrossmintEmbeddedCheckout, useCrossmintCheckout } from '@crossmint/client-sdk-react-ui'
-import { COMMENT, DROP_ADDRESS, MINT_REFERRAL } from '../../lib/consts'
 import { useActiveAccount } from 'thirdweb/react'
 import Modal from '../Modal'
 import { Address } from 'viem'
 import { toast } from 'react-toastify'
+import { CHAIN_ID, DROP_ADDRESS, ERC1155_LAZY_PAYABLE_CLAIM } from '@/lib/consts'
+import { usePurchaseProvider } from '@/providers/PurchaseProvider'
+import { QUOTER_ADDRESSES, SWAP_ROUTER_02_ADDRESSES, V2_FACTORY_ADDRESSES } from '@uniswap/sdk-core'
+import { WETH_TOKEN } from '@/lib/tokens'
+import { FeeAmount } from '@uniswap/v3-sdk'
 
 const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
   const { order } = useCrossmintCheckout()
+  const { amount, instanceId } = usePurchaseProvider()
 
   useEffect(() => {
     const fetchOrder = async () => {
@@ -26,14 +31,25 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
         {address && (
           <CrossmintEmbeddedCheckout
             lineItems={{
-              collectionLocator: 'crossmint:22373fe5-17e4-4ac9-8682-3ba5f83ef2d4',
+              collectionLocator: 'crossmint:4e5f9aef-de17-4215-905e-4e62f1d79f6c',
               callData: {
-                quantity: 1,
-                collection: DROP_ADDRESS,
-                tokenId: 5,
-                mintReferral: MINT_REFERRAL,
-                totalPrice: '0.000000111',
-                comment: COMMENT,
+                swapData: {
+                  swapFactory: V2_FACTORY_ADDRESSES[CHAIN_ID],
+                  swapRouter: SWAP_ROUTER_02_ADDRESSES(CHAIN_ID),
+                  quoterV2: QUOTER_ADDRESSES[CHAIN_ID],
+                  tokenIn: WETH_TOKEN.address,
+                  fee: FeeAmount.LOW,
+                },
+                mintData: {
+                  extensionContract: ERC1155_LAZY_PAYABLE_CLAIM,
+                  creatorContractAddress: DROP_ADDRESS,
+                  instanceId,
+                  mintCount: amount,
+                  mintIndices: [],
+                  merkleProofs: [[]],
+                },
+                to: address,
+                totalPRice: '0.0011',
               },
             }}
             payment={{

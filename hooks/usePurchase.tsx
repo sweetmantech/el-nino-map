@@ -25,9 +25,11 @@ const usePurchase = () => {
         pauseOnHover: false,
         draggable: false,
       })
-      await manifold.claim(activeAccount)
-      setPurchasing(false)
-      return
+      const { error } = await manifold.claim(activeAccount)
+      if (!error) {
+        setPurchasing(false)
+        return
+      }
     }
     setIsCrossmintOpen(true)
     setPurchasing(false)
