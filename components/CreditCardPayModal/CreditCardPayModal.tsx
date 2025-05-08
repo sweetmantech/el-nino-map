@@ -6,6 +6,7 @@ import { Address, formatEther } from 'viem'
 import { toast } from 'react-toastify'
 import {
   CHAIN_ID,
+  CROSSMINT_COLLECTION_ID,
   DROP_ADDRESS,
   ERC1155_LAZY_PAYABLE_CLAIM,
   MANIFOLD_FEE,
@@ -41,7 +42,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
         {address && (
           <CrossmintEmbeddedCheckout
             lineItems={{
-              collectionLocator: 'crossmint:4e5f9aef-de17-4215-905e-4e62f1d79f6c',
+              collectionLocator: `crossmint:${CROSSMINT_COLLECTION_ID}`,
               callData: {
                 swapData: {
                   swapFactory: V3_CORE_FACTORY_ADDRESSES[CHAIN_ID],
