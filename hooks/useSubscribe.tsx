@@ -25,6 +25,7 @@ const useSubscribe = () => {
   const { isPrepared } = usePrepareSubscribe()
   const { subscribeWithETH } = useETHSubscribe()
   const { subscribeWithUsdc } = useUsdcSubscribe()
+  const [fiatActive, setFiatActive] = useState<boolean>(false)
 
   const subscribe = async () => {
     const address = activeAccount?.address
@@ -40,6 +41,11 @@ const useSubscribe = () => {
       setLoading(true)
       await switchChain(CHAIN)
       const isPreparedSubscribe = await isPrepared(activeAccount)
+      if (isPreparedSubscribe === WALLET_STATUS.INSUFFICIENT_BALANCE) {
+        setLoading(false)
+        setFiatActive(true)
+        return
+      }
       if (isPreparedSubscribe === WALLET_STATUS.ENOUGH_ERC20) await subscribeWithUsdc(activeAccount)
       if (isPreparedSubscribe === WALLET_STATUS.ENOUGH_ETH) await subscribeWithETH(activeAccount)
       toast.success('Subscribed!')
@@ -57,6 +63,8 @@ const useSubscribe = () => {
     subscribe,
     loading,
     photos,
+    fiatActive,
+    setFiatActive,
   }
 }
 
