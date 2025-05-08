@@ -1,21 +1,32 @@
-import { useActiveAccount, useConnectedWallets } from 'thirdweb/react'
+import { useActiveAccount, useConnectedWallets, useConnectModal } from 'thirdweb/react'
 import { useState } from 'react'
 import { toast } from 'react-toastify'
 import useManifoldClaim from './useManifoldClaim'
+import { client } from '@/lib/thirdweb/client'
+import { CHAIN } from '@/lib/consts'
+import { wallets } from '@/lib/thirdweb/wallets'
 
 const usePurchase = () => {
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
-  const wallets = useConnectedWallets()
-  const isExternalWallet = wallets?.[0]?.id !== 'inApp'
+  const connectedWallets = useConnectedWallets()
+  const isExternalWallet = connectedWallets?.[0]?.id !== 'inApp'
   const manifold = useManifoldClaim()
   const [isCrossmintOpen, setIsCrossmintOpen] = useState(false)
   const [purchasing, setPurchasing] = useState(false)
   const [isOpenCollect, setIsOpenCollect] = useState(false)
+  const { connect } = useConnectModal()
 
   const mint = async () => {
     setIsOpenCollect(false)
-    if (!address) return
+    if (!address) {
+      await connect({
+        client,
+        wallets,
+        chain: CHAIN,
+      })
+      return
+    }
     setPurchasing(true)
     if (isExternalWallet) {
       toast('Purchasing...', {
