@@ -6,9 +6,9 @@ import { Address, formatEther, formatUnits } from 'viem'
 import { toast } from 'react-toastify'
 import {
   CHAIN_ID,
-  CROSSMINT_COLLECTION_ID,
   OUTCOMING_WRAPPER_ETH,
   SUBSCRIPTION,
+  SUBSCRIPTION_CROSSMINT_COLLECTION_ID,
 } from '@/lib/consts'
 import {
   QUOTER_ADDRESSES,
@@ -41,7 +41,7 @@ const FiatSubscribeModal = ({ onClose }: { onClose: () => void }) => {
         {address && (
           <CrossmintEmbeddedCheckout
             lineItems={{
-              collectionLocator: `crossmint:${CROSSMINT_COLLECTION_ID}`,
+              collectionLocator: `crossmint:${SUBSCRIPTION_CROSSMINT_COLLECTION_ID}`,
               callData: {
                 swapData: {
                   swapFactory: V3_CORE_FACTORY_ADDRESSES[CHAIN_ID],
