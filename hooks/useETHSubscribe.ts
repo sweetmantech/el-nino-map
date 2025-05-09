@@ -16,7 +16,7 @@ const useETHSubscribe = () => {
   const { pricePerPeriod, initPrice, balanceOf, decimals } = useSubscriptionInfoProvider()
 
   const subscribeWithETH = async (activeAccount: Account) => {
-    const price = balanceOf > 0 ? pricePerPeriod : initPrice
+    const price = balanceOf > 0 ? pricePerPeriod : initPrice + pricePerPeriod
     const transaction: any = prepareContractCall({
       contract: STPV2WrapperContract,
       method:
