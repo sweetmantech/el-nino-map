@@ -6,14 +6,13 @@ import {
   useSwitchActiveWalletChain,
 } from 'thirdweb/react'
 import { client } from '@/lib/thirdweb/client'
-import { baseSepolia } from 'thirdweb/chains'
-import { CHAIN, MINT_REFERRAL, SUBSCRIPTION } from '@/lib/consts'
-import { getContract, prepareContractCall, sendTransaction } from 'thirdweb'
-import { parseEther } from 'viem'
-import { subscriptionAbi } from '@/lib/abi/subscription'
+import { CHAIN, WALLET_STATUS } from '@/lib/consts'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import useHypersubUris from './useHypersubUris'
+import usePrepareSubscribe from './usePrepareSubscribe'
+import useETHSubscribe from './useETHSubscribe'
+import useUsdcSubscribe from './useUsdcSubscribe'
 
 const useSubscribe = () => {
   const { photos } = useHypersubUris()
@@ -23,50 +22,39 @@ const useSubscribe = () => {
   const switchChain = useSwitchActiveWalletChain()
   const [loading, setLoading] = useState(false)
   const [subscribed, setSubscribed] = useState(false)
+  const { isPrepared } = usePrepareSubscribe()
+  const { subscribeWithETH } = useETHSubscribe()
+  const { subscribeWithUsdc } = useUsdcSubscribe()
+  const [fiatActive, setFiatActive] = useState<boolean>(false)
 
   const subscribe = async () => {
-    setLoading(true)
+    const address = activeAccount?.address
+    if (!address) {
+      connect({
+        client,
+        wallets,
+        chain: CHAIN,
+      })
+      return
+    }
     try {
-      const address = activeAccount?.address
-      if (!address) {
-        connect({
-          client,
-          wallets,
-          chain: baseSepolia,
-        })
+      setLoading(true)
+      await switchChain(CHAIN)
+      const isPreparedSubscribe = await isPrepared(activeAccount)
+      if (isPreparedSubscribe === WALLET_STATUS.INSUFFICIENT_BALANCE) {
+        setLoading(false)
+        setFiatActive(true)
         return
       }
-
-      await switchChain(CHAIN)
-
-      const contract: any = getContract({
-        address: SUBSCRIPTION,
-        chain: CHAIN,
-        abi: subscriptionAbi as any,
-        client,
-      })
-
-      const transaction: any = prepareContractCall({
-        contract,
-        method: 'function mintFor(address account, uint256 numTokens) payable',
-        params: [MINT_REFERRAL, parseEther('0.001')],
-        value: parseEther('0.001'),
-      })
-
-      const { transactionHash } = await sendTransaction({
-        transaction,
-        account: activeAccount,
-      })
-
+      if (isPreparedSubscribe === WALLET_STATUS.ENOUGH_ERC20) await subscribeWithUsdc(activeAccount)
+      if (isPreparedSubscribe === WALLET_STATUS.ENOUGH_ETH) await subscribeWithETH(activeAccount)
       toast.success('Subscribed!')
       setLoading(false)
       setSubscribed(true)
-      return transactionHash
     } catch (error) {
       handleTxError(error)
       setLoading(false)
       setSubscribed(false)
-      return { error }
     }
   }
 
@@ -75,6 +63,8 @@ const useSubscribe = () => {
     subscribe,
     loading,
     photos,
+    fiatActive,
+    setFiatActive,
   }
 }
 

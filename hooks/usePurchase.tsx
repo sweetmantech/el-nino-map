@@ -1,7 +1,7 @@
 import { useActiveAccount, useConnectedWallets, useConnectModal } from 'thirdweb/react'
 import { useState } from 'react'
-import { toast } from 'react-toastify'
-import useManifoldClaim from './useManifoldClaim'
+import { Id, toast } from 'react-toastify'
+import useManifoldClaim, { CLAIM_ERRORS } from './useManifoldClaim'
 import { client } from '@/lib/thirdweb/client'
 import { CHAIN } from '@/lib/consts'
 import { wallets } from '@/lib/thirdweb/wallets'
@@ -16,6 +16,7 @@ const usePurchase = () => {
   const [purchasing, setPurchasing] = useState(false)
   const [isOpenCollect, setIsOpenCollect] = useState(false)
   const { connect } = useConnectModal()
+  const [toastId, setToastId] = useState<Id | null>(null)
 
   const mint = async () => {
     setIsOpenCollect(false)
@@ -29,15 +30,17 @@ const usePurchase = () => {
     }
     setPurchasing(true)
     if (isExternalWallet) {
-      toast('Purchasing...', {
+      const toastId = toast('Purchasing...', {
         position: 'top-right',
         autoClose: false,
         closeOnClick: false,
         pauseOnHover: false,
         draggable: false,
       })
+      setToastId(toastId)
       const { error } = await manifold.claim(activeAccount)
-      if (!error) {
+      if (error === CLAIM_ERRORS.TX_REJECTED || error === CLAIM_ERRORS.NO_ERROR) {
+        toast.dismiss(toastId)
         setPurchasing(false)
         return
       }
@@ -54,6 +57,7 @@ const usePurchase = () => {
     ...manifold,
     isOpenCollect,
     setIsOpenCollect,
+    toastId,
   }
 }
 

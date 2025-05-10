@@ -1,10 +1,15 @@
 import Modal from '../Modal'
 import Image from 'next/image'
-import { useSubscriptionProvider } from '@/providers/SubscriptionProvider'
+import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
+import useSubscribe from '@/hooks/useSubscribe'
+import { formatUnits } from 'viem'
+import FiatSubscribeModal from './FiatSubscribeModal'
+import { useMapProvider } from '@/providers/MapProvider'
 
 const Hypersub = ({ onClose }: { onClose: () => void }) => {
-  const { subscribe, loading, photos, subscribed, pricePerPeriod, symbol } =
-    useSubscriptionProvider()
+  const { pricePerPeriod, symbol, decimals } = useSubscriptionInfoProvider()
+  const { subscribe, loading, photos, subscribed, fiatActive, setFiatActive } = useSubscribe()
+  const { setIsHypersubOpen } = useMapProvider()
 
   const handleClick = async () => {
     if (subscribed) {
@@ -13,6 +18,16 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
     }
     await subscribe()
   }
+
+  if (fiatActive)
+    return (
+      <FiatSubscribeModal
+        onClose={() => {
+          setIsHypersubOpen(false)
+          setFiatActive(false)
+        }}
+      />
+    )
 
   return (
     <Modal onClose={onClose}>
@@ -34,7 +49,7 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
         <p className="font-titilliumweb">
           {subscribed
             ? `To stay up to date with your subscription, visit the hypersub`
-            : `Subscribe to ENM by La Equis ${pricePerPeriod} ${symbol}/month for exclusive content, early access & surprise drops.`}
+            : `Subscribe to ENM by La Equis ${formatUnits(pricePerPeriod, decimals)} ${symbol}/month for exclusive content, early access & surprise drops.`}
         </p>
         <button
           type="button"
