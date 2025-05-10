@@ -18,7 +18,7 @@ export const INSTANCE_ID = IS_TESTNET ? BigInt(4244961520) : BigInt(4277512432)
 export const ZORA_PRICE = '111000000000000'
 export const MANIFOLD_FEE = parseEther('0.0005')
 export const OUTCOMING_WRAPPER_ETH = parseEther('0.0006')
-export const CROSSMINT_COLLECTION_ID = '4e5f9aef-de17-4215-905e-4e62f1d79f6c'
+export const CROSSMINT_COLLECTION_ID = '4a88b4d6-73fe-4f19-8d01-57ec8dfd4ccf'
 
 export const COMMENT = 'XCELENCIA - ERC6551 smart album 🪄'
 export const FIRST_SMART_WALLET_LOGIN_EVENT = 'first_smart_wallet_login'
