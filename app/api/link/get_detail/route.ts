@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
         Authorization: 'Bearer sk_gfb7567odeiow27ucuzndu8j4uzyp07j',
         'Content-Type': 'application/json',
       },
-      body: '{"link":"https://warpcast.com/xcelencia/0x261df3bd","source":"API","forceNewSnapshot":"true","forceNewSnapshotRecursive":"true"}',
+      body: `{"link":"${decodeURIComponent(url)}","source":"API","forceNewSnapshot":"true","forceNewSnapshotRecursive":"true"}`,
     }
 
     const response = await fetch('https://api.peekalink.io/', options)

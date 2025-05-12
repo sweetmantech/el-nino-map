@@ -1,6 +1,5 @@
 import useLinkPreview from '@/hooks/useLinkPreview'
 import { LoaderCircle } from 'lucide-react'
-import Image from 'next/image'
 
 interface WarpcastPostProps {
   url: string
@@ -9,16 +8,14 @@ const WarpcastPost = ({ url }: WarpcastPostProps) => {
   const { isLoading, data } = useLinkPreview(url)
 
   return (
-    <div className="w-[328px] aspect-[128/72] relative flex justify-center items-center">
+    <div className="w-[328px] flex items-center justify-center">
       {isLoading ? (
         <LoaderCircle className="animate-spin" />
       ) : (
-        <Image
+        // eslint-disable-next-line
+        <img
           alt="warpcast"
-          src={data.image.large.url}
-          layout="fill"
-          objectFit="cover"
-          objectPosition="center"
+          src={data.image.original.url}
         />
       )}
     </div>
