@@ -8,17 +8,18 @@ const WarpcastPost = ({ url }: WarpcastPostProps) => {
   const { isLoading, data } = useLinkPreview(url)
 
   return (
-    <div className="w-[328px] flex items-center justify-center">
+    <button
+      className="w-[328px] flex items-center justify-center"
+      type="button"
+      onClick={() => window.open(url, '_blank')}
+    >
       {isLoading ? (
         <LoaderCircle className="animate-spin" />
       ) : (
         // eslint-disable-next-line
-        <img
-          alt="warpcast"
-          src={data.image.original.url}
-        />
+        <img alt="warpcast" src={data.image.original.url} />
       )}
-    </div>
+    </button>
   )
 }
 
