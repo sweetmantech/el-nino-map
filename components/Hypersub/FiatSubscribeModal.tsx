@@ -47,7 +47,7 @@ const FiatSubscribeModal = ({ onClose }: { onClose: () => void }) => {
   return (
     <Modal onClose={onClose}>
       <div className="max-w-[450px] px-6 py-3 bg-white rounded-md" id="credit-card-crossmint">
-        {address && amountIn < BigInt(0) && (
+        {address && amountIn > BigInt(0) && (
           <CrossmintEmbeddedCheckout
             lineItems={{
               collectionLocator: `crossmint:${SUBSCRIPTION_CROSSMINT_COLLECTION_ID}`,
