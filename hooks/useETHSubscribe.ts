@@ -1,5 +1,5 @@
 import { Address, prepareContractCall, sendTransaction } from 'thirdweb'
-import { CHAIN_ID, OUTCOMING_WRAPPER_ETH, SUBSCRIPTION } from '@/lib/consts'
+import { CHAIN_ID, SUBSCRIPTION } from '@/lib/consts'
 import { Account } from 'thirdweb/wallets'
 import {
   QUOTER_ADDRESSES,
@@ -10,12 +10,17 @@ import { WETH_TOKEN } from '@/lib/tokens'
 import { FeeAmount } from '@uniswap/v3-sdk'
 import { STPV2WrapperContract } from '@/lib/contracts'
 import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
-import { formatUnits } from 'viem'
+import { formatUnits, parseUnits } from 'viem'
+import getPoolInfo from '@/lib/getPoolInfo'
 
 const useETHSubscribe = () => {
   const { pricePerPeriod, initPrice, balanceOf, decimals } = useSubscriptionInfoProvider()
 
   const subscribeWithETH = async (activeAccount: Account) => {
+    const { amountInMaximum } = await getPoolInfo(
+      activeAccount.address,
+      parseUnits('1.1', decimals),
+    )
     const price = balanceOf > 0 ? pricePerPeriod : initPrice + pricePerPeriod
     const transaction: any = prepareContractCall({
       contract: STPV2WrapperContract,
@@ -33,7 +38,7 @@ const useETHSubscribe = () => {
         1,
         activeAccount.address as Address,
       ],
-      value: OUTCOMING_WRAPPER_ETH * BigInt(formatUnits(price, decimals)),
+      value: amountInMaximum * BigInt(formatUnits(price, decimals)),
     })
     const { transactionHash } = await sendTransaction({
       transaction,
