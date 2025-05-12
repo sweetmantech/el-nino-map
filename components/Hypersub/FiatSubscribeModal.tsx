@@ -1,15 +1,10 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { CrossmintEmbeddedCheckout, useCrossmintCheckout } from '@crossmint/client-sdk-react-ui'
 import { useActiveAccount } from 'thirdweb/react'
 import Modal from '../Modal'
-import { Address, formatEther, formatUnits } from 'viem'
+import { Address, formatEther, formatUnits, parseUnits } from 'viem'
 import { toast } from 'react-toastify'
-import {
-  CHAIN_ID,
-  OUTCOMING_WRAPPER_ETH,
-  SUBSCRIPTION,
-  SUBSCRIPTION_CROSSMINT_COLLECTION_ID,
-} from '@/lib/consts'
+import { CHAIN_ID, SUBSCRIPTION, SUBSCRIPTION_CROSSMINT_COLLECTION_ID } from '@/lib/consts'
 import {
   QUOTER_ADDRESSES,
   SWAP_ROUTER_02_ADDRESSES,
@@ -18,13 +13,14 @@ import {
 import { WETH_TOKEN } from '@/lib/tokens'
 import { FeeAmount } from '@uniswap/v3-sdk'
 import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
+import getPoolInfo from '@/lib/getPoolInfo'
 
 const FiatSubscribeModal = ({ onClose }: { onClose: () => void }) => {
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
   const { order } = useCrossmintCheckout()
   const { pricePerPeriod, initPrice, balanceOf, decimals } = useSubscriptionInfoProvider()
-
+  const [amountIn, setAmountIn] = useState<bigint>(BigInt(0))
   useEffect(() => {
     const fetchOrder = async () => {
       if (order?.phase !== 'completed') return
@@ -35,10 +31,23 @@ const FiatSubscribeModal = ({ onClose }: { onClose: () => void }) => {
     // eslint-disable-next-line
   }, [order])
 
+  useEffect(() => {
+    const getAmountIn = async () => {
+      const { amountInMaximum } = await getPoolInfo(
+        activeAccount.address,
+        parseUnits('1.1', decimals),
+      )
+      setAmountIn(amountInMaximum)
+    }
+
+    if (address) getAmountIn()
+    // eslint-disable-next-line
+  }, [address])
+
   return (
     <Modal onClose={onClose}>
       <div className="max-w-[450px] px-6 py-3 bg-white rounded-md" id="credit-card-crossmint">
-        {address && (
+        {address && amountIn < BigInt(0) && (
           <CrossmintEmbeddedCheckout
             lineItems={{
               collectionLocator: `crossmint:${SUBSCRIPTION_CROSSMINT_COLLECTION_ID}`,
@@ -54,7 +63,7 @@ const FiatSubscribeModal = ({ onClose }: { onClose: () => void }) => {
                 tierId: 1,
                 to: address,
                 totalPrice: formatEther(
-                  OUTCOMING_WRAPPER_ETH *
+                  amountIn *
                     BigInt(
                       formatUnits(
                         balanceOf > 0 ? pricePerPeriod : initPrice + pricePerPeriod,
