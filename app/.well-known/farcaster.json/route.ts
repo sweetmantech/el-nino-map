@@ -16,8 +16,8 @@ export async function GET() {
       homeUrl: APP_URL,
       imageUrl: `${APP_URL}/image.png`,
       buttonTitle: 'Explore',
-      splashImageUrl: `${APP_URL}/splash.png`,
-      splashBackgroundColor: '#eeccff',
+      splashImageUrl: `${APP_URL}/favicon.png`,
+      splashBackgroundColor: '#151264',
       webhookUrl: `${APP_URL}/api/webhook`,
     },
   }
