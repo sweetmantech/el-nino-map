@@ -3,19 +3,21 @@ import { APP_URL } from '../../../../lib/farcaster/consts'
 export async function GET() {
   const config = {
     accountAssociation: {
-      header: process.env.FARCASTER_HEADER,
-      payload: process.env.FARCASTER_PAYLOAD,
-      signature: process.env.FARCASTER_SIGNATURE,
+      header:
+        'eyJmaWQiOjIxMTc2OSwidHlwZSI6ImN1c3RvZHkiLCJrZXkiOiIweDUwRjU4MTlDNEYyN2JiMjEyMjg2NmM3Yzc2NTg2M0QyMWY1YTcxZjEifQ',
+      payload: 'eyJkb21haW4iOiJtYXJhdmlsbGEuY2l0eSJ9',
+      signature:
+        'MHhmNGJmNzMzMjYwNjE4NmJjNWE3YzJmMTAxOTlhMTIyYmQyZTQ2ZGY0NTMwY2JiYmIzOTk0M2NkMTYzNTVmMDNjNWI4YTg3Y2IxZTg0Y2FkYjAyNzRkMTczNThiZjUzMzc4MGU5YWEyODQ4ODk0NTUwNGQ5YWQ5MmU3MTI0ZmY0MjFj',
     },
     frame: {
       version: '1',
       name: 'Example Frame',
-      iconUrl: `${APP_URL}/icon.png`,
+      iconUrl: `${APP_URL}/favicon.png`,
       homeUrl: APP_URL,
       imageUrl: `${APP_URL}/image.png`,
       buttonTitle: 'Check this out',
-      splashImageUrl: `${APP_URL}/splash.png`,
-      splashBackgroundColor: '#eeccff',
+      splashImageUrl: `${APP_URL}/favicon.png`,
+      splashBackgroundColor: '#151264',
       webhookUrl: `${APP_URL}/api/webhook`,
     },
   }

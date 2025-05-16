@@ -18,7 +18,7 @@ export async function GET() {
       return data
     })
 
-    return Response.json(formattedEvents[0].claimIndex)
+    return Response.json(formattedEvents[0]?.claimIndex || formattedEvents[0]?.instanceId)
   } catch (e: any) {
     console.log(e)
     const message = e?.message ?? 'failed to get Dune transactions'
