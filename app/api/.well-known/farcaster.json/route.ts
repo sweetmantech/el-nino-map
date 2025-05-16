@@ -12,12 +12,12 @@ export async function GET() {
     frame: {
       version: '1',
       name: 'Example Frame',
-      iconUrl: `${APP_URL}/icon.png`,
+      iconUrl: `${APP_URL}/favicon.png`,
       homeUrl: APP_URL,
       imageUrl: `${APP_URL}/image.png`,
       buttonTitle: 'Check this out',
-      splashImageUrl: `${APP_URL}/splash.png`,
-      splashBackgroundColor: '#eeccff',
+      splashImageUrl: `${APP_URL}/favicon.png`,
+      splashBackgroundColor: '#151264',
       webhookUrl: `${APP_URL}/api/webhook`,
     },
   }
