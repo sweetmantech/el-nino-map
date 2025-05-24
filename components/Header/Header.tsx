@@ -27,7 +27,7 @@ const Header = () => {
         </button>
       )}
       <div className="ml-auto">
-        {!context ? (
+        {context ? (
           <FarcasterConnectButton />
         ) : (
           <ConnectButton
