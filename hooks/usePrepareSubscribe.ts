@@ -1,5 +1,5 @@
 import { CHAIN_ID, SUBSCRIPTION, WALLET_STATUS } from '@/lib/consts'
-import { erc20Abi, formatUnits, parseUnits, zeroAddress } from 'viem'
+import { formatUnits, parseUnits, zeroAddress } from 'viem'
 import getBalance from '@/lib/getBalance'
 import { getPublicClient } from '@/lib/clients'
 import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
@@ -8,6 +8,8 @@ import { useFrameProvider } from '@/providers/FrameProvider'
 import { useAccount } from 'wagmi'
 import useApproveERC20 from './useApproveERC20'
 import getPoolInfo from '@/lib/getPoolInfo'
+import { readContract } from 'thirdweb'
+import { currencyContract } from '@/lib/contracts'
 
 const usePrepareSubscribe = () => {
   const {
@@ -31,11 +33,10 @@ const usePrepareSubscribe = () => {
       if (ethBalance < price) return WALLET_STATUS.INSUFFICIENT_BALANCE
       else return WALLET_STATUS.ENOUGH_ETH
     }
-    const balanceOf = await publicClient.readContract({
-      address: currency,
-      abi: erc20Abi,
-      functionName: 'balanceOf',
-      args: [account],
+    const balanceOf = await readContract({
+      contract: currencyContract(currency) as any,
+      method: 'function balanceOf(address account) view returns (uint256)',
+      params: [account],
     })
 
     if (balanceOf < price) {
@@ -44,11 +45,10 @@ const usePrepareSubscribe = () => {
         return WALLET_STATUS.ENOUGH_ETH
       return WALLET_STATUS.INSUFFICIENT_BALANCE
     }
-    const allowance = await publicClient.readContract({
-      address: currency,
-      abi: erc20Abi,
-      functionName: 'allowance',
-      args: [account, SUBSCRIPTION],
+    const allowance = await readContract({
+      contract: currencyContract(currency) as any,
+      method: 'function allowance(address owner, address spender) view returns (uint256)',
+      params: [account, SUBSCRIPTION],
     })
 
     if (allowance < price) {
