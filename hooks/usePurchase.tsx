@@ -1,35 +1,28 @@
-import { useActiveAccount, useConnectedWallets, useConnectModal } from 'thirdweb/react'
+import { useConnectedWallets } from 'thirdweb/react'
 import { useState } from 'react'
 import { Id, toast } from 'react-toastify'
 import useManifoldClaim, { CLAIM_ERRORS } from './useManifoldClaim'
-import { client } from '@/lib/thirdweb/client'
-import { CHAIN } from '@/lib/consts'
-import { wallets } from '@/lib/thirdweb/wallets'
+import { useFrameProvider } from '@/providers/FrameProvider'
+import usePrepareTx from './usePrepareTx'
 
 const usePurchase = () => {
-  const activeAccount = useActiveAccount()
-  const address = activeAccount?.address
+  const { context } = useFrameProvider()
   const connectedWallets = useConnectedWallets()
   const isExternalWallet = connectedWallets?.[0]?.id !== 'inApp'
   const manifold = useManifoldClaim()
   const [isCrossmintOpen, setIsCrossmintOpen] = useState(false)
   const [purchasing, setPurchasing] = useState(false)
   const [isOpenCollect, setIsOpenCollect] = useState(false)
-  const { connect } = useConnectModal()
   const [toastId, setToastId] = useState<Id | null>(null)
+  const { isPreparedTx } = usePrepareTx()
 
   const mint = async () => {
     setIsOpenCollect(false)
-    if (!address) {
-      await connect({
-        client,
-        wallets,
-        chain: CHAIN,
-      })
-      return
-    }
+    const isPrepared = await isPreparedTx()
+    if (!isPrepared) return
+
     setPurchasing(true)
-    if (isExternalWallet) {
+    if (isExternalWallet || context) {
       const toastId = toast('Purchasing...', {
         position: 'top-right',
         autoClose: false,
@@ -38,7 +31,7 @@ const usePurchase = () => {
         draggable: false,
       })
       setToastId(toastId)
-      const { error } = await manifold.claim(activeAccount)
+      const { error } = await manifold.claim()
       if (error === CLAIM_ERRORS.TX_REJECTED || error === CLAIM_ERRORS.NO_ERROR) {
         toast.dismiss(toastId)
         setPurchasing(false)
