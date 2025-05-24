@@ -49,7 +49,7 @@ const usePrepareClaim = () => {
     })
 
     if (allowance < totalClaimPrice) {
-      const hash = await approve(erc20Address)
+      const hash = await approve(erc20Address, ERC1155_LAZY_PAYABLE_CLAIM)
       await publicClient.waitForTransactionReceipt({ hash })
     }
     return WALLET_STATUS.ENOUGH_USDC
