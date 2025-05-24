@@ -1,5 +1,5 @@
-import { CHAIN_ID, OUTCOMING_WRAPPER_ETH, SUBSCRIPTION, WALLET_STATUS } from '@/lib/consts'
-import { erc20Abi, formatUnits, zeroAddress } from 'viem'
+import { CHAIN_ID, SUBSCRIPTION, WALLET_STATUS } from '@/lib/consts'
+import { erc20Abi, formatUnits, parseUnits, zeroAddress } from 'viem'
 import getBalance from '@/lib/getBalance'
 import { getPublicClient } from '@/lib/clients'
 import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
@@ -7,6 +7,7 @@ import { useActiveAccount } from 'thirdweb/react'
 import { useFrameProvider } from '@/providers/FrameProvider'
 import { useAccount } from 'wagmi'
 import useApproveERC20 from './useApproveERC20'
+import getPoolInfo from '@/lib/getPoolInfo'
 
 const usePrepareSubscribe = () => {
   const {
@@ -24,7 +25,7 @@ const usePrepareSubscribe = () => {
   const isPrepared = async () => {
     const account = context ? address : activeAccount?.address
     const publicClient = getPublicClient(CHAIN_ID)
-    const price = remainedSeconds > 0 ? pricePerPeriod : initPrice
+    const price = remainedSeconds > 0 ? pricePerPeriod : initPrice + pricePerPeriod
     const ethBalance = await getBalance(account)
     if (currency === zeroAddress) {
       if (ethBalance < price) return WALLET_STATUS.INSUFFICIENT_BALANCE
@@ -38,7 +39,8 @@ const usePrepareSubscribe = () => {
     })
 
     if (balanceOf < price) {
-      if (ethBalance > OUTCOMING_WRAPPER_ETH * BigInt(formatUnits(price, decimals)))
+      const { amountInMaximum } = await getPoolInfo(account, parseUnits('1.1', decimals))
+      if (ethBalance > amountInMaximum * BigInt(formatUnits(price, decimals)))
         return WALLET_STATUS.ENOUGH_ETH
       return WALLET_STATUS.INSUFFICIENT_BALANCE
     }
