@@ -1,11 +1,16 @@
 import { currencyContract, subscriptionContract } from '@/lib/contracts'
+import { useFrameProvider } from '@/providers/FrameProvider'
 import { useEffect, useState } from 'react'
 import { readContract } from 'thirdweb'
 import { useActiveAccount } from 'thirdweb/react'
+import { useAccount } from 'wagmi'
 
 const useSubscriptionInfo = () => {
+  const { context } = useFrameProvider()
   const activeAccount = useActiveAccount()
-  const address = activeAccount?.address
+  const { address } = useAccount()
+  const account = context ? address : activeAccount?.address
+
   const [symbol, setSymbol] = useState<string>('')
   const [pricePerPeriod, setPricePerPeriod] = useState<bigint>(BigInt(0))
   const [initPrice, setInitPrice] = useState<bigint>(BigInt(0))
@@ -56,12 +61,12 @@ const useSubscriptionInfo = () => {
       const balanceOf = await readContract({
         contract: subscriptionContract,
         method: 'function balanceOf(address account) view returns (uint256 numSeconds)',
-        params: [address],
+        params: [account],
       })
       setBalanceOf(parseInt(balanceOf.toString(), 10))
     }
-    if (address) getBalanceOf()
-  }, [address])
+    if (account) getBalanceOf()
+  }, [account])
 
   return {
     symbol,
