@@ -1,4 +1,4 @@
-import { CHAIN, WALLET_STATUS } from '@/lib/consts'
+import { CHAIN, CHAIN_ID, WALLET_STATUS } from '@/lib/consts'
 import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import { useSwitchActiveWalletChain } from 'thirdweb/react'
@@ -6,6 +6,8 @@ import useClaimInfo from './useClaimInfo'
 import usePrepareClaim from './usePrepareClaim'
 import useUsdcClaim from './useUsdcClaim'
 import useETHClaim from './useETHClaim'
+import { useSwitchChain } from 'wagmi'
+import { useFrameProvider } from '@/providers/FrameProvider'
 
 export enum CLAIM_ERRORS {
   INSUFFICIENT_BALANCE,
@@ -14,22 +16,22 @@ export enum CLAIM_ERRORS {
 }
 const useManifoldClaim = () => {
   const switchChain = useSwitchActiveWalletChain()
+  const { switchChainAsync } = useSwitchChain()
   const claimInfo = useClaimInfo()
   const { isPrepared } = usePrepareClaim()
   const { claimWithUsdc } = useUsdcClaim()
   const { claimWithETH } = useETHClaim()
+  const { context } = useFrameProvider()
 
-  const claim = async (activeAccount: any) => {
+  const claim = async () => {
     try {
-      const address = activeAccount?.address
-      await switchChain(CHAIN)
-      const isPreparedClaim = await isPrepared(claimInfo, activeAccount)
+      if (context) await switchChainAsync({ chainId: CHAIN_ID })
+      else await switchChain(CHAIN)
+      const isPreparedClaim = await isPrepared(claimInfo)
       if (isPreparedClaim === WALLET_STATUS.INSUFFICIENT_BALANCE)
         return { error: CLAIM_ERRORS.INSUFFICIENT_BALANCE }
-      if (isPreparedClaim === WALLET_STATUS.ENOUGH_USDC)
-        await claimWithUsdc(claimInfo, activeAccount, address)
-      if (isPreparedClaim === WALLET_STATUS.ENOUGH_ETH)
-        await claimWithETH(claimInfo, activeAccount, address)
+      if (isPreparedClaim === WALLET_STATUS.ENOUGH_USDC) await claimWithUsdc(claimInfo)
+      if (isPreparedClaim === WALLET_STATUS.ENOUGH_ETH) await claimWithETH(claimInfo)
 
       toast.success('Purchased!')
       return {
