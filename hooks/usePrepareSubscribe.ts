@@ -1,10 +1,13 @@
-import { CHAIN_ID, OUTCOMING_WRAPPER_ETH, SUBSCRIPTION, WALLET_STATUS } from '@/lib/consts'
-import { prepareContractCall, readContract, sendTransaction } from 'thirdweb'
-import { formatUnits, maxUint256, zeroAddress } from 'viem'
+import { CHAIN_ID, SUBSCRIPTION, WALLET_STATUS } from '@/lib/consts'
+import { erc20Abi, formatUnits, parseUnits, zeroAddress } from 'viem'
 import getBalance from '@/lib/getBalance'
 import { getPublicClient } from '@/lib/clients'
 import { useSubscriptionInfoProvider } from '@/providers/SubscriptionProvider'
-import { currencyContract } from '@/lib/contracts'
+import { useActiveAccount } from 'thirdweb/react'
+import { useFrameProvider } from '@/providers/FrameProvider'
+import { useAccount } from 'wagmi'
+import useApproveERC20 from './useApproveERC20'
+import getPoolInfo from '@/lib/getPoolInfo'
 
 const usePrepareSubscribe = () => {
   const {
@@ -14,43 +17,43 @@ const usePrepareSubscribe = () => {
     initPrice,
     decimals,
   } = useSubscriptionInfoProvider()
+  const activeAccount = useActiveAccount()
+  const { context } = useFrameProvider()
+  const { address } = useAccount()
+  const { approve } = useApproveERC20()
 
-  const isPrepared = async (activeAccount: any) => {
-    const account = activeAccount?.address
-    const price = remainedSeconds > 0 ? pricePerPeriod : initPrice
+  const isPrepared = async () => {
+    const account = context ? address : activeAccount?.address
+    const publicClient = getPublicClient(CHAIN_ID)
+    const price = remainedSeconds > 0 ? pricePerPeriod : initPrice + pricePerPeriod
     const ethBalance = await getBalance(account)
     if (currency === zeroAddress) {
       if (ethBalance < price) return WALLET_STATUS.INSUFFICIENT_BALANCE
       else return WALLET_STATUS.ENOUGH_ETH
     }
-    const balanceOf = await readContract({
-      contract: currencyContract(currency) as any,
-      method: 'function balanceOf(address account) view returns (uint256)',
-      params: [account],
+    const balanceOf = await publicClient.readContract({
+      address: currency,
+      abi: erc20Abi,
+      functionName: 'balanceOf',
+      args: [account],
     })
+
     if (balanceOf < price) {
-      if (ethBalance > OUTCOMING_WRAPPER_ETH * BigInt(formatUnits(price, decimals)))
+      const { amountInMaximum } = await getPoolInfo(account, parseUnits('1.1', decimals))
+      if (ethBalance > amountInMaximum * BigInt(formatUnits(price, decimals)))
         return WALLET_STATUS.ENOUGH_ETH
       return WALLET_STATUS.INSUFFICIENT_BALANCE
     }
-    const allowance = await readContract({
-      contract: currencyContract(currency) as any,
-      method: 'function allowance(address owner, address spender) view returns (uint256)',
-      params: [account, SUBSCRIPTION],
+    const allowance = await publicClient.readContract({
+      address: currency,
+      abi: erc20Abi,
+      functionName: 'allowance',
+      args: [account, SUBSCRIPTION],
     })
-    if (allowance < price) {
-      const transaction = prepareContractCall({
-        contract: currencyContract(currency) as any,
-        method: 'function approve(address spender, uint256 value) returns (bool)',
-        params: [SUBSCRIPTION, maxUint256],
-      })
 
-      const { transactionHash } = await sendTransaction({
-        transaction,
-        account: activeAccount,
-      })
-      const publicClient = getPublicClient(CHAIN_ID)
-      await publicClient.waitForTransactionReceipt({ hash: transactionHash })
+    if (allowance < price) {
+      const hash = await approve(currency, SUBSCRIPTION)
+      await publicClient.waitForTransactionReceipt({ hash })
     }
     return WALLET_STATUS.ENOUGH_ERC20
   }

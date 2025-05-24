@@ -1,7 +1,7 @@
 import { useFrameProvider } from '@/providers/FrameProvider'
 import { useAccount, useWriteContract } from 'wagmi'
 import { erc20Abi, maxUint256, Address } from 'viem'
-import { CHAIN, ERC1155_LAZY_PAYABLE_CLAIM } from '@/lib/consts'
+import { CHAIN } from '@/lib/consts'
 import getViemNetwork from '@/lib/viem/getViemNetwork'
 import { prepareContractCall, sendTransaction } from 'thirdweb'
 import { currencyContract } from '@/lib/contracts'
@@ -13,7 +13,7 @@ const useApproveERC20 = () => {
   const activeAccount = useActiveAccount()
   const { address } = useAccount()
 
-  const approve = async (erc20Address: Address) => {
+  const approve = async (erc20Address: Address, spender: Address) => {
     const account = context ? address : activeAccount.address
 
     if (context) {
@@ -21,7 +21,7 @@ const useApproveERC20 = () => {
         address: erc20Address,
         abi: erc20Abi,
         functionName: 'approve',
-        args: [ERC1155_LAZY_PAYABLE_CLAIM, maxUint256],
+        args: [spender, maxUint256],
         chain: getViemNetwork(CHAIN.id),
         account,
       })
@@ -31,7 +31,7 @@ const useApproveERC20 = () => {
     const transaction = prepareContractCall({
       contract: currencyContract(erc20Address) as any,
       method: 'function approve(address spender, uint256 value) returns (bool)',
-      params: [ERC1155_LAZY_PAYABLE_CLAIM, maxUint256],
+      params: [spender, maxUint256],
     })
 
     const { transactionHash } = await sendTransaction({
