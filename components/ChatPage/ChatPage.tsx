@@ -7,7 +7,7 @@ import ChatHeader from './ChatHeader'
 
 const ChatPage = () => {
   const { messages, input, setInput, handleSubmit, isLoading } = useChat({
-    api: 'https://recoup-chat-git-cursor-remove-cors-b-6636cd-recoupable-ad724970.vercel.app/api/chat',
+    api: 'https://chat.recoupable.com/api/chat',
   })
 
   return (
