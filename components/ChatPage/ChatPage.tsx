@@ -6,9 +6,7 @@ import MessageInput from './MessageInput'
 import ChatHeader from './ChatHeader'
 
 const ChatPage = () => {
-  const { messages, input, setInput, handleSubmit, isLoading } = useChat({
-    api: 'https://chat.recoupable.com/api/chat'
-  })
+  const { messages, input, setInput, handleSubmit, isLoading } = useChat()
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
