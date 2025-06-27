@@ -3,19 +3,20 @@
 interface MessageInputProps {
   value: string
   onChange: (value: string) => void
-  onSend: () => void
+  onSubmit: (event?: { preventDefault?: () => void }) => void
+  isLoading?: boolean
 }
 
-const MessageInput = ({ value, onChange, onSend }: MessageInputProps) => {
+const MessageInput = ({ value, onChange, onSubmit, isLoading }: MessageInputProps) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
-    onSend()
+    onSubmit(e)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-      onSend()
+      onSubmit()
     }
   }
 
@@ -29,14 +30,15 @@ const MessageInput = ({ value, onChange, onSend }: MessageInputProps) => {
             onChange={(e) => onChange(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder="Type a message..."
-            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black text-base"
+            disabled={isLoading}
+            className="flex-1 px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black text-base disabled:opacity-50"
           />
           <button
             type="submit"
-            disabled={!value.trim()}
+            disabled={!value.trim() || isLoading}
             className="px-6 py-3 bg-black text-white rounded-lg hover:bg-gray-800 focus:outline-none disabled:opacity-50 disabled:cursor-not-allowed font-medium"
           >
-            Send
+            {isLoading ? 'Sending...' : 'Send'}
           </button>
         </form>
       </div>

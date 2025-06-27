@@ -1,13 +1,7 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-
-interface Message {
-  id: string
-  text: string
-  sender: 'user' | 'assistant'
-  timestamp: Date
-}
+import { type Message } from '@ai-sdk/react'
 
 interface MessageListProps {
   messages: Message[]
@@ -25,23 +19,32 @@ const MessageList = ({ messages }: MessageListProps) => {
       {messages.map((message) => (
         <div
           key={message.id}
-          className={`${message.sender === 'user' ? 'text-right' : 'text-left'}`}
+          className={`${message.role === 'user' ? 'text-right' : 'text-left'}`}
         >
           <div
             className={`inline-block max-w-xs lg:max-w-md ${
-              message.sender === 'user'
+              message.role === 'user'
                 ? 'bg-black text-white'
                 : 'bg-gray-100 text-gray-900'
             } px-4 py-3 rounded-lg`}
           >
-            <p className="font-medium">{message.text}</p>
+            <div className="font-medium">
+              {message.parts?.map((part, index) => {
+                if (part.type === 'text') {
+                  return <span key={index}>{part.text}</span>
+                }
+                return null
+              })}
+              {/* Fallback to content if parts is empty */}
+              {(!message.parts || message.parts.length === 0) && message.content}
+            </div>
             <p className={`text-xs mt-1 ${
-              message.sender === 'user' ? 'text-gray-300' : 'text-gray-500'
+              message.role === 'user' ? 'text-gray-300' : 'text-gray-500'
             }`}>
-              {message.timestamp.toLocaleTimeString([], { 
+              {message.createdAt ? new Date(message.createdAt).toLocaleTimeString([], { 
                 hour: '2-digit', 
                 minute: '2-digit' 
-              })}
+              }) : ''}
             </p>
           </div>
         </div>
