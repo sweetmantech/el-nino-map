@@ -28,7 +28,16 @@ const MessageList = ({ messages }: MessageListProps) => {
                 : 'bg-gray-100 text-gray-900'
             } px-4 py-3 rounded-lg`}
           >
-            <p className="font-medium">{message.content}</p>
+            <div className="font-medium">
+              {message.parts?.map((part, index) => {
+                if (part.type === 'text') {
+                  return <span key={index}>{part.text}</span>
+                }
+                return null
+              })}
+              {/* Fallback to content if parts is empty */}
+              {(!message.parts || message.parts.length === 0) && message.content}
+            </div>
             <p className={`text-xs mt-1 ${
               message.role === 'user' ? 'text-gray-300' : 'text-gray-500'
             }`}>
