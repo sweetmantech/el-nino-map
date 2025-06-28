@@ -9,8 +9,8 @@ interface DefaultPromptsProps {
 
 const DefaultPrompts = ({ onPromptSelect }: DefaultPromptsProps) => {
   const prompts = [
-    'who is La Equis?',
-    'what is maravilla city?'
+    'Who is La Equis?',
+    'What is Maravilla City?'
   ]
 
   return (
