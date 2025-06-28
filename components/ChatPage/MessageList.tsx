@@ -11,60 +11,57 @@ interface MessageListProps {
 }
 
 const MessageList = ({ messages, status }: MessageListProps) => {
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+    }
   }, [messages])
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 space-y-6">
+    <div
+      ref={messagesContainerRef}
+      className="h-full overflow-y-auto p-4 space-y-4"
+      style={{ scrollBehavior: 'smooth' }}
+    >
       {messages.map((message) => (
-        <div
-          key={message.id}
-          className={`${message.role === 'user' ? 'text-right' : 'text-left'}`}
-        >
+        <div key={message.id} className={`${message.role === 'user' ? 'text-right' : 'text-left'}`}>
           <div
             className={`inline-block max-w-xs lg:max-w-md ${
-              message.role === 'user'
-                ? 'bg-black text-white'
-                : 'bg-gray-100 text-gray-900'
+              message.role === 'user' ? 'bg-black text-white' : 'bg-gray-100 text-gray-900'
             } px-4 py-3 rounded-lg`}
           >
             <div className="font-medium">
               {message.parts?.map((part, index) => {
                 if (part.type === 'text') {
-                  return (
-                    <ChatMarkdown 
-                      key={index} 
-                      content={part.text} 
-                      className="text-inherit"
-                    />
-                  )
+                  return <ChatMarkdown key={index} content={part.text} className="text-inherit" />
                 }
                 return null
               })}
               {/* Fallback to content if parts is empty */}
               {(!message.parts || message.parts.length === 0) && message.content && (
-                <ChatMarkdown 
-                  content={message.content} 
-                  className="text-inherit"
-                />
+                <ChatMarkdown content={message.content} className="text-inherit" />
               )}
             </div>
-            <p className={`text-xs mt-1 ${
-              message.role === 'user' ? 'text-gray-300' : 'text-gray-500'
-            }`}>
-              {message.createdAt ? new Date(message.createdAt).toLocaleTimeString([], { 
-                hour: '2-digit', 
-                minute: '2-digit' 
-              }) : ''}
+            <p
+              className={`text-xs mt-1 ${
+                message.role === 'user' ? 'text-gray-300' : 'text-gray-500'
+              }`}
+            >
+              {message.createdAt
+                ? new Date(message.createdAt).toLocaleTimeString([], {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                  })
+                : ''}
             </p>
           </div>
         </div>
       ))}
 
-      {(status === "submitted" || status === "streaming") && <Thinking />}
+      {(status === 'submitted' || status === 'streaming') && <Thinking />}
 
       <div ref={messagesEndRef} />
     </div>
