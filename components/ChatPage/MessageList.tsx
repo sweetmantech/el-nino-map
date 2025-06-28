@@ -2,6 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import { type Message } from '@ai-sdk/react'
+import ChatMarkdown from './ChatMarkdown'
 
 interface MessageListProps {
   messages: Message[]
@@ -31,12 +32,23 @@ const MessageList = ({ messages }: MessageListProps) => {
             <div className="font-medium">
               {message.parts?.map((part, index) => {
                 if (part.type === 'text') {
-                  return <span key={index}>{part.text}</span>
+                  return (
+                    <ChatMarkdown 
+                      key={index} 
+                      content={part.text} 
+                      className="text-inherit"
+                    />
+                  )
                 }
                 return null
               })}
               {/* Fallback to content if parts is empty */}
-              {(!message.parts || message.parts.length === 0) && message.content}
+              {(!message.parts || message.parts.length === 0) && message.content && (
+                <ChatMarkdown 
+                  content={message.content} 
+                  className="text-inherit"
+                />
+              )}
             </div>
             <p className={`text-xs mt-1 ${
               message.role === 'user' ? 'text-gray-300' : 'text-gray-500'
