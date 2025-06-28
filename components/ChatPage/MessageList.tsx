@@ -7,10 +7,10 @@ import SpinnerIcon from '../Icon/SpinnerIcon'
 
 interface MessageListProps {
   messages: Message[]
-  isLoading?: boolean
+  status?: string
 }
 
-const MessageList = ({ messages, isLoading }: MessageListProps) => {
+const MessageList = ({ messages, status }: MessageListProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -64,7 +64,7 @@ const MessageList = ({ messages, isLoading }: MessageListProps) => {
         </div>
       ))}
 
-      {isLoading && (
+      {(status === "submitted" || status === "streaming") && (
         <div className="text-left">
           <div className="text-zinc-500 w-full flex items-center gap-2">
             Hmm...
