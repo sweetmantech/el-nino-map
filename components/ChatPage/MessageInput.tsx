@@ -4,10 +4,12 @@ interface MessageInputProps {
   value: string
   onChange: (value: string) => void
   onSubmit: (event?: { preventDefault?: () => void }) => void
-  isLoading?: boolean
+  status?: string
 }
 
-const MessageInput = ({ value, onChange, onSubmit, isLoading }: MessageInputProps) => {
+const MessageInput = ({ value, onChange, onSubmit, status }: MessageInputProps) => {
+  const isLoading = status === "submitted" || status === "streaming"
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
     onSubmit(e)

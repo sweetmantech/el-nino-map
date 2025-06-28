@@ -7,7 +7,7 @@ import ChatHeader from './ChatHeader'
 import DefaultPrompts from './DefaultPrompts'
 
 const ChatPage = () => {
-  const { messages, input, setInput, handleSubmit, isLoading, append } = useChat({
+  const { messages, input, setInput, handleSubmit, status, append } = useChat({
     api: 'https://chat.recoupable.com/api/chat',
     body: {
       artistId: 'eaa2fb07-5a4b-4710-9c0d-4a74db3612d2',
@@ -29,13 +29,13 @@ const ChatPage = () => {
         {messages.length === 0 ? (
           <DefaultPrompts onPromptSelect={handlePromptSelect} />
         ) : (
-          <MessageList messages={messages} />
+          <MessageList messages={messages} status={status} />
         )}
         <MessageInput
           value={input}
           onChange={setInput}
           onSubmit={handleSubmit}
-          isLoading={isLoading}
+          status={status}
         />
       </div>
     </div>

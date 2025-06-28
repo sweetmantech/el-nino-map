@@ -3,12 +3,14 @@
 import { useEffect, useRef } from 'react'
 import { type Message } from '@ai-sdk/react'
 import ChatMarkdown from './ChatMarkdown'
+import Thinking from './Thinking'
 
 interface MessageListProps {
   messages: Message[]
+  status?: string
 }
 
-const MessageList = ({ messages }: MessageListProps) => {
+const MessageList = ({ messages, status }: MessageListProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -61,6 +63,9 @@ const MessageList = ({ messages }: MessageListProps) => {
           </div>
         </div>
       ))}
+
+      {(status === "submitted" || status === "streaming") && <Thinking />}
+
       <div ref={messagesEndRef} />
     </div>
   )
