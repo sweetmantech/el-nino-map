@@ -17,10 +17,10 @@ const DefaultPrompts = ({ onPromptSelect }: DefaultPromptsProps) => {
     <div className="flex-1 flex flex-col items-center justify-center p-6 space-y-6">
       <div className="text-center space-y-4 mb-8">
         <h2 className="text-2xl font-semibold text-gray-900">
-          Hey sweetman 👋
+          Hey there 👋
         </h2>
         <p className="text-gray-600">
-          Ask me about sweetman.eth
+          Ask me about Maravilla City
         </p>
       </div>
       
