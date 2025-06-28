@@ -17,22 +17,22 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <Modal onClose={onClose}>
-      <div className="w-[500px] h-[600px] max-w-[90vw] max-h-[90vh] bg-white rounded-md relative flex flex-col overflow-hidden" id="metadata">
-        <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0">
-          <p className="font-titilliumweb text-xl font-semibold">El Niño Maravilla Pt. 1</p>
+      <div className="w-[500px] h-[600px] max-w-[90vw] max-h-[90vh] bg-white rounded-lg shadow-2xl flex flex-col overflow-hidden" id="metadata">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0 bg-white">
+          <p className="font-titilliumweb text-xl font-semibold text-gray-900">El Niño Maravilla Pt. 1</p>
           <button
             type="button"
             onClick={onClose}
-            className="text-black font-akira hover:text-gray-600 transition-colors"
+            className="text-gray-600 hover:text-gray-900 transition-colors p-1"
           >
             <X className="size-5" />
           </button>
         </div>
-        <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
-          <div className="flex-1 overflow-hidden">
+        <div className="flex-1 flex flex-col min-h-0">
+          <div className="flex-1 min-h-0">
             <MessageList messages={messages} />
           </div>
-          <div className="flex-shrink-0 border-t border-gray-200">
+          <div className="flex-shrink-0 border-t border-gray-200 bg-white">
             <MessageInput
               value={input}
               onChange={setInput}
