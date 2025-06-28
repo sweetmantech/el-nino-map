@@ -1,45 +1,46 @@
+'use client'
+
 import { X } from 'lucide-react'
+import { useChat } from '@ai-sdk/react'
 import Modal from '../Modal'
+import MessageList from '../ChatPage/MessageList'
+import MessageInput from '../ChatPage/MessageInput'
 
 const Metadata = ({ onClose }: { onClose: () => void }) => {
+  const { messages, input, setInput, handleSubmit, isLoading } = useChat({
+    api: 'https://chat.recoupable.com/api/chat',
+    body: {
+      artistId: 'eaa2fb07-5a4b-4710-9c0d-4a74db3612d2',
+      accountId: '46cd41de-88a8-4839-b03b-264a8566cccf',
+    },
+  })
+
   return (
     <Modal onClose={onClose}>
-      <div className="max-w-[350px] p-3 bg-white rounded-md relative" id="metadata">
-        <button
-          type="button"
-          onClick={onClose}
-          className="text-xl absolute right-4 top-2 text-black font-akira"
-        >
-          <X className="size-4" />
-        </button>
-        <p className="font-titilliumweb text-xl pb-2">El Niño Maravilla Pt. 1</p>
-        <fieldset className="max-h-[450px] overflow-y-auto font-[600] text-lg border-grey-light border rounded-lg px-4 py-2">
-          <p className="font-titilliumweb py-1">Description</p>
-          <p className="font-titilliumweb text-grey text-sm pb-1">
-            El Niño Maravilla is the debut album by xcelencia, showcasing a unique blend of Latin
-            urban and pop sounds. This project brings together a talented team of designers,
-            developers, and producers to create a groundbreaking musical experience.
-          </p>
-          <p className="font-titilliumweb py-1">Artist</p>
-          <p className="font-titilliumweb text-grey text-sm pb-1">xcelencia</p>
-          <p className="font-titilliumweb py-1">Album</p>
-          <p className="font-titilliumweb text-grey text-sm pb-1">el niño maravilla</p>
-          <p className="font-titilliumweb py-1">Designer</p>
-          <p className="font-titilliumweb text-grey text-sm pb-1">muchozorro</p>
-          <p className="font-titilliumweb py-1">Devs</p>
-          <ul className="font-titilliumweb list-inside pb-1">
-            <li className="text-grey text-sm list-disc">sweetman</li>
-            <li className="text-grey text-sm list-disc">ziad</li>
-          </ul>
-          <p className="font-titilliumweb py-1">Producers</p>
-          <ul className="font-titilliumweb list-inside pb-1">
-            <li className="text-grey text-sm list-disc">Emme</li>
-            <li className="text-grey text-sm list-disc">Shine</li>
-            <li className="text-grey text-sm list-disc">JVYBoy</li>
-            <li className="text-grey text-sm list-disc">Lelo</li>
-            <li className="text-grey text-sm list-disc">Kris Kruz</li>
-          </ul>
-        </fieldset>
+      <div className="w-[500px] h-[600px] bg-white rounded-md relative flex flex-col" id="metadata">
+        <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0">
+          <p className="font-titilliumweb text-xl font-semibold">El Niño Maravilla Pt. 1</p>
+          <button
+            type="button"
+            onClick={onClose}
+            className="text-black font-akira hover:text-gray-600 transition-colors"
+          >
+            <X className="size-5" />
+          </button>
+        </div>
+        <div className="flex-1 min-h-0 flex flex-col">
+          <div className="flex-1 overflow-hidden">
+            <MessageList messages={messages} />
+          </div>
+          <div className="flex-shrink-0">
+            <MessageInput
+              value={input}
+              onChange={setInput}
+              onSubmit={handleSubmit}
+              isLoading={isLoading}
+            />
+          </div>
+        </div>
       </div>
     </Modal>
   )
