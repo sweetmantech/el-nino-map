@@ -7,7 +7,7 @@ import ChatHeader from './ChatHeader'
 import DefaultPrompts from './DefaultPrompts'
 
 const ChatPage = () => {
-  const { messages, input, setInput, handleSubmit, isLoading } = useChat({
+  const { messages, input, setInput, handleSubmit, isLoading, append } = useChat({
     api: 'https://chat.recoupable.com/api/chat',
     body: {
       artistId: 'eaa2fb07-5a4b-4710-9c0d-4a74db3612d2',
@@ -16,11 +16,10 @@ const ChatPage = () => {
   })
 
   const handlePromptSelect = (prompt: string) => {
-    setInput(prompt)
-    // Use setTimeout to ensure the input is set before submitting
-    setTimeout(() => {
-      handleSubmit()
-    }, 0)
+    append({
+      role: 'user',
+      content: prompt,
+    })
   }
 
   return (
