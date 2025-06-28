@@ -17,7 +17,7 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
 
   return (
     <Modal onClose={onClose}>
-      <div className="w-[500px] h-[600px] bg-white rounded-md relative flex flex-col" id="metadata">
+      <div className="w-[500px] h-[600px] max-w-[90vw] max-h-[90vh] bg-white rounded-md relative flex flex-col overflow-hidden" id="metadata">
         <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0">
           <p className="font-titilliumweb text-xl font-semibold">El Niño Maravilla Pt. 1</p>
           <button
@@ -28,11 +28,11 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
             <X className="size-5" />
           </button>
         </div>
-        <div className="flex-1 min-h-0 flex flex-col">
+        <div className="flex-1 min-h-0 flex flex-col overflow-hidden">
           <div className="flex-1 overflow-hidden">
             <MessageList messages={messages} />
           </div>
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0 border-t border-gray-200">
             <MessageInput
               value={input}
               onChange={setInput}

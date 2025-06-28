@@ -8,14 +8,16 @@ interface MessageListProps {
 }
 
 const MessageList = ({ messages }: MessageListProps) => {
-  const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    if (messagesContainerRef.current) {
+      messagesContainerRef.current.scrollTop = messagesContainerRef.current.scrollHeight
+    }
   }, [messages])
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 space-y-6">
+    <div ref={messagesContainerRef} className="flex-1 overflow-y-auto p-6 space-y-6">
       {messages.map((message) => (
         <div
           key={message.id}
@@ -49,7 +51,6 @@ const MessageList = ({ messages }: MessageListProps) => {
           </div>
         </div>
       ))}
-      <div ref={messagesEndRef} />
     </div>
   )
 }
