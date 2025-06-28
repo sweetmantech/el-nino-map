@@ -3,7 +3,7 @@
 import { useEffect, useRef } from 'react'
 import { type Message } from '@ai-sdk/react'
 import ChatMarkdown from './ChatMarkdown'
-import SpinnerIcon from '../Icon/SpinnerIcon'
+import Thinking from './Thinking'
 
 interface MessageListProps {
   messages: Message[]
@@ -64,16 +64,7 @@ const MessageList = ({ messages, status }: MessageListProps) => {
         </div>
       ))}
 
-      {(status === "submitted" || status === "streaming") && (
-        <div className="text-left">
-          <div className="text-zinc-500 w-full flex items-center gap-2">
-            Hmm...
-            <div className="inline-block animate-spin">
-              <SpinnerIcon />
-            </div>
-          </div>
-        </div>
-      )}
+      {(status === "submitted" || status === "streaming") && <Thinking />}
 
       <div ref={messagesEndRef} />
     </div>
