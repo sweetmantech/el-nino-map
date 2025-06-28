@@ -3,12 +3,14 @@
 import { useEffect, useRef } from 'react'
 import { type Message } from '@ai-sdk/react'
 import ChatMarkdown from './ChatMarkdown'
+import SpinnerIcon from '../Icon/SpinnerIcon'
 
 interface MessageListProps {
   messages: Message[]
+  isLoading?: boolean
 }
 
-const MessageList = ({ messages }: MessageListProps) => {
+const MessageList = ({ messages, isLoading }: MessageListProps) => {
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -61,6 +63,18 @@ const MessageList = ({ messages }: MessageListProps) => {
           </div>
         </div>
       ))}
+
+      {isLoading && (
+        <div className="text-left">
+          <div className="text-zinc-500 w-full flex items-center gap-2">
+            Hmm...
+            <div className="inline-block animate-spin">
+              <SpinnerIcon />
+            </div>
+          </div>
+        </div>
+      )}
+
       <div ref={messagesEndRef} />
     </div>
   )

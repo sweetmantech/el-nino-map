@@ -29,7 +29,7 @@ const ChatPage = () => {
         {messages.length === 0 ? (
           <DefaultPrompts onPromptSelect={handlePromptSelect} />
         ) : (
-          <MessageList messages={messages} />
+          <MessageList messages={messages} isLoading={isLoading} />
         )}
         <MessageInput
           value={input}
