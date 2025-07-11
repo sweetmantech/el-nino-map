@@ -14,17 +14,17 @@ const DefaultPrompts = ({ onPromptSelect }: DefaultPromptsProps) => {
   ]
 
   return (
-    <div className="flex-1 flex flex-col items-center justify-center p-6 space-y-6">
-      <div className="text-center space-y-4 mb-8">
-        <h2 className="text-2xl font-semibold text-gray-900">
+    <div className="flex-1 flex flex-col items-center justify-center p-3 lg:p-6 space-y-3 lg:space-y-6">
+      <div className="text-center space-y-2 lg:space-y-4 mb-4 lg:mb-8">
+        <h2 className="text-lg lg:text-2xl font-semibold text-gray-900">
           Hey there 👋
         </h2>
-        <p className="text-gray-600">
+        <p className="text-sm lg:text-base text-gray-600">
           Ask me about Maravilla City
         </p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
+      <div className="grid grid-cols-1 xl:grid-cols-2 gap-2 lg:gap-4 w-full max-w-sm lg:max-w-2xl">
         {prompts.map((prompt, index) => (
           <Card
             key={index}
@@ -34,9 +34,9 @@ const DefaultPrompts = ({ onPromptSelect }: DefaultPromptsProps) => {
             )}
             onClick={() => onPromptSelect(prompt)}
           >
-            <CardContent className="p-4">
+            <CardContent className="p-3 lg:p-4">
               <div className="text-center">
-                <p className="text-gray-900 font-medium">
+                <p className="text-sm lg:text-base text-gray-900 font-medium">
                   {prompt}
                 </p>
               </div>

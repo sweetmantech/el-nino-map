@@ -18,20 +18,20 @@ const MessageList = ({ messages, status }: MessageListProps) => {
   }, [messages])
 
   return (
-    <div className="flex-1 overflow-y-auto p-6 space-y-6">
+    <div className="flex-1 overflow-y-auto p-3 lg:p-6 space-y-3 lg:space-y-6">
       {messages.map((message) => (
         <div
           key={message.id}
           className={`${message.role === 'user' ? 'text-right' : 'text-left'}`}
         >
           <div
-            className={`inline-block max-w-xs lg:max-w-md ${
+            className={`inline-block max-w-[200px] sm:max-w-xs lg:max-w-md ${
               message.role === 'user'
                 ? 'bg-black text-white'
                 : 'bg-gray-100 text-gray-900'
-            } px-4 py-3 rounded-lg`}
+            } px-2 sm:px-4 py-2 sm:py-3 rounded-lg`}
           >
-            <div className="font-medium">
+            <div className="font-medium text-xs sm:text-sm">
               {message.parts?.map((part, index) => {
                 if (part.type === 'text') {
                   return (
