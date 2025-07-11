@@ -1,10 +1,10 @@
 import { X } from 'lucide-react'
 import Modal from '../Modal'
 import MetadataChat from './MetadataChat'
-import useMetadataChat from '@/hooks/useMetadataChat'
+import useChatLogic from '@/hooks/useChatLogic'
 
 const Metadata = ({ onClose }: { onClose: () => void }) => {
-  const { messages, input, setInput, handleSubmit, status, handlePromptSelect } = useMetadataChat()
+  const { messages, input, setInput, handleSubmit, status, handlePromptSelect } = useChatLogic()
 
   return (
     <Modal onClose={onClose}>
