@@ -30,7 +30,11 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
           <X className="size-4" />
         </button>
         <p className="font-titilliumweb text-xl pb-2">El Niño Maravilla Pt. 1</p>
-        <fieldset className="max-h-[450px] overflow-y-auto font-[600] text-lg border-grey-light border rounded-lg px-4 py-2">
+        <fieldset 
+          className="max-h-[450px] overflow-y-auto overscroll-contain font-[600] text-lg border-grey-light border rounded-lg px-4 py-2"
+          onTouchMove={(e) => e.stopPropagation()}
+          onWheel={(e) => e.stopPropagation()}
+        >
           <MetadataChat
             messages={messages}
             status={status}

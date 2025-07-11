@@ -20,16 +20,13 @@ const MetadataChat = ({
   onPromptSelect: (prompt: string) => void
 }) => {
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-[400px]">
       {messages.length === 0 ? (
         <div className="flex-1 overflow-hidden">
           <DefaultPrompts onPromptSelect={onPromptSelect} />
         </div>
       ) : (
-        <div 
-          className="flex-1 max-h-[300px] overflow-hidden"
-          onWheel={(e) => e.stopPropagation()}
-        >
+        <div className="flex-1 overflow-hidden">
           <MessageList messages={messages} status={status} />
         </div>
       )}
