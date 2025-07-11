@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react'
 import { type Message } from '@ai-sdk/react'
-import ChatMarkdown from '../ChatPage/ChatMarkdown'
 import DefaultPrompts from '../ChatPage/DefaultPrompts'
 import MessageList from '../ChatPage/MessageList'
 
