@@ -1,7 +1,7 @@
 import { useMapProvider } from '@/providers/MapProvider'
 import Hypersub from '../Hypersub'
 import MemoriesModal from '../MemoriesModal'
-import SpinampPlayer from './SpinampPlayer'
+import UntitledPlayer from './UntitledPlayer'
 import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
 import Video from '../Video'
@@ -46,7 +46,7 @@ const Modals = () => {
       {isMemoriesOpen && <MemoriesModal onClose={() => setIsMemoriesOpen(false)} />}
       {isSpinampOpen && (
         <DraggableModal handleClose={() => setIsSpinampOpen(!isSpinampOpen)}>
-          <SpinampPlayer />
+          <UntitledPlayer />
         </DraggableModal>
       )}
       {isLeaderboardOpen && (
