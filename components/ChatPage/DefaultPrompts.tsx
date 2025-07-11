@@ -24,7 +24,7 @@ const DefaultPrompts = ({ onPromptSelect }: DefaultPromptsProps) => {
         </p>
       </div>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full max-w-2xl">
+      <div className="flex flex-col gap-4 w-full max-w-2xl">
         {prompts.map((prompt, index) => (
           <Card
             key={index}
