@@ -1,10 +1,8 @@
 import { X } from 'lucide-react'
 import Modal from '../Modal'
 import MetadataChat from './MetadataChat'
-import useMetadataChat from '@/hooks/useMetadataChat'
 
 const Metadata = ({ onClose }: { onClose: () => void }) => {
-  const { messages, input, setInput, handleSubmit, status, handlePromptSelect } = useMetadataChat()
 
   return (
     <Modal onClose={onClose}>
@@ -18,14 +16,7 @@ const Metadata = ({ onClose }: { onClose: () => void }) => {
         </button>
         <p className="font-titilliumweb text-xl pb-2">El Niño Maravilla Pt. 1</p>
         <fieldset className="max-h-[450px] overflow-y-auto font-[600] text-lg border-grey-light border rounded-lg px-4 py-2">
-          <MetadataChat
-            messages={messages}
-            status={status}
-            input={input}
-            onInputChange={setInput}
-            onSubmit={handleSubmit}
-            onPromptSelect={handlePromptSelect}
-          />
+          <MetadataChat />
         </fieldset>
       </div>
     </Modal>
