@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react'
 import { type Message } from '@ai-sdk/react'
 import ChatMarkdown from '../ChatPage/ChatMarkdown'
+import DefaultPrompts from '../ChatPage/DefaultPrompts'
+import MessageList from '../ChatPage/MessageList'
 
 const MetadataChat = ({ 
   messages, 
@@ -24,7 +26,6 @@ const MetadataChat = ({
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const prompts = ['Who is La Equis?', 'What is Maravilla City?']
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
@@ -42,35 +43,9 @@ const MetadataChat = ({
     <div className="flex flex-col h-full">
       <div className="flex-1 overflow-y-auto max-h-[300px] space-y-2 mb-3">
         {messages.length === 0 ? (
-          <div className="space-y-2">
-            <p className="text-sm text-grey font-titilliumweb">Ask about the album:</p>
-            {prompts.map((prompt, index) => (
-              <button
-                key={index}
-                onClick={() => onPromptSelect(prompt)}
-                className="block w-full text-left p-2 text-sm bg-gray-50 hover:bg-gray-100 rounded font-titilliumweb"
-              >
-                {prompt}
-              </button>
-            ))}
-          </div>
+           <DefaultPrompts onPromptSelect={onPromptSelect} />
         ) : (
-          <>
-            {messages.map((message) => (
-              <div key={message.id} className={`${message.role === 'user' ? 'text-right' : 'text-left'}`}>
-                <div className={`inline-block max-w-[280px] text-xs ${
-                  message.role === 'user' ? 'bg-black text-white' : 'bg-gray-100 text-gray-900'
-                } px-2 py-1 rounded`}>
-                  <ChatMarkdown content={message.content} className="text-inherit" />
-                </div>
-              </div>
-            ))}
-            {isLoading && (
-              <div className="text-left">
-                <div className="text-grey text-xs font-titilliumweb">Thinking...</div>
-              </div>
-            )}
-          </>
+          <MessageList messages={messages} status={status} />
         )}
         <div ref={messagesEndRef} />
       </div>
