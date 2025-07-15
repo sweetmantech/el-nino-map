@@ -1,7 +1,7 @@
 import { useMapProvider } from '@/providers/MapProvider'
 import Hypersub from '../Hypersub'
 import MemoriesModal from '../MemoriesModal'
-import SpinampPlayer from './SpinampPlayer'
+import MusicPlayer from './MusicPlayer'
 import Leaderboard from '../Leaderboard'
 import Metadata from '../Metadata'
 import Video from '../Video'
@@ -26,14 +26,14 @@ const Modals = () => {
     setIsHypersubOpen,
     isMemoriesOpen,
     setIsMemoriesOpen,
-    isSpinampOpen,
+    isMusicOpen,
     isLeaderboardOpen,
     setIsLeaderboardOpen,
     isMetadataOpen,
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
-    setIsSpinampOpen,
+    setIsMusicOpen,
     isComingSoonOpen,
     setIsComingSoonOpen,
   } = useMapProvider()
@@ -44,9 +44,9 @@ const Modals = () => {
       {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
       {isHypersubOpen && <Hypersub onClose={() => setIsHypersubOpen(false)} />}
       {isMemoriesOpen && <MemoriesModal onClose={() => setIsMemoriesOpen(false)} />}
-      {isSpinampOpen && (
-        <DraggableModal handleClose={() => setIsSpinampOpen(!isSpinampOpen)}>
-          <SpinampPlayer />
+      {isMusicOpen && (
+        <DraggableModal handleClose={() => setIsMusicOpen(!isMusicOpen)}>
+          <MusicPlayer />
         </DraggableModal>
       )}
       {isLeaderboardOpen && (

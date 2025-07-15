@@ -7,8 +7,8 @@ const getTooltipText = (tooltipId) => {
       return 'Leaderboard'
     case 'mint':
       return 'Collect'
-    case 'spinamp':
-      return 'Spinamp Player'
+    case 'music':
+      return 'Music Player'
     case 'metadata':
       return 'Metadata'
     case 'merch':
