@@ -26,7 +26,7 @@ declare global {
 const useMap = () => {
   const { push } = useRouter()
   const [mapperKey, setMapperKey] = useState(0)
-  const [isSpinampOpen, setIsSpinampOpen] = useState(false)
+  const [isMusicOpen, setIsMusicOpen] = useState(false)
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
   const [isVideoOpen, setIsVideoOpen] = useState(false)
@@ -39,7 +39,7 @@ const useMap = () => {
   const isMobile = useIsMobile()
 
   const clickMap = () => {
-    if (area === 'spinamp') setIsSpinampOpen(!isSpinampOpen)
+    if (area === 'music') setIsMusicOpen(!isMusicOpen)
     if (area === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
     if (area === 'metadata') setIsMetadataOpen(!isMetadataOpen)
     if (area === 'video') setIsVideoOpen(!isVideoOpen)
@@ -58,8 +58,8 @@ const useMap = () => {
     setIsLeaderboardOpen,
     mapperKey,
     setMapperKey,
-    isSpinampOpen,
-    setIsSpinampOpen,
+    isMusicOpen,
+    setIsMusicOpen,
     isMetadataOpen,
     setIsMetadataOpen,
     isVideoOpen,

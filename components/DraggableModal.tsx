@@ -15,7 +15,7 @@ const DraggableModal = ({ children, handleClose }) => {
             <div className="flex flex-col h-full w-full bg-white">
               <div className="flex justify-between items-center gap-x-[20px] bg-black border-b-grey border-b text-grey">
                 <div className="flex-grow handle pl-3 py-2 cursor-pointer font-italipixel">
-                  Spinamp Player
+                  Music Player
                 </div>
                 <button type="button" onClick={handleClose} className="mr-3 font-bold">
                   X

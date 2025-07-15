@@ -54,7 +54,7 @@ export const xcelencia_eth = '0x089036a0835C6cF82e7fC42e9e95DfE05e110c81'
 
 export const PULSATING_COLORS = {
   mint: '#33d6bf',
-  spinamp: '#8f03e8',
+  music: '#8f03e8',
   leaderboard: '#9f7c9a',
   metadata: '#54c9db',
   video: '#3ea6a0',
