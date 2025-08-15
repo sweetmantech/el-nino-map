@@ -3,7 +3,7 @@
   "version": "0.9.4",
   "scripts": {
     "build": "next build",
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "lint": "next lint --dir . --fix",
     "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,yml,yaml}\" && yarn lint",
     "start": "next start",
@@ -15,7 +15,6 @@
   "dependencies": {
     "@actions/cache": "^4.0.0",
     "@ai-sdk/react": "^1.2.11",
-    "@airstack/airstack-react": "^0.6.4",
     "@coinbase/onchainkit": "0.27.0",
     "@coinbase/wallet-sdk": "^4.0.4",
     "@crossmint/client-sdk-react-ui": "^1.14.9",
@@ -42,7 +41,7 @@
     "joi": "^17.13.3",
     "link-preview-js": "^3.0.14",
     "lucide-react": "^0.475.0",
-    "next": "^14.2.2",
+    "next": "^15.4.6",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-draggable": "^4.4.6",
