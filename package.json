@@ -3,7 +3,7 @@
   "version": "0.9.4",
   "scripts": {
     "build": "next build",
-    "dev": "next dev --turbopack",
+    "dev": "next dev",
     "lint": "next lint --dir . --fix",
     "format": "prettier --write \"**/*.{js,jsx,json,ts,tsx,md,mdx,yml,yaml}\" && yarn lint",
     "start": "next start",
