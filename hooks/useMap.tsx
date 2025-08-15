@@ -30,7 +30,7 @@ const useMap = () => {
   const [isLeaderboardOpen, setIsLeaderboardOpen] = useState(false)
   const [isMetadataOpen, setIsMetadataOpen] = useState(false)
   const [isVideoOpen, setIsVideoOpen] = useState(false)
-  const [isHypersubOpen, setIsHypersubOpen] = useState(false)
+  const [isSubscribeOpen, setIsSubscribeOpen] = useState(false)
   const [isMemoriesOpen, setIsMemoriesOpen] = useState(false)
   const [isPlannetOpen, setIsPlannetOpen] = useState(false)
   const [isComingSoonOpen, setIsComingSoonOpen] = useState(false)
@@ -46,7 +46,7 @@ const useMap = () => {
     if (area === 'merch') window.open('http://shopxcelencia.com/', '_blank')
     if (area === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
     if (area === 'control') push('/inventory')
-    if (area === 'subscribe') setIsHypersubOpen(!isHypersubOpen)
+    if (area === 'subscribe') setIsSubscribeOpen(!isSubscribeOpen)
     if (area === 'memories') setIsMemoriesOpen(!isMemoriesOpen)
     if (area === 'plannet') setIsPlannetOpen(true)
     if (isMobile && area === 'mint') setIsOpenCollect(true)
@@ -64,8 +64,8 @@ const useMap = () => {
     setIsMetadataOpen,
     isVideoOpen,
     setIsVideoOpen,
-    isHypersubOpen,
-    setIsHypersubOpen,
+    isSubscribeOpen,
+    setIsSubscribeOpen,
     isMemoriesOpen,
     setIsMemoriesOpen,
     isPlannetOpen,
