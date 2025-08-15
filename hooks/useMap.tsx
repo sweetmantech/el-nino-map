@@ -43,7 +43,7 @@ const useMap = () => {
     if (area === 'leaderboard') setIsLeaderboardOpen(!isLeaderboardOpen)
     if (area === 'metadata') setIsMetadataOpen(!isMetadataOpen)
     if (area === 'video') setIsVideoOpen(!isVideoOpen)
-    if (area === 'merch') window.open('http://shopxcelencia.com/', '_blank')
+    if (area === 'merch') window.open('http://laequis.shop/', '_blank')
     if (area === 'live-show') setIsComingSoonOpen(!isComingSoonOpen)
     if (area === 'control') push('/inventory')
     if (area === 'subscribe') setIsSubscribeOpen(!isSubscribeOpen)
