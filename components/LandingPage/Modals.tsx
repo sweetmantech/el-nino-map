@@ -1,5 +1,5 @@
 import { useMapProvider } from '@/providers/MapProvider'
-import Hypersub from '../Hypersub'
+import Subscribe from '../Subscribe'
 import MemoriesModal from '../MemoriesModal'
 import MusicPlayer from './MusicPlayer'
 import Leaderboard from '../Leaderboard'
@@ -22,8 +22,8 @@ const CreditCardPayModal = dynamic(() => import('@/components/CreditCardPayModal
 
 const Modals = () => {
   const {
-    isHypersubOpen,
-    setIsHypersubOpen,
+    isSubscribeOpen,
+    setIsSubscribeOpen,
     isMemoriesOpen,
     setIsMemoriesOpen,
     isMusicOpen,
@@ -42,7 +42,7 @@ const Modals = () => {
   return (
     <>
       {isCrossmintOpen && <CreditCardPayModal onClose={() => setIsCrossmintOpen(false)} />}
-      {isHypersubOpen && <Hypersub onClose={() => setIsHypersubOpen(false)} />}
+      {isSubscribeOpen && <Subscribe onClose={() => setIsSubscribeOpen(false)} />}
       {isMemoriesOpen && <MemoriesModal onClose={() => setIsMemoriesOpen(false)} />}
       {isMusicOpen && (
         <DraggableModal handleClose={() => setIsMusicOpen(!isMusicOpen)}>

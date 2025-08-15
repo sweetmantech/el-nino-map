@@ -1,6 +1,6 @@
 import Modal from '../Modal'
 
-const Hypersub = ({ onClose }: { onClose: () => void }) => {
+const Subscribe = ({ onClose }: { onClose: () => void }) => {
   const handleClick = async () => {
     window.open('https://chat.whatsapp.com/Cm5uQ5MBnx00ILGAS3OE0S', '_blank')
   }
@@ -28,4 +28,4 @@ const Hypersub = ({ onClose }: { onClose: () => void }) => {
   )
 }
 
-export default Hypersub
+export default Subscribe
