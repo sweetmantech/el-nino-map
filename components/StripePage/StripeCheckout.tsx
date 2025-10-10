@@ -1,8 +1,6 @@
 import { useEffect, useState } from 'react'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
-import { loadStripe } from '@stripe/stripe-js'
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+import { getStripe } from '@/lib/stripe/client'
 
 const StripeCheckout = () => {
   const [clientSecret, setClientSecret] = useState('')
@@ -18,7 +16,7 @@ const StripeCheckout = () => {
   return (
     <div id="checkout">
       {clientSecret && (
-        <EmbeddedCheckoutProvider stripe={stripePromise} options={{ clientSecret }}>
+        <EmbeddedCheckoutProvider stripe={getStripe()} options={{ clientSecret }}>
           <EmbeddedCheckout />
         </EmbeddedCheckoutProvider>
       )}
