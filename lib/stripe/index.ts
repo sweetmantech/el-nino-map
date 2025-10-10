@@ -1,4 +1,3 @@
-// Configuration
 export * from './validateStripeConfig'
 export * from './client'
 export * from './server'
