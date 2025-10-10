@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { getStripe } from '@/lib/stripe/config'
+import type { Stripe } from '@stripe/stripe-js'
 
 interface Product {
   id: string
@@ -41,7 +42,7 @@ export default function useStripeCheckout() {
       const stripe = await getStripe()
       if (!stripe) throw new Error('Stripe failed to initialize')
 
-      const { error } = await stripe.redirectToCheckout({
+      const { error } = await (stripe as any).redirectToCheckout({
         sessionId,
       })
 

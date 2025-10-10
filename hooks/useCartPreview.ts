@@ -1,4 +1,4 @@
-import { demoProducts } from '@/lib/stripe/config'
+import { demoProducts } from '@/lib/stripe'
 
 export function useCartPreview() {
   // For demo purposes, we'll show all products in cart
