@@ -12,10 +12,7 @@ export async function GET(req: NextRequest) {
 
     const session = await getSessionStatus(sessionId)
 
-    return NextResponse.json({
-      status: session.status,
-      customer_email: session.customer_details?.email,
-    })
+    return NextResponse.json(session)
   } catch (error: any) {
     console.error('Error retrieving session status:', error)
     return NextResponse.json({ error: error.message }, { status: 500 })

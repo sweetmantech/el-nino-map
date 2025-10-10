@@ -1,18 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
-
-interface SessionStatusResponse {
-  status: string | null
-  customer_email: string | null
-}
+import Stripe from 'stripe'
 
 /**
  * Custom hook to fetch Stripe checkout session status
  *
  * @param sessionId - The Stripe checkout session ID
- * @returns Query result with session status and customer email
+ * @returns Query result with full Stripe checkout session
  */
 export const useStripeSessionStatus = (sessionId: string | null) => {
-  return useQuery<SessionStatusResponse>({
+  return useQuery<Stripe.Checkout.Session>({
     queryKey: ['stripe-session-status', sessionId],
     queryFn: async () => {
       if (!sessionId) {

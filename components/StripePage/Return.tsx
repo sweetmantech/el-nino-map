@@ -24,8 +24,8 @@ const Return = () => {
     return (
       <section id="success">
         <p className="text-green-600">
-          We appreciate your business! A confirmation email will be sent to {data.customer_email}.
-          If you have any questions, please email{' '}
+          We appreciate your business! A confirmation email will be sent to{' '}
+          {data.customer_details?.email}. If you have any questions, please email{' '}
           <a href="mailto:orders@example.com" className="text-blue-600 underline">
             orders@example.com
           </a>
