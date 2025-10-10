@@ -5,7 +5,7 @@ import {
   OUTCOMING_WRAPPER_ETH,
   WALLET_STATUS,
 } from '@/lib/consts'
-import { zeroAddress } from 'viem'
+import { type Address, zeroAddress } from 'viem'
 import useClaimInfo from './useClaimInfo'
 import getBalance from '@/lib/getBalance'
 import { getPublicClient } from '@/lib/clients'
@@ -24,7 +24,7 @@ const usePrepareClaim = () => {
 
   const isPrepared = async (claimInfo: ReturnType<typeof useClaimInfo>) => {
     const publicClient = getPublicClient(CHAIN_ID)
-    const account = context ? address : activeAccount?.address
+    const account = context ? address : (activeAccount?.address as Address)
     const { erc20Address, price, amount } = claimInfo
     const totalManifoldFee = MANIFOLD_FEE * BigInt(amount)
     const ethBalance = await getBalance(account)

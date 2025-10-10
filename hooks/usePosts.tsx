@@ -3,7 +3,7 @@ import { CollectionMetadata, getMetadata } from '@/lib/viem/getMetadata'
 import getZoraPosts from '@/lib/zora/getZoraPosts'
 import { useQuery } from '@tanstack/react-query'
 import { useActiveAccount } from 'thirdweb/react'
-import { Address } from 'viem'
+import { type Address } from 'viem'
 
 async function fetchPosts(address: Address | undefined): Promise<CollectionMetadata[]> {
   try {
@@ -23,7 +23,7 @@ const usePosts = () => {
 
   return useQuery({
     queryKey: ['posts', address],
-    queryFn: () => fetchPosts(address),
+    queryFn: () => fetchPosts(address as Address),
     refetchOnMount: true,
   })
 }
