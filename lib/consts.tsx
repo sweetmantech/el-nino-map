@@ -65,3 +65,6 @@ export const PULSATING_COLORS = {
   memories: '#45b2c7',
   plannet: '#70c8f7',
 }
+
+// STRIPE
+export const STRIPE_PRICE_ID = 'price_1SGmG5AnyO5JNmHWpJ3M6oO5'
