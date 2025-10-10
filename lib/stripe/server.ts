@@ -1,8 +1,8 @@
 import Stripe from 'stripe'
-import { validateStripeConfig } from './validateStripeConfig'
+import { validateServerStripeConfig } from './validateStripeConfig'
 
 // Validate environment variables on module load
-validateStripeConfig()
+validateServerStripeConfig()
 
 // Server-side Stripe instance
 // This should only be used in API routes and server components
