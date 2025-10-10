@@ -16,6 +16,7 @@ import map from '@/lib/image-map.json'
 import { useTipProvider } from '@/providers/TipProvider'
 import Preview from './Preview'
 import { PULSATING_COLORS } from '@/lib/consts'
+import { Address } from 'viem'
 
 const LandingPage = () => {
   const { isVisibleToolTip, tooltipX, tooltipY, tooltipId, width, height, imageRef } =
@@ -29,7 +30,7 @@ const LandingPage = () => {
   useEffect(() => {
     const init = async () => {
       if (address) {
-        const events: any = await getLoginEvents(address)
+        const events: any = await getLoginEvents(address as Address)
         if (!events?.length && !events.error) {
           await trackLoginPoints(address)
         }

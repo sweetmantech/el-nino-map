@@ -1,6 +1,6 @@
 import { useFrameProvider } from '@/providers/FrameProvider'
 import { useAccount, useWriteContract } from 'wagmi'
-import { erc20Abi, maxUint256, Address } from 'viem'
+import { erc20Abi, maxUint256, type Address } from 'viem'
 import { CHAIN } from '@/lib/consts'
 import getViemNetwork from '@/lib/viem/getViemNetwork'
 import { prepareContractCall, sendTransaction } from 'thirdweb'
@@ -14,7 +14,7 @@ const useApproveERC20 = () => {
   const { address } = useAccount()
 
   const approve = async (erc20Address: Address, spender: Address) => {
-    const account = context ? address : activeAccount.address
+    const account = context ? address : (activeAccount.address as Address)
 
     if (context) {
       const hash = await writeContractAsync({
