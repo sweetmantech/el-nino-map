@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { validateStripeConfig } from '@/lib/stripe/config'
+import { validateStripeConfig } from '@/lib/stripe/validateStripeConfig'
 import { createCheckoutSession } from '@/lib/stripe/createCheckoutSession'
 
 export async function POST(req: NextRequest) {

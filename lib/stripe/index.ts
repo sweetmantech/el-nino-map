@@ -1,5 +1,5 @@
 // Configuration
-export * from './config'
+export * from './validateStripeConfig'
 export * from './client'
 export * from './server'
 export * from './createCheckoutSession'

@@ -1,6 +1,5 @@
 import Stripe from 'stripe'
 import { stripe } from './server'
-import { STRIPE_CONFIG } from './config'
 
 /**
  * Creates a Stripe Checkout Session for embedded checkout
@@ -15,11 +14,11 @@ export const createCheckoutSession = async (
     ui_mode: 'embedded',
     line_items: [
       {
-        price: STRIPE_CONFIG.DEFAULT_PRICE_ID,
+        price: 'price_1SGl8HPLDfY9BlZnwAGyyqGE',
         quantity: 1,
       },
     ],
-    mode: STRIPE_CONFIG.MODE,
+    mode: 'payment' as const,
     ...params,
   })
 
