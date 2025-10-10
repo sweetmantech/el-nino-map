@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import { getStripe } from '@/lib/stripe/config'
-import type { Stripe } from '@stripe/stripe-js'
 
 interface Product {
   id: string
@@ -11,8 +10,9 @@ interface Product {
 
 export default function useStripeCheckout() {
   const [loading, setLoading] = useState(false)
+  const [clientSecret, setClientSecret] = useState<string | null>(null)
 
-  const createCheckoutSession = async (products: Product[]) => {
+  const createEmbeddedCheckoutSession = async (products: Product[]) => {
     try {
       setLoading(true)
       
@@ -36,20 +36,10 @@ export default function useStripeCheckout() {
         throw new Error('Failed to create checkout session')
       }
 
-      const { sessionId } = await response.json()
+      const { clientSecret } = await response.json()
+      setClientSecret(clientSecret)
       
-      // Redirect to Stripe Checkout
-      const stripe = await getStripe()
-      if (!stripe) throw new Error('Stripe failed to initialize')
-
-      const { error } = await (stripe as any).redirectToCheckout({
-        sessionId,
-      })
-
-      if (error) {
-        console.error('Stripe redirect error:', error)
-        throw error
-      }
+      return clientSecret
     } catch (error) {
       console.error('Checkout error:', error)
       throw error
@@ -59,7 +49,8 @@ export default function useStripeCheckout() {
   }
 
   return {
-    createCheckoutSession,
-    loading
+    createEmbeddedCheckoutSession,
+    loading,
+    clientSecret
   }
 }

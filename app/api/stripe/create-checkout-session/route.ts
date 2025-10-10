@@ -29,19 +29,22 @@ export async function POST(request: NextRequest) {
       quantity: item.quantity || 1,
     }))
 
-    // Create Stripe checkout session
+    // Create Stripe embedded checkout session
     const session = await stripe.checkout.sessions.create({
+      ui_mode: 'embedded',
       mode: 'payment',
       payment_method_types: ['card'],
       line_items: lineItems,
-      success_url: `${request.nextUrl.origin}/stripe/success?session_id={CHECKOUT_SESSION_ID}`,
-      cancel_url: `${request.nextUrl.origin}/stripe`,
+      return_url: `${request.nextUrl.origin}/stripe/success?session_id={CHECKOUT_SESSION_ID}`,
       metadata: {
         demo: 'true'
       }
     })
 
-    return NextResponse.json({ sessionId: session.id })
+    return NextResponse.json({ 
+      sessionId: session.id,
+      clientSecret: session.client_secret 
+    })
   } catch (error) {
     console.error('Stripe checkout session creation error:', error)
     return NextResponse.json(
