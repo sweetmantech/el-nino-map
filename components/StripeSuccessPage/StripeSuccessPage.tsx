@@ -14,7 +14,7 @@ export default function StripeSuccessPage() {
           </h1>
           
           <p className="text-gray-600 mb-2">
-            Thank you for your purchase. Your payment has been processed successfully using Stripe's embedded checkout.
+            Thank you for your purchase. Your payment has been processed successfully using Stripe&apos;s embedded checkout.
           </p>
           
           <p className="text-sm text-gray-500 mb-8">
