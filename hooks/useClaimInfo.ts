@@ -1,7 +1,7 @@
 import { DROP_ADDRESS } from '@/lib/consts'
 import { readContract } from 'thirdweb'
 import { useEffect, useState } from 'react'
-import { Address, zeroAddress } from 'viem'
+import { type Address, zeroAddress } from 'viem'
 import { currencyContract, extensionContract, mainfoldContract } from '@/lib/contracts'
 
 const fetchMetadata = async (uri: string) => {
@@ -54,7 +54,7 @@ const useClaimInfo = () => {
         })
         setDecimal(decimal)
         setSymbol(symbol)
-        setErc20Address(response.erc20)
+        setErc20Address(response.erc20 as Address)
       } else {
         setDecimal(18)
         setErc20Address(zeroAddress)
