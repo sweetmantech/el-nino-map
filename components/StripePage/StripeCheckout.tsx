@@ -1,18 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
 import { getStripe } from '@/lib/stripe/client'
 import { useStripeCheckout } from '@/hooks/useStripeCheckout'
 
 const StripeCheckout = () => {
-  const { data, mutate, isPending, isError } = useStripeCheckout()
+  const { data, isLoading, isError } = useStripeCheckout()
 
-  useEffect(() => {
-    mutate()
-  }, [mutate])
-
-  if (isPending) {
+  if (isLoading) {
     return <p className="text-gray-600 text-center">Loading checkout...</p>
   }
 

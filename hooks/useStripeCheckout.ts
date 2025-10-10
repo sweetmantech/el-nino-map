@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useQuery } from '@tanstack/react-query'
 
 interface CreateCheckoutResponse {
   clientSecret: string | null
@@ -7,11 +7,12 @@ interface CreateCheckoutResponse {
 /**
  * Custom hook to create a Stripe checkout session
  *
- * @returns Mutation result with client secret for embedded checkout
+ * @returns Query result with client secret for embedded checkout
  */
 export const useStripeCheckout = () => {
-  return useMutation<CreateCheckoutResponse, Error>({
-    mutationFn: async () => {
+  return useQuery<CreateCheckoutResponse>({
+    queryKey: ['stripe-checkout-session'],
+    queryFn: async () => {
       const response = await fetch('/api/stripe/create-checkout-session', {
         method: 'POST',
       })
@@ -22,5 +23,7 @@ export const useStripeCheckout = () => {
 
       return response.json()
     },
+    staleTime: Infinity, // Never refetch automatically
+    retry: 3,
   })
 }
