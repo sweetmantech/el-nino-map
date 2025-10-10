@@ -1,27 +1,30 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { EmbeddedCheckoutProvider, EmbeddedCheckout } from '@stripe/react-stripe-js'
 import { getStripe } from '@/lib/stripe/client'
+import { useStripeCheckout } from '@/hooks/useStripeCheckout'
 
 const StripeCheckout = () => {
-  const [clientSecret, setClientSecret] = useState('')
+  const { data, mutate, isPending, isError } = useStripeCheckout()
 
   useEffect(() => {
-    fetch('/api/stripe/create-checkout-session', {
-      method: 'POST',
-    })
-      .then((res) => res.json())
-      .then((data) => setClientSecret(data.clientSecret))
-  }, [])
+    mutate()
+  }, [mutate])
+
+  if (isPending) {
+    return <p className="text-gray-600 text-center">Loading checkout...</p>
+  }
+
+  if (isError || !data?.clientSecret) {
+    return <p className="text-red-600 text-center">Error loading checkout. Please try again.</p>
+  }
 
   return (
     <div id="checkout">
-      {clientSecret && (
-        <EmbeddedCheckoutProvider stripe={getStripe()} options={{ clientSecret }}>
-          <EmbeddedCheckout />
-        </EmbeddedCheckoutProvider>
-      )}
+      <EmbeddedCheckoutProvider stripe={getStripe()} options={{ clientSecret: data.clientSecret }}>
+        <EmbeddedCheckout />
+      </EmbeddedCheckoutProvider>
     </div>
   )
 }
