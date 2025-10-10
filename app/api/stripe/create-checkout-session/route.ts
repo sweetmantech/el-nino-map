@@ -1,21 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { stripe } from '@/lib/stripe/server'
-import { STRIPE_CONFIG, validateStripeConfig } from '@/lib/stripe/config'
+import { validateStripeConfig } from '@/lib/stripe/config'
+import { createCheckoutSession } from '@/lib/stripe/createCheckoutSession'
 
 export async function POST(req: NextRequest) {
   try {
     validateStripeConfig()
 
-    const session = await stripe.checkout.sessions.create({
-      ui_mode: 'embedded',
-      line_items: [
-        {
-          price: STRIPE_CONFIG.DEFAULT_PRICE_ID,
-          quantity: 1,
-        },
-      ],
-      mode: STRIPE_CONFIG.MODE,
-      return_url: `${req.headers.get('origin')}/stripe/return?session_id={CHECKOUT_SESSION_ID}`,
+    const origin = req.headers.get('origin') || ''
+    const session = await createCheckoutSession({
+      return_url: `${origin}/stripe/return?session_id={CHECKOUT_SESSION_ID}`,
     })
 
     return NextResponse.json({ clientSecret: session.client_secret })

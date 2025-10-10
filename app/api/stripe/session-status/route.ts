@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { stripe } from '@/lib/stripe/server'
+import { getSessionStatus } from '@/lib/stripe/getSessionStatus'
 
 export async function GET(req: NextRequest) {
   try {
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest) {
       return NextResponse.json({ error: 'Session ID is required' }, { status: 400 })
     }
 
-    const session = await stripe.checkout.sessions.retrieve(sessionId)
+    const session = await getSessionStatus(sessionId)
 
     return NextResponse.json({
       status: session.status,
