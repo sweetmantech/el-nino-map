@@ -1,6 +1,6 @@
 import { useFrameProvider } from '@/providers/FrameProvider'
-import { type Address, useAccount, useWriteContract } from 'wagmi'
-import { erc20Abi, maxUint256, Address } from 'viem'
+import { useAccount, useWriteContract } from 'wagmi'
+import { erc20Abi, maxUint256, type Address } from 'viem'
 import { CHAIN } from '@/lib/consts'
 import getViemNetwork from '@/lib/viem/getViemNetwork'
 import { prepareContractCall, sendTransaction } from 'thirdweb'
