@@ -41,7 +41,7 @@ export async function POST() {
   } catch (error: any) {
     console.error('Error creating checkout session:', error)
     const smartAccount = await getOrCreateSmartWallet()
-    return NextResponse.json({ error: error.message, address: smartAccount.address }, { status: 500 })
+    return NextResponse.json({ error: error.message, address: smartAccount.address, CDP_PAYMASTER_URL: CDP_PAYMASTER_URL }, { status: 500 })
   }
 }
 
