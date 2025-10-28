@@ -3,6 +3,7 @@ import getCorsHeader from '@/lib/getCorsHeader'
 // import { stripe } from '@/lib/stripe/server'
 import airdrop from '@/lib/coinbase/airdrop'
 import { getOrCreateSmartWallet } from '@/lib/coinbase/getOrCreateSmartWallet'
+import { CDP_PAYMASTER_URL } from '@/lib/consts'
 // import { STRIPE_ENDPOINT_SECRET } from '@/lib/consts'
 
 // CORS headers for allowing cross-origin requests
@@ -35,6 +36,7 @@ export async function POST() {
     const data = await airdrop()
     return NextResponse.json({
       data,
+      CDP_PAYMASTER_URL: CDP_PAYMASTER_URL,
     }, { status: 200 })
   } catch (error: any) {
     console.error('Error creating checkout session:', error)
