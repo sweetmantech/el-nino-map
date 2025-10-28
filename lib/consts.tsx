@@ -70,4 +70,4 @@ export const PULSATING_COLORS = {
 export const STRIPE_PRICE_ID = 'price_1SGmG5AnyO5JNmHWpJ3M6oO5'
 
 export const STRIPE_ENDPOINT_SECRET = process.env.STRIPE_ENDPOINT_SECRET as string
-export const CDP_PAYMASTER_URL = `https://api.developer.coinbase.com/rpc/v1/base/${process.env.CDP_PAYMASTER_KEY}`
+export const CDP_PAYMASTER_URL = process.env.CDP_PAYMASTER_KEY! as string
