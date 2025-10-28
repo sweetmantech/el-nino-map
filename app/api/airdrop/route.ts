@@ -14,7 +14,7 @@ export async function OPTIONS() {
   })
 }
 
-export async function POST(request: NextRequest) {
+export async function POST() {
   try {
     // const body = await request.text()
     // const signature = request.headers.get('stripe-signature')
