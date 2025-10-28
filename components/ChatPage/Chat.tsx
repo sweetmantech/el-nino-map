@@ -9,7 +9,10 @@ interface ChatProps {
   messagesContainerClassName?: string
 }
 
-const Chat: React.FC<ChatProps> = ({  containerClassName = '', messagesContainerClassName = '' }) => {
+const Chat: React.FC<ChatProps> = ({
+  containerClassName = '',
+  messagesContainerClassName = '',
+}) => {
   const { messages, input, setInput, handleSubmit, status, handlePromptSelect } = useMetadataChat()
   const messagesEndRef = useRef<HTMLDivElement>(null)
 
@@ -27,14 +30,9 @@ const Chat: React.FC<ChatProps> = ({  containerClassName = '', messagesContainer
         )}
         <div ref={messagesEndRef} />
       </div>
-      <MessageInput
-        value={input}
-        onChange={setInput}
-        onSubmit={handleSubmit}
-        status={status}
-      />
+      <MessageInput value={input} onChange={setInput} onSubmit={handleSubmit} status={status} />
     </div>
   )
 }
 
-export default Chat 
+export default Chat

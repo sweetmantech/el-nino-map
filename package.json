@@ -16,6 +16,8 @@
     "@actions/cache": "^4.0.0",
     "@ai-sdk/react": "^1.2.11",
     "@airstack/airstack-react": "^0.6.4",
+    "@coinbase/cdp-sdk": "^1.38.4",
+    "@coinbase/coinbase-sdk": "^0.25.0",
     "@coinbase/onchainkit": "0.27.0",
     "@coinbase/wallet-sdk": "^4.0.4",
     "@crossmint/client-sdk-react-ui": "^1.14.9",

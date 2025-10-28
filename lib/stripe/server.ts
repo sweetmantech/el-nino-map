@@ -7,5 +7,5 @@ validateServerStripeConfig()
 // Server-side Stripe instance
 // This should only be used in API routes and server components
 export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
-  apiVersion: '2025-09-30.clover',
+  apiVersion: process.env.STRIPE_API_VERSION as Stripe.LatestApiVersion,
 })
