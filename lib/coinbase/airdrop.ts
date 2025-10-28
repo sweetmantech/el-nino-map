@@ -33,7 +33,10 @@ const airdrop = async () => {
     ],
   })
 
-  return transaction.transactionHash
+  return {
+    hash: transaction.transactionHash,
+    smartAccountAddress: smartAccount.address
+  }
 }
 
 export default airdrop
