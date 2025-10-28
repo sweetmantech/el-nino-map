@@ -35,7 +35,7 @@ const airdrop = async () => {
 
   return {
     hash: transaction.transactionHash,
-    smartAccountAddress: smartAccount.address
+    smartAccountAddress: smartAccount.address,
   }
 }
 
