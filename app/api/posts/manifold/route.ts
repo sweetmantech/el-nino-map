@@ -10,10 +10,10 @@ export async function GET() {
           (log) => log?.decoded?.name === 'TransferSingle',
         )
         const claimEvent = transaction.logs.find((log) => log?.decoded?.name === 'ClaimInitialized')
-        const tokenContract = claimEvent.decoded.inputs.find(
+        const tokenContract = claimEvent?.decoded?.inputs.find(
           (input) => input.name === 'creatorContract',
         )?.value
-        const tokenId = transferEvent.decoded.inputs.find((input) => input.name === '_id')?.value
+        const tokenId = transferEvent?.decoded?.inputs.find((input) => input.name === '_id')?.value
         const released_at = new Date(transaction.block_time).getTime()
         if (!tokenId || !tokenContract) return null
         return {

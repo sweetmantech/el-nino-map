@@ -60,7 +60,9 @@ const getZoraBalances = async (address: Address, contracts: ZoraCreatedContract[
       const batchBalanceResults = await publicClient.multicall({ contracts: balanceCalls })
       return collections.map((c: ZoraCreatedContract) => ({
         ...c,
-        batchBalances: batchBalanceResults.map((r) => (r?.result as bigint[]) || []),
+        batchBalances: batchBalanceResults.map(
+          (r: { result?: bigint[] }) => (r?.result as bigint[]) || [],
+        ),
       }))
     })
     const collections = await Promise.all(promise)

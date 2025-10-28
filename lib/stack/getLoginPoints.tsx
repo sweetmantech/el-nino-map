@@ -10,9 +10,12 @@ const getLoginEvents = async (address: Address) => {
       event: FIRST_SMART_WALLET_LOGIN_EVENT,
     })
 
-    return events
+    return {
+      events,
+      error: null,
+    }
   } catch (error) {
-    return { error }
+    return { error, events: [] }
   }
 }
 

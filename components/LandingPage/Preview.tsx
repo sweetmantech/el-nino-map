@@ -54,7 +54,7 @@ const Preview = () => {
 
   useEffect(() => {
     if (isCrossmintOpen) closeTooltip()
-    else toast.dismiss(toastId)
+    else if (toastId) toast.dismiss(toastId)
     // eslint-disable-next-line
   }, [isCrossmintOpen])
 

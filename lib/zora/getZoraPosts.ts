@@ -7,7 +7,7 @@ const getZoraPosts = async (address: Address) => {
   const createdContracts = await response.json()
   const collectionsAndBalances = await getZoraBalances(address, createdContracts)
   const filtered = collectionsAndBalances.filter((c) =>
-    c.batchBalances.flat().some((b) => BigInt(b) > BigInt(0)),
+    c.batchBalances.flat().some((b: bigint) => b > BigInt(0)),
   )
 
   return filtered

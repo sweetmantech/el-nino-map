@@ -15,6 +15,7 @@ const useUsdcClaim = () => {
   const { writeContractAsync } = useWriteContract()
 
   const claimWithUsdc = async (claimInfo: ReturnType<typeof useClaimInfo>) => {
+    if (!activeAccount?.address) return
     const claimArgs = [
       DROP_ADDRESS,
       BigInt(claimInfo.instanceId),
@@ -28,7 +29,7 @@ const useUsdcClaim = () => {
       const hash = await writeContractAsync({
         address: ERC1155_LAZY_PAYABLE_CLAIM,
         chain: getViemNetwork(CHAIN.id),
-        abi: erc1155LazyPayableClaimAbi as any,
+        abi: erc1155LazyPayableClaimAbi,
         account: address,
         functionName: 'mintBatch',
         args: claimArgs,
@@ -38,9 +39,8 @@ const useUsdcClaim = () => {
     }
     const transaction = prepareContractCall({
       contract: extensionContract,
-      method:
-        'function mintBatch(address creatorContractAddress, uint256 instanceId, uint16 mintCount, uint32[] mintIndices, bytes32[][] merkleProofs, address mintFor) payable',
-      params: claimArgs as any,
+      method: 'mintBatch',
+      params: claimArgs,
       value: claimValue,
     })
 

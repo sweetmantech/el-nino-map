@@ -1,6 +1,22 @@
-const getCollectors = (data) => {
-  const aggregated = {}
-  const usersSet = new Set()
+interface CollectorItem {
+  address: string
+  args: {
+    tokenId: string | number
+    user: string
+    permissions: string
+  }
+}
+
+interface AggregatedData {
+  address: string
+  permissions: string
+  tokenId: string
+  users: string[]
+}
+
+const getCollectors = (data: CollectorItem[]) => {
+  const aggregated: Record<string, AggregatedData> = {}
+  const usersSet = new Set<string>()
 
   data.forEach((item) => {
     const tokenId = item.args.tokenId.toString()

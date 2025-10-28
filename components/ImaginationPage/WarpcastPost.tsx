@@ -15,10 +15,10 @@ const WarpcastPost = ({ url }: WarpcastPostProps) => {
     >
       {isLoading ? (
         <LoaderCircle className="animate-spin" />
-      ) : (
+      ) : data?.image?.original?.url ? (
         // eslint-disable-next-line
         <img alt="warpcast" src={data.image.original.url} />
-      )}
+      ) : null}
     </button>
   )
 }

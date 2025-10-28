@@ -14,7 +14,8 @@ const useApproveERC20 = () => {
   const { address } = useAccount()
 
   const approve = async (erc20Address: Address, spender: Address) => {
-    const account = context ? address : (activeAccount.address as Address)
+    const account = context ? address : (activeAccount?.address as Address)
+    if (!account || !activeAccount) return
 
     if (context) {
       const hash = await writeContractAsync({
@@ -29,8 +30,8 @@ const useApproveERC20 = () => {
     }
 
     const transaction = prepareContractCall({
-      contract: currencyContract(erc20Address) as any,
-      method: 'function approve(address spender, uint256 value) returns (bool)',
+      contract: currencyContract(erc20Address),
+      method: 'approve',
       params: [spender, maxUint256],
     })
 

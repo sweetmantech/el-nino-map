@@ -4,6 +4,16 @@ import { useEffect, useState } from 'react'
 import { type Address, zeroAddress } from 'viem'
 import { currencyContract, extensionContract, mainfoldContract } from '@/lib/contracts'
 
+interface Metadata {
+  name?: string
+  description?: string
+  image?: string
+  attributes?: Array<{
+    trait_type: string
+    value: string | number
+  }>
+}
+
 const fetchMetadata = async (uri: string) => {
   const response = await fetch(`/api/metadata?uri=${encodeURIComponent(uri)}`)
   const data = await response.json()
@@ -23,7 +33,7 @@ const useClaimInfo = () => {
   const [erc20Address, setErc20Address] = useState<Address>(zeroAddress)
   const [symbol, setSymbol] = useState<string>('')
   const [isLoading, setIsLoading] = useState<boolean>(true)
-  const [metadata, setMetadata] = useState(null)
+  const [metadata, setMetadata] = useState<Metadata | null>(null)
   const [amount, setAmount] = useState<number>(1)
 
   useEffect(() => {
@@ -43,17 +53,17 @@ const useClaimInfo = () => {
       setPrice(response.cost)
       if (isERC20Token) {
         const decimal = await readContract({
-          contract: currencyContract(response.erc20) as any,
-          method: 'function decimals() view returns (uint8)',
+          contract: currencyContract(response.erc20),
+          method: 'decimals',
           params: [],
         })
         const symbol = await readContract({
-          contract: currencyContract(response.erc20) as any,
-          method: 'function symbol() view returns (string)',
+          contract: currencyContract(response.erc20),
+          method: 'symbol',
           params: [],
         })
-        setDecimal(decimal)
-        setSymbol(symbol)
+        setDecimal(Number(decimal))
+        setSymbol(String(symbol))
         setErc20Address(response.erc20 as Address)
       } else {
         setDecimal(18)

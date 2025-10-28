@@ -15,7 +15,7 @@ export const currencyContract = (currency: string) => {
   })
 }
 
-export const extensionContract: any = getContract({
+export const extensionContract = getContract({
   address: ERC1155_LAZY_PAYABLE_CLAIM,
   chain: CHAIN,
   abi: erc1155LazyPayableClaimAbi as any,

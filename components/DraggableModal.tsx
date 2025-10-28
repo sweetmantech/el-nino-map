@@ -1,6 +1,12 @@
 import Draggable from 'react-draggable'
 
-const DraggableModal = ({ children, handleClose }) => {
+const DraggableModal = ({
+  children,
+  handleClose,
+}: {
+  children: React.ReactNode
+  handleClose: () => void
+}) => {
   return (
     <div className="fixed z-[9999] left-0 top-0 w-screen h-screen">
       <div className="relative w-full h-full flex justify-center items-center">

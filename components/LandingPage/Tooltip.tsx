@@ -1,4 +1,4 @@
-const Tooltip = ({ x, y, text }: { x: number; y: number; text: string }) => {
+const Tooltip = ({ x, y, text }: { x: number; y: number; text: string | null }) => {
   return (
     <div
       className="bubble-name"

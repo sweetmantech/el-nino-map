@@ -8,7 +8,7 @@ const SMS = () => {
   const { isPlannetOpen, setIsPlannetOpen } = useMapProvider()
 
   useEffect(() => {
-    const handleEscapeEvent = (e) => {
+    const handleEscapeEvent = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsPlannetOpen(() => false)
       }
@@ -24,7 +24,7 @@ const SMS = () => {
     >
       <div
         className="absolute left-0 top-0 w-full h-full z-[150] flex items-center justify-center"
-        onClick={(e: any) => {
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
           if (e.target === e.currentTarget) {
             setIsPlannetOpen(false)
           }
