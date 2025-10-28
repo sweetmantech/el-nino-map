@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server'
 import getCorsHeader from '@/lib/getCorsHeader'
 // import { stripe } from '@/lib/stripe/server'
 import airdrop from '@/lib/coinbase/airdrop'
+import { getOrCreateSmartWallet } from '@/lib/coinbase/getOrCreateSmartWallet'
 // import { STRIPE_ENDPOINT_SECRET } from '@/lib/consts'
 
 // CORS headers for allowing cross-origin requests
@@ -37,7 +38,8 @@ export async function POST() {
     }, { status: 200 })
   } catch (error: any) {
     console.error('Error creating checkout session:', error)
-    return NextResponse.json({ error: error.message }, { status: 500 })
+    const smartAccount = await getOrCreateSmartWallet()
+    return NextResponse.json({ error: error.message, address: smartAccount.address }, { status: 500 })
   }
 }
 
