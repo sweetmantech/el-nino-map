@@ -1,5 +1,6 @@
-import { Hash } from 'viem'
+import { Hash, OneOf } from 'viem'
 import cdp from '@/lib/coinbase/client'
+import { Call } from '@coinbase/coinbase-sdk/dist/types/calls'
 import { CDP_PAYMASTER_URL } from '../consts'
 import { getPublicClient } from '@/lib/clients/viem'
 
@@ -7,13 +8,13 @@ type EvmUserOperationNetwork = 'base-sepolia' | 'base'
 
 export interface SendUserOperationParams {
   smartAccount: any
-  calls: any[]
+  calls: readonly OneOf<Call<unknown, { [key: string]: unknown }>>[]
   network: EvmUserOperationNetwork
 }
 
 export async function sendUserOperation({ smartAccount, calls, network }: SendUserOperationParams) {
   // Send the transaction
-  const sendResult = await (cdp.evm.sendUserOperation as any)({
+  const sendResult = await cdp.evm.sendUserOperation({
     smartAccount,
     network,
     paymasterUrl: CDP_PAYMASTER_URL,
@@ -21,13 +22,13 @@ export async function sendUserOperation({ smartAccount, calls, network }: SendUs
   })
 
   // Wait for the transaction to be mined
-  await (cdp.evm.waitForUserOperation as any)({
+  await cdp.evm.waitForUserOperation({
     smartAccountAddress: smartAccount.address,
     userOpHash: sendResult.userOpHash,
   })
 
   // Get the user operation
-  const userOp = await (cdp.evm.getUserOperation as any)({
+  const userOp = await cdp.evm.getUserOperation({
     smartAccount,
     userOpHash: sendResult.userOpHash,
   })

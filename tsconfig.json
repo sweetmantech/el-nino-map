@@ -6,7 +6,7 @@
     "emitDecoratorMetadata": true,
     "allowJs": true,
     "skipLibCheck": true,
-    "strict": false,
+    "strict": true,
     "moduleResolution": "bundler",
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
