@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import getCorsHeader from '@/lib/getCorsHeader'
 // import { stripe } from '@/lib/stripe/server'
 import airdrop from '@/lib/coinbase/airdrop'
