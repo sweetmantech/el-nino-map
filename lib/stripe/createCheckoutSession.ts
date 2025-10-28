@@ -20,8 +20,10 @@ export const createCheckoutSession = async (
       },
     ],
     mode: 'payment' as const,
-    metadata: {
-      recipient: xcelencia_eth,
+    payment_intent_data: {
+      metadata: {
+        recipient: xcelencia_eth,
+      },
     },
     ...params,
   })
