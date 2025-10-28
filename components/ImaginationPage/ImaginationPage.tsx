@@ -8,7 +8,7 @@ const ImaginationPage = () => {
   return (
     <div className="w-full flex flex-wrap px-10 pt-20 gap-2">
       {events.map((event) => (
-        <Imagination key={event.metadata.uniqueId} event={event} />
+        <Imagination key={event.uniqueId} event={event} />
       ))}
     </div>
   )

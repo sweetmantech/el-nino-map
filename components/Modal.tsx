@@ -10,7 +10,7 @@ const Modal = ({
   open?: boolean
 }) => {
   useEffect(() => {
-    const handleEscapeEvent = (e) => {
+    const handleEscapeEvent = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
 
@@ -25,7 +25,7 @@ const Modal = ({
       <div
         className="absolute left-0 top-0 w-full h-full z-[15]
               flex items-center justify-center"
-        onClick={(e: any) => {
+        onClick={(e: React.MouseEvent<HTMLDivElement>) => {
           if (e.target === e.currentTarget) onClose()
         }}
       >

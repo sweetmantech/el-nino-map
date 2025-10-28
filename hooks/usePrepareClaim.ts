@@ -25,6 +25,7 @@ const usePrepareClaim = () => {
   const isPrepared = async (claimInfo: ReturnType<typeof useClaimInfo>) => {
     const publicClient = getPublicClient(CHAIN_ID)
     const account = context ? address : (activeAccount?.address as Address)
+    if (!account) return null
     const { erc20Address, price, amount } = claimInfo
     const totalManifoldFee = MANIFOLD_FEE * BigInt(amount)
     const ethBalance = await getBalance(account)
@@ -33,8 +34,8 @@ const usePrepareClaim = () => {
     if (erc20Address === zeroAddress) return WALLET_STATUS.ENOUGH_ETH
     const totalClaimPrice = price * BigInt(amount)
     const balanceOf = await readContract({
-      contract: currencyContract(erc20Address) as any,
-      method: 'function balanceOf(address account) view returns (uint256)',
+      contract: currencyContract(erc20Address),
+      method: 'balanceOf',
       params: [account],
     })
     if (balanceOf < totalClaimPrice) {
@@ -43,14 +44,14 @@ const usePrepareClaim = () => {
       return WALLET_STATUS.INSUFFICIENT_BALANCE
     }
     const allowance = await readContract({
-      contract: currencyContract(erc20Address) as any,
-      method: 'function allowance(address owner, address spender) view returns (uint256)',
+      contract: currencyContract(erc20Address),
+      method: 'allowance',
       params: [account, ERC1155_LAZY_PAYABLE_CLAIM],
     })
 
     if (allowance < totalClaimPrice) {
-      const hash = await approve(erc20Address, ERC1155_LAZY_PAYABLE_CLAIM)
-      await publicClient.waitForTransactionReceipt({ hash })
+      const hash = await approve(erc20Address, ERC1155_LAZY_PAYABLE_CLAIM as Address)
+      if (hash) await publicClient.waitForTransactionReceipt({ hash })
     }
     return WALLET_STATUS.ENOUGH_USDC
   }

@@ -1,4 +1,4 @@
-const getTooltipText = (tooltipId) => {
+const getTooltipText = (tooltipId: string) => {
   switch (tooltipId) {
     case 'connect':
       return `El Niño Estrella is a multimedia experience. The smart album is a limited edition digital
@@ -25,6 +25,8 @@ const getTooltipText = (tooltipId) => {
       return 'Share Memories'
     case 'plannet':
       return 'SMS'
+    default:
+      return null
   }
 }
 

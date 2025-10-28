@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react'
 import getLoginEvents from '@/lib/stack/getLoginPoints'
 import trackLoginPoints from '@/lib/stack/trackLoginPoints'
 import { useActiveAccount } from 'thirdweb/react'
-import { Account } from 'thirdweb/wallets'
 import Modals from './Modals'
 import { useMapProvider } from '@/providers/MapProvider'
 import Tooltip from './Tooltip'
@@ -23,17 +22,18 @@ const LandingPage = () => {
     useTipProvider()
 
   const { clickMap, setMapperKey, handleMouseMove, area } = useMapProvider()
-  const activeAccount: Account = useActiveAccount()
-  const address = activeAccount?.address
-  const [pulsatingCenter, setPulsatingCenter] = useState<{ x: number; y: number } | null>(null)
-
+  const activeAccount = useActiveAccount()
+  const address = activeAccount?.address as Address
+  const [pulsatingCenter, setPulsatingCenter] = useState<{ x: number; y: number } | undefined>(
+    undefined,
+  )
   useEffect(() => {
     const init = async () => {
       if (address) {
-        const events: any = await getLoginEvents(address as Address)
-        if (!events?.length && !events.error) {
-          await trackLoginPoints(address)
-        }
+        const { events, error } = await getLoginEvents(address as Address)
+        if (!error) return
+        if (!events.length) return
+        await trackLoginPoints(address)
         setMapperKey(Math.floor(Math.random() * 1000))
       }
     }
@@ -42,13 +42,13 @@ const LandingPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [address])
 
-  const handleMoseMoveWithPosition = (e) => {
+  const handleMoseMoveWithPosition = (e: React.MouseEvent<HTMLDivElement>) => {
     const centerCoords = handleMouseMove(e)
     if (centerCoords) {
       setPulsatingCenter(centerCoords)
       return
     }
-    setPulsatingCenter(null)
+    setPulsatingCenter(undefined)
   }
   return (
     <div id="container">
@@ -73,14 +73,16 @@ const LandingPage = () => {
                 style={{
                   left: (pulsatingCenter.x / 8000) * calculateScaledSize(width, height).width - 100,
                   top: (pulsatingCenter.y / 4500) * calculateScaledSize(width, height).height - 100,
-                  background: PULSATING_COLORS[area],
+                  background: PULSATING_COLORS[area as keyof typeof PULSATING_COLORS] || 'default',
                 }}
               />
             )}
           </div>
         </TransformComponent>
       </TransformWrapper>
-      {isVisibleToolTip && <Tooltip text={getTooltipText(tooltipId)} x={tooltipX} y={tooltipY} />}
+      {isVisibleToolTip && tooltipId && (
+        <Tooltip text={getTooltipText(tooltipId as string)} x={tooltipX} y={tooltipY} />
+      )}
       <Preview />
       <Modals />
     </div>

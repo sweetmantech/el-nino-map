@@ -4,8 +4,7 @@ import { useFormContext } from 'react-hook-form'
 interface IInput {
   id?: string
   name: string
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value?: any
+  value?: string | number
   className?: string
   onChange?: ChangeEventHandler<HTMLInputElement>
   hookToForm: boolean

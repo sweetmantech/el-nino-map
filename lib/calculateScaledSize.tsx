@@ -1,4 +1,4 @@
-function calculateScaledSize(width, height) {
+function calculateScaledSize(width: number, height: number) {
   const aspectRatio = 8000 / 4500 // Pre-calculate for readability
   const scaledSize =
     width / height > aspectRatio

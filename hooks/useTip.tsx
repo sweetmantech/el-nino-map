@@ -18,15 +18,17 @@ const useTip = () => {
     setIsVisibleTooltip(false)
   }
 
-  const showTooltip = (area: any, e: any) => {
+  const showTooltip = (area: { id: string }, e: React.MouseEvent) => {
     setTooltipId(area.id)
     setIsVisibleTooltip(area.id !== 'mint')
     const x = e.clientX
     const y = e.clientY
 
     const container = document.getElementById('container')
-    setTooltipX(container.scrollLeft + x)
-    setTooltipY(container.scrollTop + y)
+    if (container) {
+      setTooltipX(container.scrollLeft + x)
+      setTooltipY(container.scrollTop + y)
+    }
   }
 
   useEffect(() => {

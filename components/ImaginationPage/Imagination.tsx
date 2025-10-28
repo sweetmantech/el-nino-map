@@ -1,7 +1,11 @@
 import { InstagramEmbed } from 'react-social-media-embed'
 import WarpcastPost from './WarpcastPost'
 
-const Imagination = ({ event }) => {
+const Imagination = ({
+  event,
+}: {
+  event: { uniqueId: string; metadata: { url: string; message?: string } }
+}) => {
   const isIntagramPost = event.metadata.url.includes('instagram.com')
   const isWarpcastPost = event.metadata.url.includes('warpcast.com')
 

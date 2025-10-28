@@ -11,7 +11,7 @@ const airdrop = async (receipt: Address) => {
   const MANIFOLD_DROP_INSTANCE_ID = 4140912880 // this should be replaced with xcelencia drop instance id
 
   const airdropCall = encodeFunctionData({
-    abi: erc1155LazyPayableClaimAbi as any,
+    abi: erc1155LazyPayableClaimAbi,
     functionName: 'airdrop',
     args: [MANIFOLD_DROP_ADDRESS, BigInt(MANIFOLD_DROP_INSTANCE_ID), [receipt], [BigInt(1)]],
   })
@@ -21,7 +21,7 @@ const airdrop = async (receipt: Address) => {
     calls: [
       {
         to: ERC1155_LAZY_PAYABLE_CLAIM as Address,
-        data: airdropCall as any,
+        data: airdropCall,
       },
     ],
   })

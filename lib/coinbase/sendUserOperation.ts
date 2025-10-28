@@ -3,11 +3,12 @@ import cdp from '@/lib/coinbase/client'
 import { Call } from '@coinbase/coinbase-sdk/dist/types/calls'
 import { CDP_PAYMASTER_URL } from '../consts'
 import { getPublicClient } from '@/lib/clients/viem'
+import { EvmSmartAccount } from '@coinbase/cdp-sdk'
 
 type EvmUserOperationNetwork = 'base-sepolia' | 'base'
 
 export interface SendUserOperationParams {
-  smartAccount: any
+  smartAccount: EvmSmartAccount
   calls: readonly OneOf<Call<unknown, { [key: string]: unknown }>>[]
   network: EvmUserOperationNetwork
 }

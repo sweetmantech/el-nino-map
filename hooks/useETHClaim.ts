@@ -29,30 +29,31 @@ const useETHClaim = () => {
   const { writeContractAsync } = useWriteContract()
 
   const claimWithETH = async (claimInfo: ReturnType<typeof useClaimInfo>) => {
-    const claimArgs: any = [
+    if (!activeAccount) return
+    const claimArgs = [
       {
         swapFactory: V3_CORE_FACTORY_ADDRESSES[CHAIN_ID],
         swapRouter: SWAP_ROUTER_02_ADDRESSES(CHAIN_ID),
         quoterV2: QUOTER_ADDRESSES[CHAIN_ID],
         tokenIn: WETH_TOKEN.address,
-        fee: FeeAmount.LOW,
+        fee: FeeAmount.LOW as number,
       },
       {
         extensionContract: ERC1155_LAZY_PAYABLE_CLAIM,
         creatorContractAddress: DROP_ADDRESS,
         instanceId: BigInt(claimInfo.instanceId),
         mintCount: claimInfo.amount,
-        mintIndices: [],
-        merkleProofs: [[]],
+        mintIndices: [] as number[],
+        merkleProofs: [[]] as readonly (readonly `0x${string}`[])[],
       },
       context ? (address as Address) : (activeAccount.address as Address),
-    ]
+    ] as const
     const claimValue =
       MANIFOLD_FEE * BigInt(claimInfo.amount) + OUTCOMING_WRAPPER_ETH * BigInt(claimInfo.amount)
     if (context) {
       const hash = await writeContractAsync({
         address: WRAPPER_ADAPTER,
-        abi: wrapperAbi as any,
+        abi: wrapperAbi,
         chain: getViemNetwork(CHAIN_ID),
         account: address,
         functionName: 'mint',

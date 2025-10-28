@@ -22,7 +22,7 @@ const FarcasterConnectButton = () => {
       className="bg-[#eeeef0] rounded-md uppercase font-titilliumweb py-2 px-3"
       onClick={handleClick}
     >
-      {address ? context.user.displayName : 'Explorer'}
+      {address ? context?.user?.displayName : 'Explorer'}
     </button>
   )
 }
