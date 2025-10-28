@@ -3,7 +3,6 @@ import Modal from '../Modal'
 import Chat from '../ChatPage/Chat'
 
 const Metadata = ({ onClose }: { onClose: () => void }) => {
-
   return (
     <Modal onClose={onClose}>
       <div className="max-w-[350px] p-3 bg-white rounded-md relative" id="metadata">
