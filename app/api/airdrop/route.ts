@@ -4,6 +4,7 @@ import { stripe } from '@/lib/stripe/server'
 import airdrop from '@/lib/coinbase/airdrop'
 import { STRIPE_ENDPOINT_SECRET } from '@/lib/consts'
 import { Address } from 'thirdweb'
+import sendEmail from '@/lib/sendEmail'
 
 // CORS headers for allowing cross-origin requests
 const corsHeaders = getCorsHeader()
@@ -31,6 +32,14 @@ export async function POST(request: NextRequest) {
         },
         { status: 200 },
       )
+    }
+    if (event.type === 'checkout.session.completed') {
+      const email = event.data.object.customer_details?.email
+      if (email) {
+        await sendEmail({
+          to: email,
+        })
+      }
     }
     return NextResponse.json(
       {
