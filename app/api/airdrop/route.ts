@@ -40,6 +40,12 @@ export async function POST(request: NextRequest) {
           to: email,
         })
       }
+      return NextResponse.json(
+        {
+          message: 'Email sent',
+        },
+        { status: 200 },
+      )
     }
     return NextResponse.json(
       {
