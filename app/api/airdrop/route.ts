@@ -4,6 +4,7 @@ import { stripe } from '@/lib/stripe/server'
 import airdrop from '@/lib/coinbase/airdrop'
 import { STRIPE_ENDPOINT_SECRET } from '@/lib/consts'
 import { Address } from 'thirdweb'
+import sendEmail from '@/lib/sendEmail'
 
 // CORS headers for allowing cross-origin requests
 const corsHeaders = getCorsHeader()
@@ -23,11 +24,28 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Stripe signature is required' }, { status: 400 })
     }
     const event = stripe.webhooks.constructEvent(body, signature, STRIPE_ENDPOINT_SECRET)
-    if (event.type === 'payment_intent.succeeded') {
-      const hash = await airdrop(event.data.object.metadata.recipient as Address)
+
+    if (event.type === 'checkout.session.completed') {
+      const paymentStatus = event.data.object.payment_status
+      const email = event.data.object.customer_details?.email
+      const recipient = event.data.object.metadata?.recipient
+
+      if (paymentStatus !== 'paid' || !email || !recipient) {
+        return NextResponse.json(
+          {
+            message: 'Invalid payment status or email or recipient',
+          },
+          { status: 400 },
+        )
+      }
+      const { hash } = await airdrop(recipient as Address)
+      await sendEmail({
+        to: email,
+        hash,
+      })
       return NextResponse.json(
         {
-          transactionHash: hash,
+          message: 'Email sent',
         },
         { status: 200 },
       )
