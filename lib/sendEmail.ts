@@ -10,7 +10,12 @@ const sendEmail = async (params: SendEmailParams) => {
     from: 'EL NINO MAP <hi@[verified domain]>',
     to: [params.to],
     subject: 'You received EL NINO MAP airdrop!',
-    html: '<strong>Transaction hash: ' + params.hash + '</strong>',
+    html:
+      '<strong>Transaction hash: ' +
+      params.hash +
+      '</strong><br><br><a href="https://basescan.org/tx/' +
+      params.hash +
+      '">View on BaseScan</a>',
   })
 
   return result
