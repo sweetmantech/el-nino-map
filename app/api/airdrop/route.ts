@@ -24,20 +24,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Stripe signature is required' }, { status: 400 })
     }
     const event = stripe.webhooks.constructEvent(body, signature, STRIPE_ENDPOINT_SECRET)
-    if (event.type === 'payment_intent.succeeded') {
-      const hash = await airdrop(event.data.object.metadata.recipient as Address)
-      return NextResponse.json(
-        {
-          transactionHash: hash,
-        },
-        { status: 200 },
-      )
-    }
-    if (event.type === 'checkout.session.completed') {
+    if (
+      event.type === 'checkout.session.completed' &&
+      event.data.object.payment_status === 'paid'
+    ) {
       const email = event.data.object.customer_details?.email
+      const { hash } = await airdrop(event.data.object.metadata?.recipient as Address)
       if (email) {
         await sendEmail({
           to: email,
+          hash,
         })
       }
       return NextResponse.json(

@@ -11,10 +11,8 @@ export async function POST(req: NextRequest) {
     }
     const session = await createCheckoutSession({
       return_url: `${origin}/stripe/return?session_id={CHECKOUT_SESSION_ID}`,
-      payment_intent_data: {
-        metadata: {
-          recipient,
-        },
+      metadata: {
+        recipient,
       },
     })
 
