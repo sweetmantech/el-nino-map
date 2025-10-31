@@ -7,7 +7,6 @@ import { Skeleton } from '../ui/skeleton'
 import { MANIFOLD_FEE } from '@/lib/consts'
 import useIsMobile from '@/hooks/useIsMobile'
 import Modal from '../Modal'
-import { toast } from 'react-toastify'
 
 const PreviewContainer = ({ children }: { children: ReactNode }) => {
   const { setIsOpenCollect, isOpenCollect } = usePurchaseProvider()
@@ -48,13 +47,11 @@ const Preview = () => {
     metadata,
     isOpenCollect,
     isCrossmintOpen,
-    toastId,
   } = usePurchaseProvider()
   const isMobile = useIsMobile()
 
   useEffect(() => {
     if (isCrossmintOpen) closeTooltip()
-    else if (toastId) toast.dismiss(toastId)
     // eslint-disable-next-line
   }, [isCrossmintOpen])
 
