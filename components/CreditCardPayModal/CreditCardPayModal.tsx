@@ -3,7 +3,6 @@ import { CrossmintEmbeddedCheckout, useCrossmintCheckout } from '@crossmint/clie
 import { useActiveAccount } from 'thirdweb/react'
 import Modal from '../Modal'
 import { Address, formatEther } from 'viem'
-import { toast } from 'react-toastify'
 import {
   CHAIN_ID,
   CROSSMINT_COLLECTION_ID,
@@ -20,17 +19,18 @@ import {
 } from '@uniswap/sdk-core'
 import { WETH_TOKEN } from '@/lib/tokens'
 import { FeeAmount } from '@uniswap/v3-sdk'
+import { useRouter } from 'next/navigation'
 
 const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
   const activeAccount = useActiveAccount()
   const address = activeAccount?.address
   const { order } = useCrossmintCheckout()
   const { amount, instanceId, erc20Address } = usePurchaseProvider()
-
+  const { push } = useRouter()
   useEffect(() => {
     const fetchOrder = async () => {
       if (order?.phase !== 'completed') return
-      toast.success('Purchased!')
+      push('/inventory')
     }
     fetchOrder()
     // eslint-disable-next-line

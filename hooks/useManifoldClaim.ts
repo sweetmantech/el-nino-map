@@ -1,5 +1,4 @@
 import { CHAIN, CHAIN_ID, WALLET_STATUS } from '@/lib/consts'
-import { toast } from 'react-toastify'
 import handleTxError from '@/lib/handleTxError'
 import { useSwitchActiveWalletChain } from 'thirdweb/react'
 import useClaimInfo from './useClaimInfo'
@@ -8,6 +7,7 @@ import useUsdcClaim from './useUsdcClaim'
 import useETHClaim from './useETHClaim'
 import { useSwitchChain } from 'wagmi'
 import { useFrameProvider } from '@/providers/FrameProvider'
+import { useRouter } from 'next/navigation'
 
 export enum CLAIM_ERRORS {
   INSUFFICIENT_BALANCE,
@@ -22,6 +22,7 @@ const useManifoldClaim = () => {
   const { claimWithUsdc } = useUsdcClaim()
   const { claimWithETH } = useETHClaim()
   const { context } = useFrameProvider()
+  const { push } = useRouter()
 
   const claim = async () => {
     try {
@@ -33,7 +34,7 @@ const useManifoldClaim = () => {
       if (isPreparedClaim === WALLET_STATUS.ENOUGH_USDC) await claimWithUsdc(claimInfo)
       if (isPreparedClaim === WALLET_STATUS.ENOUGH_ETH) await claimWithETH(claimInfo)
 
-      toast.success('Purchased!')
+      push('/inventory')
       return {
         error: CLAIM_ERRORS.NO_ERROR,
       }
