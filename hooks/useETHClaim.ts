@@ -1,14 +1,14 @@
 import { Address, prepareContractCall, sendTransaction } from 'thirdweb'
 import useClaimInfo from './useClaimInfo'
-import { CHAIN_ID, MANIFOLD_FEE, WRAPPER_ADAPTER } from '@/lib/consts'
+import { CHAIN_ID, WRAPPER_ADAPTER } from '@/lib/consts'
 import { wrapperContract } from '@/lib/contracts'
 import { useActiveAccount } from 'thirdweb/react'
 import { useAccount, useWriteContract } from 'wagmi'
 import { useFrameProvider } from '@/providers/FrameProvider'
 import { wrapperAbi } from '@/lib/abi/wrapperAbi'
 import getViemNetwork from '@/lib/viem/getViemNetwork'
-import getPoolInfo from '@/lib/getPoolInfo'
 import getWrapperClaimArgs from '@/lib/claims/getWrapperClaimArgs'
+import estimatedWrapperClaimValue from '@/lib/claims/estimatedWrapperClaimValue'
 
 const useETHClaim = () => {
   const activeAccount = useActiveAccount()
@@ -22,9 +22,10 @@ const useETHClaim = () => {
       claimInfo,
       context ? (address as Address) : (activeAccount.address as Address),
     )
-    const poolInfo = await getPoolInfo(activeAccount.address as Address, BigInt(claimInfo.price))
-    const claimValue =
-      MANIFOLD_FEE * BigInt(claimInfo.amount) + poolInfo.amountInMaximum * BigInt(claimInfo.amount)
+    const wrapperClaimValue = await estimatedWrapperClaimValue(
+      claimInfo,
+      activeAccount.address as Address,
+    )
     if (context) {
       const hash = await writeContractAsync({
         address: WRAPPER_ADAPTER,
@@ -33,7 +34,7 @@ const useETHClaim = () => {
         account: address,
         functionName: 'mint',
         args: claimArgs,
-        value: claimValue,
+        value: wrapperClaimValue,
       })
       return hash
     }
@@ -41,7 +42,7 @@ const useETHClaim = () => {
       contract: wrapperContract,
       method: 'mint',
       params: claimArgs,
-      value: claimValue,
+      value: wrapperClaimValue,
     })
 
     const { transactionHash } = await sendTransaction({
