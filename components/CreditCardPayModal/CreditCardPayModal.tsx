@@ -9,7 +9,7 @@ import {
   DROP_ADDRESS,
   ERC1155_LAZY_PAYABLE_CLAIM,
   MANIFOLD_FEE,
-  OUTCOMING_WRAPPER_ETH,
+  FALLBACK_WRAPPER_SWAP_AMOUNT,
 } from '@/lib/consts'
 import { usePurchaseProvider } from '@/providers/PurchaseProvider'
 import {
@@ -62,7 +62,7 @@ const CreditCardPayModal = ({ onClose }: { onClose: () => void }) => {
                 to: address,
                 totalPrice: formatEther(
                   MANIFOLD_FEE * BigInt(amount) +
-                    (erc20Address ? OUTCOMING_WRAPPER_ETH * BigInt(amount) : BigInt(0)),
+                    (erc20Address ? FALLBACK_WRAPPER_SWAP_AMOUNT * BigInt(amount) : BigInt(0)),
                 ),
               },
             }}

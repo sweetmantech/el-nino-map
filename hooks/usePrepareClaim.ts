@@ -2,7 +2,7 @@ import {
   CHAIN_ID,
   ERC1155_LAZY_PAYABLE_CLAIM,
   MANIFOLD_FEE,
-  OUTCOMING_WRAPPER_ETH,
+  FALLBACK_WRAPPER_SWAP_AMOUNT,
   WALLET_STATUS,
 } from '@/lib/consts'
 import { type Address, zeroAddress } from 'viem'
@@ -39,7 +39,7 @@ const usePrepareClaim = () => {
       params: [account],
     })
     if (balanceOf < totalClaimPrice) {
-      if (ethBalance > OUTCOMING_WRAPPER_ETH * BigInt(amount) + totalManifoldFee)
+      if (ethBalance > FALLBACK_WRAPPER_SWAP_AMOUNT * BigInt(amount) + totalManifoldFee)
         return WALLET_STATUS.ENOUGH_ETH
       return WALLET_STATUS.INSUFFICIENT_BALANCE
     }
