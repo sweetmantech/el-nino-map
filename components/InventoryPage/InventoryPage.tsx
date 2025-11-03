@@ -1,7 +1,7 @@
 import InventoryPlayer from './InventoryPlayer'
 import InventoryVideo from './InventoryVideo'
-import InventoryAnalytics from './InventoryAnalytics'
 import InteractiveNFT from './InteractiveNFT'
+import InventoryZora from './InvertoryZora'
 
 const InventoryPage = () => {
   return (
@@ -10,13 +10,11 @@ const InventoryPage = () => {
         <div className="flex items-center gap-3 mb-8">
           <h1 className="text-3xl md:text-4xl font-bold text-white">EXCLUSIVE VAULT</h1>
         </div>
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <InventoryPlayer />
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <InventoryVideo />
-            <InteractiveNFT />
-          </div>
-          <InventoryAnalytics />
+          <InteractiveNFT />
+          <InventoryVideo />
+          <InventoryZora />
         </div>
       </div>
     </main>

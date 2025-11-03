@@ -1,6 +1,6 @@
 const InventoryVideo = () => {
   return (
-    <div className="bg-slate-900 rounded-xl p-6 mb-6 h-fit">
+    <div className="bg-slate-900 rounded-xl p-6 h-fit">
       <h3 className="text-xl font-bold text-white mb-4">Behind The Scenes: Studio Session</h3>
       <p className="text-slate-400 text-sm mb-4">
         Exclusive look at the making of Cosmic Dreams. Watch the creative process unfold.
