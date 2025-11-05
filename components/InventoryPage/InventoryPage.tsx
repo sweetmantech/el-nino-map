@@ -1,11 +1,11 @@
 'use client'
 
 import InventoryPlayer from './InventoryPlayer'
-import InventoryVideo from './InventoryVideo'
-import InteractiveNFT from './InteractiveNFT'
+import CollectAlbum from './CollectAlbum'
 import InventoryZora from './InvertoryZora'
 import useInventoryAccess from '@/hooks/useInventoryAccess'
 import { useRouter } from 'next/navigation'
+import InteractiveNFT from './InteractiveNFT'
 
 const InventoryPage = () => {
   const { hasAccess, isLoading, address } = useInventoryAccess()
@@ -67,7 +67,7 @@ const InventoryPage = () => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <InventoryPlayer />
           <InteractiveNFT />
-          <InventoryVideo />
+          <CollectAlbum />
           <InventoryZora />
         </div>
       </div>
