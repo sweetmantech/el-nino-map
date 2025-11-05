@@ -14,7 +14,7 @@ const CollectAlbum = () => {
           The full Maravilla album - available early to Pass holders.
         </p>
         <p className="text-slate-400 text-md">
-          Collect songs before they stream worldwide. powered by strpe.
+          Collect songs before they stream worldwide. powered by stripe.
         </p>
         <button
           onClick={open}
