@@ -1,38 +1,32 @@
-import { useEffect, useState } from 'react'
+'use client'
+
+import { useEffect } from 'react'
 
 const useIframely = () => {
-  const [isLoaded, setIsLoaded] = useState(false)
-
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    const loadIframelyEmbedJs = () => {
+      const hasDataIframelyUrl = document.querySelectorAll('[data-iframely-url]').length > 0
+      const hasIframelyIframe = document.querySelectorAll("iframe[src*='iframe.ly']").length > 0
 
-    const scriptId = 'iframely-embed-script'
-    const existingScript = document.getElementById(scriptId)
+      if (!hasDataIframelyUrl && !hasIframelyIframe) return
 
-    if (existingScript) {
-      setIsLoaded(true)
-      return
-    }
+      const iframely = ((window as any).iframely = (window as any).iframely || {})
 
-    const script = document.createElement('script')
-    script.id = scriptId
-    script.src = 'https://iframely.net/embed.js'
-    script.async = true
-    script.onload = () => {
-      setIsLoaded(true)
-    }
-
-    document.body.appendChild(script)
-
-    return () => {
-      const scriptToRemove = document.getElementById(scriptId)
-      if (scriptToRemove) {
-        scriptToRemove.remove()
+      if (iframely.load) {
+        iframely.load()
+      } else {
+        const ifs = document.createElement('script')
+        ifs.type = 'text/javascript'
+        ifs.async = true
+        ifs.src =
+          (window.location.protocol === 'https:' ? 'https:' : 'http:') + '//cdn.iframe.ly/embed.js'
+        const s = document.getElementsByTagName('script')[0]
+        s.parentNode?.insertBefore(ifs, s)
       }
     }
-  }, [])
 
-  return { isLoaded }
+    loadIframelyEmbedJs()
+  }, [])
 }
 
 export default useIframely
