@@ -19,8 +19,9 @@ const CollectAlbum = () => {
         <button
           onClick={open}
           className="bg-white text-black px-6 py-3 rounded-md font-bold hover:bg-gray-200 transition mt-4"
+          disabled={true}
         >
-          Collect the Album
+          Coming Soon
         </button>
       </div>
       {isOpen && <StripeModal onClose={close} />}
